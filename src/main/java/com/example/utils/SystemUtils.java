@@ -7,7 +7,9 @@ public class SystemUtils {
     }
 
     public static String getUserFilePath() {
-        return "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt";
+        String filePath;
+        filePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt";
+        return filePath;
     }
 }
 

@@ -1,6 +1,8 @@
 package com.example;
 
 import com.example.utils.SystemUtils;
+import com.example.utils.Encrypt;
+
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,6 +13,7 @@ import java.io.FileWriter;
 public class Register {
 
     public static boolean usernameExists(String username, String filePath) {
+        username = Encrypt.encrypt(username);
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -60,6 +63,9 @@ public class Register {
 
         System.out.print("Enter password: ");
         String password = scanner.nextLine(); // Use nextLine() to handle spaces in passwords
+
+        username = Encrypt.encrypt(username);
+        password = Encrypt.encrypt(password);
 
         storeUserCredentials(username, password, filePath);
 

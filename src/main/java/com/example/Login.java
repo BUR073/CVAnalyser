@@ -2,6 +2,7 @@ package com.example;
 
 
 import com.example.utils.SystemUtils;
+import com.example.utils.Encrypt;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,8 +22,8 @@ public class Login {
             while ((line = br.readLine()) != null) {
                 String[] credentials = line.split(",");
                 if (credentials.length == 2) {
-                    String storedUsername = credentials[0].trim();
-                    String storedPassword = credentials[1].trim();
+                    String storedUsername = Encrypt.decrypt(credentials[0].trim());
+                    String storedPassword = Encrypt.decrypt(credentials[1].trim());
 
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
                         Login.username = storedUsername.trim();
@@ -58,7 +59,7 @@ public class Login {
         // Call the authenticateUser method from Login class
         if (Login.authenticateUser(username, password)) {
             loggedIn = true;
-            System.out.println("Login successful! Welcome, " + Login.username); // Use Login.username
+            System.out.println("Login successful! \n\n");
             Menu.showMenu();
         } else {
             System.out.println("Invalid username or password.\n\n");
