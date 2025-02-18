@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class Login {
     public static boolean loggedIn = false;
+    public static String username;
     private static final String FILE_PATH = "src/main/resources/users.txt";
 
     // Now public so it can be used in other classes
@@ -19,6 +20,7 @@ public class Login {
                     String storedPassword = credentials[1].trim();
 
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
+                        Login.username = storedUsername.trim();
                         loggedIn = true;
                         return true;
 
@@ -34,6 +36,11 @@ public class Login {
     public static boolean isLoggedIn() {
         return loggedIn;
     }
+
+    public static String getUsername() {
+        return username;
+    }
+
 
 }
 
