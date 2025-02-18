@@ -20,7 +20,7 @@ public class Menu {
 
 
     public static void loggedInMenu(){
-        System.out.println("Welcome to the menu " + Login.getUsername() + "!");
+        System.out.println("Welcome to the menu, " + Login.getUsername() + "!");
         System.out.println("1. Upload Job Description");
         System.out.println("2. Upload CVs");
         System.out.println("3. View Ranked CVs");
