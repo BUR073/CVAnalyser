@@ -3,9 +3,27 @@ package com.trackgenesis.util;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class FileUtil {
+
+    public static String getFileType(File file) {
+        // text/plain - txt
+        // application/pdf - pdf
+        // application/msword - doc
+        // application/vnd.openxmlformats-officedocument.wordprocessingml.document - docx
+        try {
+            Path path = Paths.get(file.getAbsolutePath());
+            return Files.probeContentType(path); // Returns the MIME type (e.g., "text/plain", "image/jpeg") or null if it can't be determined.
+        } catch (IOException e) {
+            System.err.println("Error getting MIME type: " + e.getMessage());
+            return null;
+        }
+    }
+
 
     public static String getUserFilePath() {
         String filePath;
