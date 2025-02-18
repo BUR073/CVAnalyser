@@ -1,5 +1,7 @@
 package com.trackgenesis;
 
+import com.trackgenesis.auth.Login;
+import com.trackgenesis.auth.Register;
 import com.trackgenesis.utils.IntegerUtils;
 import com.trackgenesis.utils.SystemUtils;
 import java.util.Scanner;
