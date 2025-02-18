@@ -109,7 +109,11 @@ public class JobDescription {
             case 2:
                 System.out.println("Upload File");
                 try {
-                    String FilePath = FileUtil.chooseFilePath();
+                    File[] selectedFiles = FileUtil.chooseFilePaths();
+                    if (selectedFiles != null && selectedFiles.length > 1) {
+                        System.out.println("Only 1 file is needed. The first selected file will be used.");
+                        File jobDescriptionSelectedFile = selectedFiles[0];
+                    }
                 } catch (IOException e) {
                     System.err.println("Error: " + e.getMessage());
                 }

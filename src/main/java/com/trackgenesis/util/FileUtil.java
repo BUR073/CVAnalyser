@@ -17,9 +17,10 @@ public class FileUtil {
         return "/Users/henryburbridge/CVAnalyser/src/main/resources/jobDescription.txt";
     };
 
-    public static String chooseFilePath() throws IOException {
+    public static File[] chooseFilePaths() throws IOException {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select a File");
+        fileChooser.setDialogTitle("Select Files");
+        fileChooser.setMultiSelectionEnabled(true);
 
         File defaultDirectory = new File("/Users/henryburbridge/CVAnalyser/src/main/resources");  // Create a File object
         if (defaultDirectory.exists() && defaultDirectory.isDirectory()) { // Check!
@@ -29,14 +30,12 @@ public class FileUtil {
             // Handle the case where the default directory doesn't exist or isn't a directory
             // Perhaps set to a different known safe location or just let it default.
         }
-        
+
         int result = fileChooser.showOpenDialog(null);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String filePath = selectedFile.getAbsolutePath();
-            System.out.println("Selected file path: " + filePath);
-            return filePath;
+
+            return fileChooser.getSelectedFiles();
 
         } else if (result == JFileChooser.CANCEL_OPTION) {
             System.out.println("File selection cancelled.");
