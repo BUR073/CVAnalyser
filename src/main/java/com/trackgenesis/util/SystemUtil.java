@@ -1,6 +1,6 @@
-package com.trackgenesis.utils;
+package com.trackgenesis.util;
 
-public class SystemUtils {
+public class SystemUtil {
 
     public static void exit() {
         System.exit(1);

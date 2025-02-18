@@ -1,9 +1,9 @@
 package com.trackgenesis.auth;
 
 
-import com.trackgenesis.Menu;
-import com.trackgenesis.utils.SystemUtils;
 import com.trackgenesis.security.Encrypt;
+import com.trackgenesis.ui.Menu;
+import com.trackgenesis.util.SystemUtil;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Login {
     public static boolean loggedIn = false; // Store whether a user is logged in
     public static String username; // Store the name of the user
-    private static final String FILE_PATH = SystemUtils.getUserFilePath(); // Path to usernames/passwords
+    private static final String FILE_PATH = SystemUtil.getUserFilePath(); // Path to usernames/passwords
 
     // Now public so it can be used in other classes
     public static boolean authenticateUser(String username, String password) {
@@ -68,8 +68,6 @@ public class Login {
 
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
-
-
 
 
         // Call the authenticateUser method from Login class

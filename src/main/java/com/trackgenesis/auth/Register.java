@@ -1,14 +1,10 @@
 package com.trackgenesis.auth;
 
-import com.trackgenesis.utils.SystemUtils;
 import com.trackgenesis.security.Encrypt;
+import com.trackgenesis.util.SystemUtil;
 
+import java.io.*;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 public class Register {
 
@@ -52,9 +48,8 @@ public class Register {
     }
 
 
-
     public static void register() {
-        String filePath = SystemUtils.getUserFilePath();
+        String filePath = SystemUtil.getUserFilePath();
         Scanner scanner = new Scanner(System.in);
 
 

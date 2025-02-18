@@ -1,9 +1,10 @@
-package com.trackgenesis;
+package com.trackgenesis.ui;
 
 import com.trackgenesis.auth.Login;
 import com.trackgenesis.auth.Register;
-import com.trackgenesis.utils.IntegerUtils;
-import com.trackgenesis.utils.SystemUtils;
+import com.trackgenesis.util.IntegerUtil;
+import com.trackgenesis.util.SystemUtil;
+
 import java.util.Scanner;
 
 
@@ -18,8 +19,7 @@ public class Menu {
     }
 
 
-
-    public static void loggedInMenu(){
+    public static void loggedInMenu() {
         System.out.println("Welcome to the menu, " + Login.getUsername() + "!");
         System.out.println("1. Upload Job Description");
         System.out.println("2. Upload CVs");
@@ -30,7 +30,7 @@ public class Menu {
 
     }
 
-    public static void loggedOutMenu(){
+    public static void loggedOutMenu() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the CV Analyser");
@@ -39,10 +39,10 @@ public class Menu {
         System.out.println("3. Exit");
         System.out.println("Please enter your choice: ");
 
-        int choice = IntegerUtils.getIntegerInput(scanner);
+        int choice = IntegerUtil.getIntegerInput(scanner);
 
         if (choice == 100) { // IntegerUtils.getIntegerInput returns 100 if input is invalid
-            loggedInMenu(); // Recursive loop
+            showMenu(); // Recursive loop
         }
 
 
@@ -58,14 +58,13 @@ public class Menu {
                 break;
 
             case 3:
-                SystemUtils.exit();
+                SystemUtil.exit();
 
             default:
                 System.out.println("Please enter a valid choice");
-                loggedOutMenu(); // Recursive loop
+                showMenu(); // Recursive loop
                 break;
         }
-
 
 
     }

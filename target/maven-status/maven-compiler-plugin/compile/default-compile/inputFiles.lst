@@ -1,7 +1,7 @@
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/Login.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/Login.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/security/Encrypt.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/utils/IntegerUtils.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/SystemUtil.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/Register.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/App.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/Register.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/Menu.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/utils/SystemUtils.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/ui/Menu.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/IntegerUtil.java

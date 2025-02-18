@@ -1,8 +1,8 @@
-package com.trackgenesis.utils;
+package com.trackgenesis.util;
 
 import java.util.Scanner;
 
-public class IntegerUtils {
+public class IntegerUtil {
 
     public static int getIntegerInput(Scanner scanner) {
         while (!scanner.hasNextInt()) {

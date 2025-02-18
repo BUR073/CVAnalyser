@@ -1,7 +1,7 @@
-com/trackgenesis/Login.class
 com/trackgenesis/App.class
+com/trackgenesis/auth/Register.class
+com/trackgenesis/util/SystemUtil.class
 com/trackgenesis/security/Encrypt.class
-com/trackgenesis/Menu.class
-com/trackgenesis/utils/SystemUtils.class
-com/trackgenesis/utils/IntegerUtils.class
-com/trackgenesis/Register.class
+com/trackgenesis/util/IntegerUtil.class
+com/trackgenesis/ui/Menu.class
+com/trackgenesis/auth/Login.class
