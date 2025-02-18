@@ -1,6 +1,6 @@
 package com.trackgenesis.auth;
 
-import com.trackgenesis.security.Encrypt;
+import com.trackgenesis.security.Encryption;
 import com.trackgenesis.util.SystemUtil;
 
 import java.io.*;
@@ -10,7 +10,7 @@ public class Register {
 
     public static boolean usernameExists(String username, String filePath) {
         try {
-            username = Encrypt.encrypt(username);
+            username = Encryption.encrypt(username);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -65,13 +65,13 @@ public class Register {
         String password = scanner.nextLine(); // Use nextLine() to handle spaces in passwords
 
         try {
-            username = Encrypt.encrypt(username);
+            username = Encryption.encrypt(username);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         try {
-            password = Encrypt.encrypt(password);
+            password = Encryption.encrypt(password);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

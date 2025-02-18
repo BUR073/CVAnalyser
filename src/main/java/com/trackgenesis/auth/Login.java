@@ -1,7 +1,7 @@
 package com.trackgenesis.auth;
 
 
-import com.trackgenesis.security.Encrypt;
+import com.trackgenesis.security.Encryption;
 import com.trackgenesis.ui.Menu;
 import com.trackgenesis.util.SystemUtil;
 
@@ -26,7 +26,7 @@ public class Login {
                 if (credentials.length == 2) {
                     String storedUsername = "error";
                     try {
-                        storedUsername = Encrypt.decrypt(credentials[0].trim());
+                        storedUsername = Encryption.decrypt(credentials[0].trim());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -34,7 +34,7 @@ public class Login {
 
                     String storedPassword = "error";
                     try {
-                        storedPassword = Encrypt.decrypt(credentials[1].trim());
+                        storedPassword = Encryption.decrypt(credentials[1].trim());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -81,11 +81,6 @@ public class Login {
         }
 
 
-    }
-
-    // Getter function so that other classes can check whether a user is logged in
-    public static boolean isLoggedIn() {
-        return loggedIn;
     }
 
     // Getter function so that other classes can know the name of the user

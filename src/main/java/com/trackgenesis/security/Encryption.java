@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Encrypt {
+public class Encryption {
 
     private static SecretKey secretKey;
     private static final String KEY_FILE_PATH = "/Users/henryburbridge/CVAnalyser/src/main/resources/key.txt";
@@ -33,7 +33,6 @@ public class Encrypt {
                     }
                 } catch (IOException innerEx) {
                     System.err.println("Error reading key file: " + innerEx.getMessage());
-                    innerEx.printStackTrace();
                     generateAndStoreKey(keyPath);
                 }
             } else {
@@ -42,7 +41,7 @@ public class Encrypt {
 
         } catch (NoSuchAlgorithmException | IOException e) {
             System.err.println("General error handling key: " + e.getMessage());
-            e.printStackTrace();
+
             throw new RuntimeException("Error handling key.", e);
         }
     }
@@ -64,7 +63,7 @@ public class Encrypt {
             System.out.println("New key generated and stored at: " + keyPath);
         } catch (NoSuchAlgorithmException | IOException e) {
             System.err.println("Error generating or storing key: " + e.getMessage());
-            e.printStackTrace();
+
             throw e;
         }
     }
