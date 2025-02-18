@@ -1,6 +1,8 @@
 package com.example;
 
 
+import com.example.utils.SystemUtils;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class Login {
     public static boolean loggedIn = false; // Store whether a user is logged in
     public static String username; // Store the name of the user
-    private static final String FILE_PATH = "src/main/resources/users.txt"; // Path to usernames/passwords
+    private static final String FILE_PATH = SystemUtils.getUserFilePath(); // Path to usernames/passwords
 
     // Now public so it can be used in other classes
     public static boolean authenticateUser(String username, String password) {
@@ -24,7 +26,7 @@ public class Login {
 
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
                         Login.username = storedUsername.trim();
-                        loggedIn = true;
+
                         return true;
 
                     }
@@ -55,14 +57,15 @@ public class Login {
 
         // Call the authenticateUser method from Login class
         if (Login.authenticateUser(username, password)) {
+            loggedIn = true;
             System.out.println("Login successful! Welcome, " + Login.username); // Use Login.username
-            Menu.showMenu(); // Assuming Menu class and showMenu method exist
+            Menu.showMenu();
         } else {
             System.out.println("Invalid username or password.\n\n");
             login();
         }
 
-        scanner.close(); // Important to close the scanner
+
     }
 
     // Getter function so that other classes can check whether a user is logged in

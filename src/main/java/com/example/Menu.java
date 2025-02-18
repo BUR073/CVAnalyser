@@ -15,7 +15,7 @@ public class Menu {
         }
     }
 
-    // ... (getIntegerInput method remains the same) ...
+
 
     public static void loggedInMenu(){
         System.out.println("Welcome to the menu " + Login.getUsername() + "!");
@@ -24,6 +24,7 @@ public class Menu {
         System.out.println("3. View Ranked CVs");
         System.out.println("4. Log out");
         System.out.println("Please enter your choice: ");
+
 
     }
 
@@ -53,7 +54,7 @@ public class Menu {
                 System.out.println("Register New User\n");
                 Register register = new Register();
                 Register.register();
-                loggedOutMenu(); // Return to logged out menu after user registers
+                showMenu();
                 break;
 
             case 3:
@@ -70,8 +71,4 @@ public class Menu {
     }
 
 
-
-    public static void main(String[] args) {
-        showMenu();
-    }
 }

@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.utils.SystemUtils;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -26,16 +27,16 @@ public class Register {
     }
 
     public static void storeUserCredentials(String username, String password, String filePath) {
-        System.out.println("Attempting to write to file: " + filePath);
+
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) { // Append mode (true)
             String line = username + "," + password;
-            System.out.println(line);
+
             writer.newLine(); // Add a new line
             writer.write(line);
             writer.flush();
             System.out.println("Registration Successful!.\n\n");
-            Menu.loggedOutMenu();
+
         } catch (IOException e) {
             System.err.println("Error writing to user file: " + e.getMessage());
 
@@ -45,7 +46,7 @@ public class Register {
 
 
     public static void register() {
-        String filePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt";
+        String filePath = SystemUtils.getUserFilePath();
         Scanner scanner = new Scanner(System.in);
 
 
@@ -61,5 +62,6 @@ public class Register {
         String password = scanner.nextLine(); // Use nextLine() to handle spaces in passwords
 
         storeUserCredentials(username, password, filePath);
+
     }
 }
