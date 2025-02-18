@@ -45,13 +45,15 @@ public class Menu {
 
         switch (choice) {
             case 1:
-                System.out.println("Login");
                 Login login = new Login();
                 Login.login();
                 break;
 
             case 2:
-                System.out.println("Register");
+                System.out.println("Register New User\n");
+                Register register = new Register();
+                Register.register();
+                loggedOutMenu(); // Return to logged out menu after user registers
                 break;
 
             case 3:
@@ -59,7 +61,7 @@ public class Menu {
 
             default:
                 System.out.println("Please enter a valid choice");
-                loggedOutMenu();
+                loggedOutMenu(); // Recursive loop
                 break;
         }
 
