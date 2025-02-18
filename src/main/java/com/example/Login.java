@@ -21,9 +21,23 @@ public class Login {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] credentials = line.split(",");
+
                 if (credentials.length == 2) {
-                    String storedUsername = Encrypt.decrypt(credentials[0].trim());
-                    String storedPassword = Encrypt.decrypt(credentials[1].trim());
+                    String storedUsername = "error";
+                    try {
+                        storedUsername = Encrypt.decrypt(credentials[0].trim());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+
+                    String storedPassword = "error";
+                    try {
+                        storedPassword = Encrypt.decrypt(credentials[1].trim());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
 
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
                         Login.username = storedUsername.trim();

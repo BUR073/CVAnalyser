@@ -13,7 +13,12 @@ import java.io.FileWriter;
 public class Register {
 
     public static boolean usernameExists(String username, String filePath) {
-        username = Encrypt.encrypt(username);
+        try {
+            username = Encrypt.encrypt(username);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -64,8 +69,17 @@ public class Register {
         System.out.print("Enter password: ");
         String password = scanner.nextLine(); // Use nextLine() to handle spaces in passwords
 
-        username = Encrypt.encrypt(username);
-        password = Encrypt.encrypt(password);
+        try {
+            username = Encrypt.encrypt(username);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            password = Encrypt.encrypt(password);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         storeUserCredentials(username, password, filePath);
 
