@@ -1,7 +1,7 @@
 package com.trackgenesis.auth;
 
 import com.trackgenesis.security.Encryption;
-import com.trackgenesis.util.SystemUtil;
+import com.trackgenesis.util.FileUtil;
 
 import java.io.*;
 import java.util.Scanner;
@@ -49,7 +49,7 @@ public class Register {
 
 
     public static void register() {
-        String filePath = SystemUtil.getUserFilePath();
+        String filePath = FileUtil.getUserFilePath();
         Scanner scanner = new Scanner(System.in);
 
 

@@ -3,7 +3,7 @@ package com.trackgenesis.auth;
 
 import com.trackgenesis.security.Encryption;
 import com.trackgenesis.ui.Menu;
-import com.trackgenesis.util.SystemUtil;
+import com.trackgenesis.util.FileUtil;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Login {
     public static boolean loggedIn = false; // Store whether a user is logged in
     public static String username; // Store the name of the user
-    private static final String FILE_PATH = SystemUtil.getUserFilePath(); // Path to usernames/passwords
+    private static final String FILE_PATH = FileUtil.getUserFilePath(); // Path to usernames/passwords
 
     // Now public so it can be used in other classes
     public static boolean authenticateUser(String username, String password) {
@@ -83,6 +83,10 @@ public class Login {
 
     }
 
+    public static void logOut(){
+        loggedIn = false;
+        Menu.showMenu();
+    }
     // Getter function so that other classes can know the name of the user
     public static String getUsername() {
         return username;

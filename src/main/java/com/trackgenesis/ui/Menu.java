@@ -4,6 +4,7 @@ import com.trackgenesis.auth.Login;
 import com.trackgenesis.auth.Register;
 import com.trackgenesis.util.IntegerUtil;
 import com.trackgenesis.util.SystemUtil;
+import com.trackgenesis.core.JobDescription;
 
 import java.util.Scanner;
 
@@ -26,6 +27,23 @@ public class Menu {
         System.out.println("3. View Ranked CVs");
         System.out.println("4. Log out");
         System.out.println("Please enter your choice: ");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = IntegerUtil.getIntegerInput(scanner);
+
+        switch (choice) {
+            case 1:
+                JobDescription.upload();
+
+            case 2:
+                System.out.println("Upload CVs");
+
+            case 3:
+                System.out.println("View Ranked CVs");
+
+            case 4:
+                Login.logOut();
+        }
 
 
     }
