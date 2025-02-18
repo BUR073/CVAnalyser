@@ -1,22 +1,75 @@
 package com.example;
 
+import com.example.utils.IntegerUtils;
+import com.example.utils.SystemUtils;
+import java.util.Scanner;
+
+
 public class Menu {
 
-    public static void showMenu() {  // Method to display the menu
-        if (Login.isLoggedIn()) { // Call isLoggedIn() as a method
-            System.out.println("\n\nWelcome to the menu " + Login.getUsername() + "!");
-            // ... rest of your menu options ...
-            System.out.println("1. Upload Job Description");
-            System.out.println("2. Upload CVs");
-            System.out.println("2. View ranked CVs");
-            System.out.println("3. Logout"); // Example logout option
-            // ... handle user input for menu choices ...
+    public static void showMenu() {
+        if (Login.loggedIn) {
+            loggedInMenu();
         } else {
-            System.out.println("You must be logged in to access the menu.");
+            loggedOutMenu();
         }
     }
 
-    public static void main(String[] args) { // Example of how to call it
+    // ... (getIntegerInput method remains the same) ...
+
+    public static void loggedInMenu(){
+        System.out.println("Welcome to the menu " + Login.getUsername() + "!");
+        System.out.println("1. Upload Job Description");
+        System.out.println("2. Upload CVs");
+        System.out.println("3. View Ranked CVs");
+        System.out.println("4. Log out");
+        System.out.println("Please enter your choice: ");
+
+    }
+
+    public static void loggedOutMenu(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the CV Analyser");
+        System.out.println("1. Login");
+        System.out.println("2. Register");
+        System.out.println("3. Exit");
+        System.out.println("Please enter your choice: ");
+
+        int choice = IntegerUtils.getIntegerInput(scanner);
+
+        if (choice == 100) { // IntegerUtils.getIntegerInput returns 100 if input is invalid
+            loggedInMenu(); // Recursive loop
+        }
+
+
+        switch (choice) {
+            case 1:
+                System.out.println("Login");
+                Login login = new Login();
+                Login.login();
+                break;
+
+            case 2:
+                System.out.println("Register");
+                break;
+
+            case 3:
+                SystemUtils.exit();
+
+            default:
+                System.out.println("Please enter a valid choice");
+                loggedOutMenu();
+                break;
+        }
+
+
+
+    }
+
+
+
+    public static void main(String[] args) {
         showMenu();
     }
 }

@@ -1,13 +1,16 @@
 package com.example;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class Login {
-    public static boolean loggedIn = false;
-    public static String username;
-    private static final String FILE_PATH = "src/main/resources/users.txt";
+    public static boolean loggedIn = false; // Store whether a user is logged in
+    public static String username; // Store the name of the user
+    private static final String FILE_PATH = "src/main/resources/users.txt"; // Path to usernames/passwords
 
     // Now public so it can be used in other classes
     public static boolean authenticateUser(String username, String password) {
@@ -33,10 +36,41 @@ public class Login {
         return false;
     }
 
+    public static void login() { // Corrected: removed extra class keyword
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter X to exit\n");
+        // Ask for credentials
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+
+        if (Objects.equals(username, "X")) {
+            System.out.print("\n\n");
+            Menu.showMenu();
+        }
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+
+
+        // Call the authenticateUser method from Login class
+        if (Login.authenticateUser(username, password)) {
+            System.out.println("Login successful! Welcome, " + Login.username); // Use Login.username
+            Menu.showMenu(); // Assuming Menu class and showMenu method exist
+        } else {
+            System.out.println("Invalid username or password.\n\n");
+            login();
+        }
+
+        scanner.close(); // Important to close the scanner
+    }
+
+    // Getter function so that other classes can check whether a user is logged in
     public static boolean isLoggedIn() {
         return loggedIn;
     }
 
+    // Getter function so that other classes can know the name of the user
     public static String getUsername() {
         return username;
     }
