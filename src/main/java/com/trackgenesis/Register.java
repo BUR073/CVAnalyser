@@ -1,7 +1,7 @@
-package com.example;
+package com.trackgenesis;
 
-import com.example.utils.SystemUtils;
-import com.example.utils.Encrypt;
+import com.trackgenesis.utils.SystemUtils;
+import com.trackgenesis.security.Encrypt;
 
 import java.util.Scanner;
 import java.io.BufferedReader;

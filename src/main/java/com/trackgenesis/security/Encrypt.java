@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.trackgenesis.security;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.trackgenesis.utils;
 
 import java.util.Scanner;
 

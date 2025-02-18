@@ -1,7 +1,7 @@
-package com.example;
+package com.trackgenesis;
 
-import com.example.utils.IntegerUtils;
-import com.example.utils.SystemUtils;
+import com.trackgenesis.utils.IntegerUtils;
+import com.trackgenesis.utils.SystemUtils;
 import java.util.Scanner;
 
 
