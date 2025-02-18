@@ -16,6 +16,7 @@ public class App {
         // Call the authenticateUser method from Login class
         if (Login.authenticateUser(username, password)) {
             System.out.println("Login successful! Welcome, " + username);
+            Menu.showMenu();
         } else {
             System.out.println("Invalid username or password.");
         }

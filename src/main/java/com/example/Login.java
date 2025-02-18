@@ -34,4 +34,6 @@ public class Login {
     public static boolean isLoggedIn() {
         return loggedIn;
     }
+
 }
+
