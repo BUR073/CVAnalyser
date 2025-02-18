@@ -48,13 +48,11 @@ public class Menu {
 
         switch (choice) {
             case 1:
-                Login login = new Login();
                 Login.login();
                 break;
 
             case 2:
                 System.out.println("Register New User\n");
-                Register register = new Register();
                 Register.register();
                 showMenu();
                 break;
