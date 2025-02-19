@@ -1,6 +1,4 @@
-package com.trackgenesis;
-
-import java.util.Scanner;
+package com.trackgenesis.UI;
 
 public class Menu {
 
