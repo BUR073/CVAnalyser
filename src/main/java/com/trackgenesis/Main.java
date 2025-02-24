@@ -1,37 +1,29 @@
 package com.trackgenesis;
-import com.trackgenesis.UI.Login;
+
+import com.trackgenesis.UI.Menu;
 import java.io.IOException;
-import com.trackgenesis.util.KeyboardReader;
 
 public class Main {
 
-    private boolean loggedIn = false;
-    private KeyboardReader kbr = new KeyboardReader();
+    private final Menu menu;
+
+    public Main(Menu menu) {
+        this.menu = menu;
+    }
 
     public void start() throws IOException {
-        this.kbr = new KeyboardReader();
-        String filePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt"; // Path to your users file
-//        String filePath = "../users.txt";
-        Login login = new Login(filePath); // Create the object
+        this.menu.setLoggedIn(false);
+        this.menu.showMenu();
+    }
 
-
-        while (!loggedIn) {
-            loggedIn = login.login();
-            kbr.newLine();
-            // Call the login method
+    public static void main(String[] args) {
+        try {
+            Menu menu = new Menu(); // Create the Menu object
+            Main main = new Main(menu); // Pass the Menu object to Main
+            main.start(); //start the menu.
+        } catch (IOException e) {
+            System.err.println("An I/O error occurred: " + e.getMessage()); // Handle the exception
+            e.printStackTrace(); //print the stack trace for debugging.
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        new Main().start();
-
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
     }
 }

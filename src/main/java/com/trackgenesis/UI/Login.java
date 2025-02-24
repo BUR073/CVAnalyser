@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Login {
 
     private final LoginService loginService; // Make LoginService a member
-    private KeyboardReader kbr;
+    private final KeyboardReader kbr;
 
     /**
      *
