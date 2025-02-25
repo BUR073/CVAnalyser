@@ -6,27 +6,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * LoginServices handles the logic for the Login class
- */
+
 public class LoginAuth {
     private final Map<String, String> users; // Store users in a Map
 
-    /**
-     *
-     * @param filePath - File path of the username and password file
-     * @throws IOException
-     */
+
     public LoginAuth(String filePath) throws IOException {
         users = loadUsersFromFile(filePath);
     }
 
-    /**
-     *
-     * @param filePath - File path of the username and password file
-     * @return userMap - Return the username and password pair
-     * @throws IOException
-     */
+
     private Map<String, String> loadUsersFromFile(String filePath) throws IOException {
         Map<String, String> userMap = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -48,12 +37,6 @@ public class LoginAuth {
 
 
 
-    /**
-     *
-     * @param username
-     * @param password
-     * @return - True if logged in, false if not
-     */
     public boolean login(String username, String password) {
         String storedPassword = users.get(username);
         return storedPassword != null && storedPassword.equals(password);

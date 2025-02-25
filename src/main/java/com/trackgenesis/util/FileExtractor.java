@@ -21,7 +21,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 public class FileExtractor {
 
-    public static void docxToTxt(String docxFilePath, String folderPath, String newFileName) throws IOException {
+    public void docxToTxt(String docxFilePath, String folderPath, String newFileName) throws IOException {
         if (docxFilePath == null || folderPath == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
         }

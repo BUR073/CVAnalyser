@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Register {
 
     private final RegisterAuth registerAuth;
-    private KeyboardReader kbr;
+    private final KeyboardReader kbr;
 
     public Register(String filePath) {
         this.registerAuth = new RegisterAuth(filePath);
@@ -21,5 +21,5 @@ public class Register {
         this.registerAuth.register(username, password);
 
 
-    };
+    }
 }

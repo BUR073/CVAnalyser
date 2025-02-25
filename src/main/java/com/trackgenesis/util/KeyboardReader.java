@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class KeyboardReader {
 
-    private Scanner kbr;
+    private final Scanner kbr;
 
     /**
      * Constructor -  instantiate a scanner

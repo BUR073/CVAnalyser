@@ -18,7 +18,7 @@ public class Menu {
         this.JD = new JobDescription();
 
 
-    };
+    }
 
     public void showMenu() throws IOException {
         if (user.isLoggedIn()) {
@@ -26,7 +26,7 @@ public class Menu {
         } else {
             this.loggedOutMenu();
         }
-    };
+    }
 
     private void loggedInMenu() throws IOException {
 
@@ -57,7 +57,7 @@ public class Menu {
         }
 
         showMenu();
-    };
+    }
 
     private void loggedOutMenu() throws IOException {
         System.out.println("Welcome to Track Genesis!");
@@ -77,5 +77,5 @@ public class Menu {
 
         this.showMenu();
 
-    };
+    }
 }

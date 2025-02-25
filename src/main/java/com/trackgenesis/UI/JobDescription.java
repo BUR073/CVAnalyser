@@ -32,7 +32,7 @@ public class JobDescription {
 
     }
 
-    public void showJobDescription() throws IOException {
+    public void showJobDescription() {
         try (BufferedReader reader = new BufferedReader(new FileReader(getFullPath()))) {
             String line;
             while ((line = reader.readLine()) != null) {

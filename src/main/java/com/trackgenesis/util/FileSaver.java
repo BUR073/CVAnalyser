@@ -12,7 +12,7 @@ import java.util.Properties;
 public class FileSaver {
     private final FileExtractor convert;
     private final String startDir;
-    private final String saveLocation;
+
 
     public FileSaver() throws IOException {
         this.convert = new FileExtractor();
@@ -22,8 +22,8 @@ public class FileSaver {
         properties.load(inputStream);
 
         this.startDir = properties.getProperty("jchooser.start.dir");
-        this.saveLocation = properties.getProperty("job.description.save.location");
-    };
+
+    }
 
     public void saveUnknownFileType(String filePath, String saveLocation, String fileName) throws IOException {
         String fileType = convert.getFileType(filePath);
@@ -50,7 +50,8 @@ public class FileSaver {
 
         }
         System.out.println("Successfully Saved");
-    };
+    }
+
     public String chooseFile() {
         JFileChooser fileChooser = new JFileChooser(this.startDir);
 
