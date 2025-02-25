@@ -2,11 +2,11 @@ package com.trackgenesis.auth;
 
 import java.io.*;
 
-public class RegisterService {
+public class RegisterAuth {
 
     private final String filePath;
 
-    public RegisterService(String filePath) {
+    public RegisterAuth(String filePath) {
         this.filePath = filePath;
     }
 

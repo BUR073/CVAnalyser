@@ -1,6 +1,6 @@
 package com.trackgenesis.UI;
 
-import com.trackgenesis.auth.LoginService;
+import com.trackgenesis.auth.LoginAuth;
 import com.trackgenesis.util.KeyboardReader;
 
 import java.io.IOException;
@@ -10,15 +10,16 @@ import java.io.IOException;
  */
 public class Login {
 
-    private final LoginService loginService; // Make LoginService a member
+    private final LoginAuth loginAuth; // Make LoginService a member
     private final KeyboardReader kbr;
+
 
     /**
      *
      * @param filePath - File Path of the username and password file
      */
     public Login(String filePath) throws IOException { // Constructor
-        this.loginService = new LoginService(filePath);
+        this.loginAuth = new LoginAuth(filePath);
         this.kbr = new KeyboardReader();
     }
 
@@ -31,7 +32,7 @@ public class Login {
 
         String password = kbr.getString("Enter password");
 
-        boolean isLoggedIn = loginService.login(username, password);
+        boolean isLoggedIn = loginAuth.login(username, password);
 
         if (isLoggedIn) {
             System.out.println("Welcome, " + username + "!");

@@ -60,16 +60,30 @@ public class KeyboardReader {
         return retv;
     }
 
-    /**
-     * Ensures an integer is between the specified ranges.
-     *
-     * @param mes - message to display to the user
-     * @param min - minimum accepted integer
-     * @param max - maximum accepted integer
-     * @return - Integer entered by the user
-     */
-    public int getInt(String mes, int min, int max)
-    {
+
+    public String getLongString(String mes) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        System.out.println(mes);
+
+        String line;
+
+        while (kbr.hasNextLine()) {
+            line = kbr.nextLine();
+            if (line.isEmpty()) {
+                break; // Exit on a single empty line
+            } else {
+                stringBuilder.append(line).append(System.lineSeparator());
+
+            }
+
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public int getInt(String mes, int min, int max) {
+
         int retv = 0;
         boolean valid = false;
 
@@ -85,6 +99,7 @@ public class KeyboardReader {
         }
         return retv;
     }
+
 
     /**
      *

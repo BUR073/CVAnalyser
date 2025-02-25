@@ -1,7 +1,10 @@
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/Login.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/security/Encrypt.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/SystemUtil.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/Register.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/App.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/ui/Menu.java
-/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/IntegerUtil.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/LoginAuth.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/FileExtractor.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/FileSaver.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/Main.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/KeyboardReader.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/Menu.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/UploadJobDescription.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/RegisterAuth.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/Register.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/Login.java

@@ -1,6 +1,8 @@
 package com.trackgenesis;
 
 import com.trackgenesis.UI.Menu;
+import com.trackgenesis.util.KeyboardReader;
+
 import java.io.IOException;
 
 public class Main {
