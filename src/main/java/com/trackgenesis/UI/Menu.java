@@ -10,7 +10,7 @@ public class Menu {
     private boolean loggedIn;
     private final Register register;
     private final String filePath;
-    private final UploadJobDescription UJD;
+    private final JobDescription JD;
 
     public void setLoggedIn(boolean value) {
         this.loggedIn = value;
@@ -20,7 +20,7 @@ public class Menu {
         this.kbr = new KeyboardReader();
         this.filePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt";
         this.register = new Register(filePath);
-        this.UJD = new UploadJobDescription();
+        this.JD = new JobDescription();
 
 
     };
@@ -37,10 +37,11 @@ public class Menu {
 
         System.out.println("Welcome to Track Genesis");
         System.out.println("1. Upload Job Description");
-        int choice = this.kbr.getInt("Enter: ");
+        int choice = this.kbr.getInt("Enter");
         switch (choice) {
             case 1:
-                UJD.start();
+                JD.start();
+                showMenu();
         }
     };
 
