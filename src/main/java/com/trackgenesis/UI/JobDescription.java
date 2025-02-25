@@ -38,6 +38,9 @@ public class UploadJobDescription {
                 save.saveUnknownFileType(filePath, folderPath, newFileName);
 
         }
+
+        System.out.println("\nJob Description upload complete\n\nReturning to main menu...\n");
+
     }
 }
 
