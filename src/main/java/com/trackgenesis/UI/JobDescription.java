@@ -4,6 +4,8 @@ import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.util.FileSaver;
 
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class JobDescription {
 
@@ -20,6 +22,20 @@ public class JobDescription {
 
     }
 
+    public void showJobDescription() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(getFullPath()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            System.err.println("Job Description does not exist. Please upload one.");
+        }
+    }
+
+
+
     public void start() throws IOException {
         System.out.println("How would you like to upload the job description?");
         System.out.println("1. Type");
@@ -28,12 +44,14 @@ public class JobDescription {
 
         switch (choice) {
             case 1:
-                String jobDescription = kbr.getLongString("Enter the job description: ");
+                String jobDescriptionString = kbr.getLongString("Enter the job description: ");
+                save.saveToNewFile(jobDescriptionString, this.folderPath, this.fileName);
+                break;
 
-                save.saveToNewFile(jobDescription, this.folderPath, this.fileName);
             case 2:
                 String filePath = save.chooseFile();
                 save.saveUnknownFileType(filePath, this.folderPath, this.fileName);
+                break;
 
         }
 

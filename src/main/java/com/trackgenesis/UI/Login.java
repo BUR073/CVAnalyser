@@ -12,6 +12,7 @@ public class Login {
 
     private final LoginAuth loginAuth; // Make LoginService a member
     private final KeyboardReader kbr;
+    private String username;
 
 
     /**
@@ -23,6 +24,9 @@ public class Login {
         this.kbr = new KeyboardReader();
     }
 
+    public String getUsername(){
+        return this.username;
+    }
     /**
      *
      * @return boolean - Returns True when logged in, false when not
@@ -36,6 +40,7 @@ public class Login {
 
         if (isLoggedIn) {
             System.out.println("Welcome, " + username + "!");
+            this.username = username;
             return true;
 
         } else {
