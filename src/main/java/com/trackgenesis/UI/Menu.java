@@ -9,8 +9,9 @@ public class Menu {
     private final KeyboardReader kbr;
     private boolean loggedIn;
     private final Register register;
-    private final String filePath;
+    private final String UserFilePath;
     private final JobDescription JD;
+    private String JobDescriptionFilePath;
 
     public void setLoggedIn(boolean value) {
         this.loggedIn = value;
@@ -18,8 +19,8 @@ public class Menu {
 
     public Menu() throws IOException {
         this.kbr = new KeyboardReader();
-        this.filePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt";
-        this.register = new Register(filePath);
+        this.UserFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/users.txt";
+        this.register = new Register(UserFilePath);
         this.JD = new JobDescription();
 
 
@@ -37,11 +38,26 @@ public class Menu {
 
         System.out.println("Welcome to Track Genesis");
         System.out.println("1. Upload Job Description");
+        System.out.println("2. Upload CVs");
+        System.out.println("3. View Ranked CVs");
+        System.out.println("4. Logout");
         int choice = this.kbr.getInt("Enter");
         switch (choice) {
             case 1:
                 JD.start();
+                this.JobDescriptionFilePath = JD.getFullPath();
                 showMenu();
+            case 2:
+                break;
+
+            case 3:
+                break;
+
+            case 4:
+                this.loggedIn = false;
+                System.out.println("Logged out\n\n");
+                showMenu();
+                break;
         }
     };
 
@@ -49,11 +65,11 @@ public class Menu {
         System.out.println("Welcome to Track Genesis!");
         System.out.println("1. Login");
         System.out.println("2. Register");
-        int choice = this.kbr.getInt("Enter your choice: ");
+        int choice = this.kbr.getInt("Enter your choice");
 
         switch (choice) {
             case 1:
-                Login login = new Login(this.filePath);
+                Login login = new Login(this.UserFilePath);
                 this.setLoggedIn(login.login());
                 break;
 
