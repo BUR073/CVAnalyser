@@ -6,18 +6,28 @@ import com.trackgenesis.util.FileSaver;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class JobDescription {
 
     private final KeyboardReader kbr;
     private final FileSaver save;
-    private final String folderPath = "/Users/henryburbridge/CVAnalyser/src/main/resources/JobDescription";
-    private final String fileName = "JobDescription";
+    private final String saveLocation;
+    private final String fileName;
 
 
-    public JobDescription() {
+    public JobDescription() throws IOException {
         this.kbr = new KeyboardReader();
         this.save = new FileSaver();
+
+        Properties properties = new Properties();
+        InputStream inputStream = getClass().getResourceAsStream("/application.properties");
+        properties.load(inputStream);
+
+        //this.startDir = properties.getProperty("jchooser.start.dir");
+        this.saveLocation = properties.getProperty("job.description.save.location");
+        this.fileName = properties.getProperty("job.description.file.name");
 
 
     }
@@ -45,12 +55,12 @@ public class JobDescription {
         switch (choice) {
             case 1:
                 String jobDescriptionString = kbr.getLongString("Enter the job description: ");
-                save.saveToNewFile(jobDescriptionString, this.folderPath, this.fileName);
+                save.saveToNewFile(jobDescriptionString, this.saveLocation, this.fileName);
                 break;
 
             case 2:
                 String filePath = save.chooseFile();
-                save.saveUnknownFileType(filePath, this.folderPath, this.fileName);
+                save.saveUnknownFileType(filePath, this.saveLocation, this.fileName);
                 break;
 
         }
@@ -60,7 +70,7 @@ public class JobDescription {
     }
 
     public String getFullPath() {
-        return folderPath + "/" + fileName + ".txt";
+        return this.saveLocation + "/" + fileName + ".txt";
     }
 
 

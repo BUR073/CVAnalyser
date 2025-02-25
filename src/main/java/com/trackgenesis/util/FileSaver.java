@@ -6,12 +6,23 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class FileSaver {
     private final FileExtractor convert;
+    private final String startDir;
+    private final String saveLocation;
 
-    public FileSaver(){
+    public FileSaver() throws IOException {
         this.convert = new FileExtractor();
+
+        Properties properties = new Properties();
+        InputStream inputStream = getClass().getResourceAsStream("/application.properties");
+        properties.load(inputStream);
+
+        this.startDir = properties.getProperty("jchooser.start.dir");
+        this.saveLocation = properties.getProperty("job.description.save.location");
     };
 
     public void saveUnknownFileType(String filePath, String saveLocation, String fileName) throws IOException {
@@ -41,8 +52,8 @@ public class FileSaver {
         System.out.println("Successfully Saved");
     };
     public String chooseFile() {
-        JFileChooser fileChooser = new JFileChooser("/Users/henryburbridge/CVAnalyser/src/main/resources");
-        //Optional: Set a filter to restrict file types
+        JFileChooser fileChooser = new JFileChooser(this.startDir);
+
 
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "Text and Document Files", "txt", "doc", "docx", "pdf");

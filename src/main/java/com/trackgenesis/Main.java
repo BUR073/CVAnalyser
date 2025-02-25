@@ -5,6 +5,7 @@ import com.trackgenesis.UI.Menu;
 
 import java.io.IOException;
 
+
 public class Main {
 
     private final Menu menu;

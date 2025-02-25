@@ -28,7 +28,7 @@ public class Menu {
         }
     };
 
-    public void loggedInMenu() throws IOException {
+    private void loggedInMenu() throws IOException {
 
         System.out.println("Welcome to Track Genesis " + user.getUsername() + "!");
         System.out.println("1. Upload Job Description");
@@ -59,7 +59,7 @@ public class Menu {
         showMenu();
     };
 
-    public void loggedOutMenu() throws IOException {
+    private void loggedOutMenu() throws IOException {
         System.out.println("Welcome to Track Genesis!");
         System.out.println("1. Login");
         System.out.println("2. Register");
