@@ -1,5 +1,7 @@
 package com.trackgenesis.auth;
 
+import com.trackgenesis.User;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.Map;
  */
 public class LoginService {
     private final Map<String, String> users; // Store users in a Map
+    private User currentUser;
 
     /**
      *
@@ -45,6 +48,9 @@ public class LoginService {
         return userMap;
     }
 
+
+
+
     /**
      *
      * @param username
@@ -53,6 +59,11 @@ public class LoginService {
      */
     public boolean login(String username, String password) {
         String storedPassword = users.get(username);
-        return storedPassword != null && storedPassword.equals(password);
+        if (storedPassword != null && storedPassword.equals(password)) {
+            currentUser = new User(username);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
