@@ -109,7 +109,7 @@ public class KeyboardReader {
     public String getString(String mes)
     {
         System.out.print(mes +": ");
-        return  kbr.nextLine();
+        return kbr.nextLine();
     }
 
     public void newLine(){

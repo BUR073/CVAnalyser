@@ -4,7 +4,6 @@ import com.trackgenesis.User;
 
 import java.io.IOException;
 
-
 public class Menu {
 
     private final KeyboardReader kbr;
