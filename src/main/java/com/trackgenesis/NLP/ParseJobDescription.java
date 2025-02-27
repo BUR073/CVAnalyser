@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import opennlp.tools.namefind.NameFinderME;
@@ -17,50 +16,28 @@ import opennlp.tools.util.Span;
 
 public class ParseJobDescription {
 
-    private final String filePath;
 
-    private String educationRequirements;
-    private String skills;
-    private String jobTitle;
-    private String responsibilities;
-    private String qualifications;
+    private final Set<String> people = new HashSet<>();
+    private final Set<String> locations = new HashSet<>();
+    private final Set<String> organizations = new HashSet<>();
+    private final Set<String> dates = new HashSet<>();
+    private final Set<String> times = new HashSet<>();
 
     public ParseJobDescription() throws IOException {
-        Properties properties = new Properties();
-        // load application file
-        try (InputStream inputStream = getClass().getResourceAsStream("/application.properties")) {
-            if (inputStream == null) {
-                throw new IOException("application.properties not found");
-            }
-            properties.load(inputStream);
-        }
 
-        // Get full file path from application file
-        //this.filePath = properties.getProperty("job.description.save.location")
-                //+ "/" +
-                //properties.getProperty("job.description.file.name")
-                //+ ".txt";
-        this.filePath = "JobDescription/JobDescription.txt";
+        String filePath = "JobDescription/JobDescription.txt";
 
-        //InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(this.filePath);
-        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(this.filePath);
+        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath);
         assert fileInputStream != null;
         String text = new String(fileInputStream.readAllBytes());
             extractInformation(text);
 
 
-
-        this.educationRequirements = "";
-        this.skills = "";
-        this.jobTitle = "";
-        this.responsibilities = "";
-        this.qualifications = "";
-
     }
 
     public void extractInformation(String text) throws IOException {
         // Sentence Detection
-        try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("en-sent.bin")) {
+        try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin")) {
             if (sentenceModelIn == null) {
                 throw new IOException("en-sent.bin not found");
             }
@@ -69,7 +46,7 @@ public class ParseJobDescription {
             String[] sentences = sentenceDetector.sentDetect(text);
 
             // Tokenization
-            try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("en-token.bin")) {
+            try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {
                 if (tokenizerModelIn == null) {
                     throw new IOException("en-token.bin not found");
                 }
@@ -77,50 +54,74 @@ public class ParseJobDescription {
                 TokenizerME tokenizer = new TokenizerME(tokenizerModel);
 
                 // Named Entity Recognition (Example: People, Locations, Organizations)
-                try (InputStream nameFinderPersonModelIn = getClass().getClassLoader().getResourceAsStream("en-ner-person.bin");
-                     InputStream nameFinderLocationModelIn = getClass().getClassLoader().getResourceAsStream("en-ner-location.bin");
-                     InputStream nameFinderOrganizationModelIn = getClass().getClassLoader().getResourceAsStream("en-ner-organization.bin")) {
-                    if (nameFinderPersonModelIn == null || nameFinderLocationModelIn == null || nameFinderOrganizationModelIn == null) {
+                try (InputStream PersonModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-person.bin");
+
+                     InputStream LocationModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-location.bin");
+
+                     InputStream OrganizationModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-organization.bin");
+
+                     InputStream DateModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-date.bin");
+
+                     InputStream TimeModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-time.bin")
+
+                )
+
+                {
+                    if (PersonModel == null || LocationModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
                         throw new IOException("One or more NER models not found");
                     }
 
-                    TokenNameFinderModel personModel = new TokenNameFinderModel(nameFinderPersonModelIn);
-                    TokenNameFinderModel locationModel = new TokenNameFinderModel(nameFinderLocationModelIn);
-                    TokenNameFinderModel organizationModel = new TokenNameFinderModel(nameFinderOrganizationModelIn);
+                    TokenNameFinderModel personModel = new TokenNameFinderModel(PersonModel);
+                    TokenNameFinderModel locationModel = new TokenNameFinderModel(LocationModel);
+                    TokenNameFinderModel organizationModel = new TokenNameFinderModel(OrganizationModel);
+                    TokenNameFinderModel dateModel = new TokenNameFinderModel(DateModel);
+                    TokenNameFinderModel timeModel = new TokenNameFinderModel(TimeModel);
+
 
                     NameFinderME personFinder = new NameFinderME(personModel);
                     NameFinderME locationFinder = new NameFinderME(locationModel);
                     NameFinderME organizationFinder = new NameFinderME(organizationModel);
+                    NameFinderME dateFinder = new NameFinderME(dateModel);
+                    NameFinderME timeFinder = new NameFinderME(timeModel);
 
-                    Set<String> people = new HashSet<>();
-                    Set<String> locations = new HashSet<>();
-                    Set<String> organizations = new HashSet<>();
 
                     for (String sentence : sentences) {
                         String[] tokens = tokenizer.tokenize(sentence);
 
+                        Span[] timesSpans = timeFinder.find(tokens);
+                        for (Span span : timesSpans) {
+                            this.times.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                        }
+
+                        // Find Dates
+                        Span[] dateSpans = dateFinder.find(tokens);
+                        for (Span span : dateSpans) {
+                            this.dates.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                        }
                         // Find People
                         Span[] personSpans = personFinder.find(tokens);
                         for (Span span : personSpans) {
-                            people.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.people.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
                         }
 
                         // Find Locations
                         Span[] locationSpans = locationFinder.find(tokens);
                         for (Span span : locationSpans) {
-                            locations.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.locations.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
                         }
 
                         // Find Organizations
                         Span[] organizationSpans = organizationFinder.find(tokens);
                         for (Span span : organizationSpans) {
-                            organizations.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.organizations.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
                         }
                     }
 
-                    System.out.println("People: " + people);
-                    System.out.println("Locations: " + locations);
-                    System.out.println("Organizations: " + organizations);
+                    System.out.println("People: " + this.people);
+                    System.out.println("Locations: " + this.locations);
+                    System.out.println("Organizations: " + this.organizations);
+                    System.out.println("Dates: " + this.dates);
+                    System.out.println("Times: " + this.times);
                 }
             }
         }
