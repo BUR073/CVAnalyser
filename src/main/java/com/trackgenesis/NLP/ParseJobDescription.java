@@ -1,5 +1,7 @@
 package com.trackgenesis.NLP;
 
+import com.trackgenesis.records.JobDescriptionRecord;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -23,19 +25,25 @@ public class ParseJobDescription {
     private final Set<String> dates = new HashSet<>();
     private final Set<String> times = new HashSet<>();
 
+    private final String text;
+
     public ParseJobDescription() throws IOException {
 
         String filePath = "JobDescription/JobDescription.txt";
 
         InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath);
-        assert fileInputStream != null;
-        String text = new String(fileInputStream.readAllBytes());
-            extractInformation(text);
+
+        if (fileInputStream != null) {
+            this.text = new String(fileInputStream.readAllBytes());
+        } else {
+            this.text = "";
+        }
+
 
 
     }
 
-    public void extractInformation(String text) throws IOException {
+    public JobDescriptionRecord extractInformation() throws IOException {
         // Sentence Detection
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin")) {
             if (sentenceModelIn == null) {
@@ -43,7 +51,7 @@ public class ParseJobDescription {
             }
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
             SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentenceModel);
-            String[] sentences = sentenceDetector.sentDetect(text);
+            String[] sentences = sentenceDetector.sentDetect(this.text);
 
             // Tokenization
             try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {
@@ -117,11 +125,9 @@ public class ParseJobDescription {
                         }
                     }
 
-                    System.out.println("People: " + this.people);
-                    System.out.println("Locations: " + this.locations);
-                    System.out.println("Organizations: " + this.organizations);
-                    System.out.println("Dates: " + this.dates);
-                    System.out.println("Times: " + this.times);
+                    // Return the reference to the record with the parsed data
+                    return new JobDescriptionRecord(this.people, this.locations, this.organizations, this.dates, this.times);
+
                 }
             }
         }
