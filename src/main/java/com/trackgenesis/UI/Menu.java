@@ -39,6 +39,7 @@ public class Menu {
         switch (choice) {
             case 1:
                 JD.start();
+                break;
 
             case 2:
                 JD.showJobDescription();

@@ -16,7 +16,7 @@ import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
 
-public class ParseJobDescription {
+public class JobDescriptionNLP {
 
 
     private final Set<String> people = new HashSet<>();
@@ -27,9 +27,9 @@ public class ParseJobDescription {
 
     private final String text;
 
-    public ParseJobDescription() throws IOException {
+    public JobDescriptionNLP() throws IOException {
 
-        String filePath = "JobDescription/JobDescription.txt";
+        String filePath = "SampleJobDescriptions/JobDescription.txt";
 
         InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
@@ -61,16 +61,12 @@ public class ParseJobDescription {
                 TokenizerModel tokenizerModel = new TokenizerModel(tokenizerModelIn);
                 TokenizerME tokenizer = new TokenizerME(tokenizerModel);
 
-                // Named Entity Recognition (Example: People, Locations, Organizations)
-                try (InputStream PersonModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-person.bin");
 
-                     InputStream LocationModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-location.bin");
-
-                     InputStream OrganizationModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-organization.bin");
-
-                     InputStream DateModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-date.bin");
-
-                     InputStream TimeModel = getClass().getClassLoader().getResourceAsStream("models/en-ner-time.bin")
+                try (InputStream PersonModel = this.load("models/en-ner-person.bin");
+                     InputStream LocationModel = this.load("models/en-ner-location.bin");
+                     InputStream OrganizationModel = this.load("models/en-ner-organization.bin");
+                     InputStream DateModel = this.load("models/en-ner-date.bin");
+                     InputStream TimeModel = this.load("models/en-ner-time.bin")
 
                 )
 
@@ -97,31 +93,33 @@ public class ParseJobDescription {
                         String[] tokens = tokenizer.tokenize(sentence);
 
                         Span[] timesSpans = timeFinder.find(tokens);
+                        Span[] dateSpans = dateFinder.find(tokens);
+                        Span[] personSpans = personFinder.find(tokens);
+                        Span[] locationSpans = locationFinder.find(tokens);
+                        Span[] organizationSpans = organizationFinder.find(tokens);
+
                         for (Span span : timesSpans) {
-                            this.times.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.times.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Dates
-                        Span[] dateSpans = dateFinder.find(tokens);
                         for (Span span : dateSpans) {
-                            this.dates.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.dates.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
+
                         // Find People
-                        Span[] personSpans = personFinder.find(tokens);
                         for (Span span : personSpans) {
-                            this.people.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.people.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Locations
-                        Span[] locationSpans = locationFinder.find(tokens);
                         for (Span span : locationSpans) {
-                            this.locations.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.locations.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Organizations
-                        Span[] organizationSpans = organizationFinder.find(tokens);
                         for (Span span : organizationSpans) {
-                            this.organizations.add(String.join(" ", Arrays.copyOfRange(tokens, span.getStart(), span.getEnd())));
+                            this.organizations.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
                     }
 
@@ -131,5 +129,13 @@ public class ParseJobDescription {
                 }
             }
         }
+    }
+
+    private String reconstruct(String[] tokens, int start, int end){
+        return String.join(" ", Arrays.copyOfRange(tokens, start, end));
+    }
+
+    private InputStream load(String model){
+        return getClass().getClassLoader().getResourceAsStream(model);
     }
 }

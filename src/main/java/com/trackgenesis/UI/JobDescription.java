@@ -1,5 +1,7 @@
 package com.trackgenesis.UI;
 
+import com.trackgenesis.NLP.JobDescriptionNLP;
+import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.util.FileSaver;
 
@@ -64,6 +66,17 @@ public class JobDescription {
                 break;
 
         }
+
+
+
+        JobDescriptionNLP jobDescriptionNLP = new JobDescriptionNLP();
+        JobDescriptionRecord jobData = jobDescriptionNLP.extractInformation();
+
+        System.out.println("People: " + jobData.people());
+        System.out.println("Locations: " + jobData.locations());
+        System.out.println("Organizations: " + jobData.organizations());
+        System.out.println("Dates: " + jobData.dates());
+        System.out.println("Times: " + jobData.times());
 
         System.out.println("\nJob Description upload complete\n\nReturning to main menu...\n");
 

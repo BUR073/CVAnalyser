@@ -1,8 +1,6 @@
 package com.trackgenesis;
 import com.trackgenesis.UI.Menu;
 
-import com.trackgenesis.records.JobDescriptionRecord;
-import com.trackgenesis.NLP.ParseJobDescription;
 import java.io.IOException;
 
 public class Main {
@@ -14,14 +12,6 @@ public class Main {
     }
 
     public void start() throws IOException {
-        ParseJobDescription parseJobDescription = new ParseJobDescription();
-        JobDescriptionRecord jobData = parseJobDescription.extractInformation();
-
-        System.out.println("People: " + jobData.people());
-        System.out.println("Locations: " + jobData.locations());
-        System.out.println("Organizations: " + jobData.organizations());
-        System.out.println("Dates: " + jobData.dates());
-        System.out.println("Times: " + jobData.times());
 
         this.menu.showMenu();
     }
