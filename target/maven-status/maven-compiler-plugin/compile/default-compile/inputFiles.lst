@@ -1,6 +1,7 @@
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/auth/LoginAuth.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/FileExtractor.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/FileSaver.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/NLP/ParseJobDescription.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/KeyboardReader.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/Menu.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/JobDescription.java

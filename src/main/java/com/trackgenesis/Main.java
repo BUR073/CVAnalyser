@@ -1,6 +1,8 @@
 package com.trackgenesis;
 import com.trackgenesis.UI.Menu;
 
+import com.trackgenesis.NLP.ParseJobDescription;
+
 import java.io.IOException;
 
 public class Main {
@@ -12,7 +14,9 @@ public class Main {
     }
 
     public void start() throws IOException {
-        this.menu.showMenu();
+        ParseJobDescription parseJobDescription = new ParseJobDescription();
+
+        //this.menu.showMenu();
     }
 
     public static void main(String[] args) {
