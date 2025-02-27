@@ -3,9 +3,11 @@ com/trackgenesis/Main.class
 com/trackgenesis/UI/Menu.class
 com/trackgenesis/UI/JobDescription.class
 com/trackgenesis/util/FileExtractor.class
+com/trackgenesis/records/JobDescription.class
 com/trackgenesis/util/FileSaver.class
 com/trackgenesis/User.class
 com/trackgenesis/UI/Login.class
 com/trackgenesis/util/KeyboardReader.class
+com/trackgenesis/records/CV.class
 com/trackgenesis/auth/LoginAuth.class
 com/trackgenesis/auth/RegisterAuth.class
