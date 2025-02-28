@@ -16,7 +16,7 @@ public class User {
     public User() throws IOException {
 
         Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/properties/application.properties");
+        InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
         properties.load(inputStream);
 
 

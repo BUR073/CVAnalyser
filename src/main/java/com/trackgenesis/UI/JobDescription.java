@@ -18,6 +18,7 @@ public class JobDescription {
     private final String saveLocation;
     private final String fileName;
     private final JobDescriptionNLP jobDescriptionNLP;
+    private final String uploadMenu;
 
 
     public JobDescription() throws IOException {
@@ -26,14 +27,28 @@ public class JobDescription {
         this.jobDescriptionNLP = new JobDescriptionNLP();
 
         Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/properties/application.properties");
-        properties.load(inputStream);
+        InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
 
+        if (inputStream == null) {
+            throw new IOException("Could not find /properties/file.properties");
+        }
+
+        properties.load(inputStream);
 
         this.saveLocation = properties.getProperty("job.description.save.location");
         this.fileName = properties.getProperty("job.description.file.name");
 
+        // Load the next properties file: /properties/menu.properties
+        InputStream menuInputStream = getClass().getResourceAsStream("/properties/menu.properties");
 
+        if (menuInputStream == null) {
+            throw new IOException("Could not find /properties/menu.properties");
+        }
+
+        properties.load(menuInputStream);
+
+        // Get the uploadMenu property
+        this.uploadMenu = properties.getProperty("uploadMenu");
     }
 
     public void showJobDescription() {
@@ -52,7 +67,7 @@ public class JobDescription {
 
     public JobDescriptionRecord upload() throws IOException {
 
-        switch (uploadType()) {
+        switch (kbr.getInt(this.uploadMenu, 1, 2)) {
             case 1:
                 save.saveToNewFile(kbr.getLongString("Enter the job description: "),
                         this.saveLocation,
@@ -70,13 +85,6 @@ public class JobDescription {
         return this.jobDescriptionNLP.extractInformation();
     }
 
-
-    private int uploadType(){
-        System.out.println("How would you like to upload the job description?");
-        System.out.println("1. Type");
-        System.out.println("2. Upload File (DOC, DOCX or PDF (PDF preferred))");
-        return kbr.getInt("Enter your choice: ", 1, 2);
-    }
 
     public String getFullPath() {
         return this.saveLocation + "/" + fileName + ".txt";

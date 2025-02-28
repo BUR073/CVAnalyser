@@ -12,9 +12,11 @@ public class Menu {
     private final KeyboardReader kbr;
     private final JobDescription JD;
     private final User user;
+    private final Properties properties;
+
     private final String loggedInMenuView;
     private final String loggedOutMenuView;
-    private final Properties properties;
+
 
     public Menu() throws IOException {
         this.properties = new Properties();
