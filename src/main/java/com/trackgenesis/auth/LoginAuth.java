@@ -23,9 +23,7 @@ public class LoginAuth {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    String username = parts[0].trim();
-                    String password = parts[1].trim();
-                    userMap.put(username, password);
+                    userMap.put(parts[0].trim(), parts[1].trim());
                 } else {
                     System.err.println("Invalid line in user file: " + line);
                 }

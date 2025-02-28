@@ -26,11 +26,8 @@ public class FileSaver {
     }
 
     public void saveUnknownFileType(String filePath, String saveLocation, String fileName) throws IOException {
-        String fileType = convert.getFileType(filePath);
-        System.out.println(fileType);
 
-
-        switch(fileType){
+        switch(convert.getFileType(filePath)){
             case "text/plain":
                 // Convert and save .txt
                 convert.copyAndRename(filePath, saveLocation, fileName);

@@ -112,7 +112,4 @@ public class KeyboardReader {
         return kbr.nextLine();
     }
 
-    public void newLine(){
-        System.out.print("\n");
-    }
 }

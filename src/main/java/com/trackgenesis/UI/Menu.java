@@ -1,4 +1,5 @@
 package com.trackgenesis.UI;
+import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.User;
 
@@ -9,7 +10,6 @@ public class Menu {
     private final KeyboardReader kbr;
     private final JobDescription JD;
     private final User user;
-
 
     public Menu() throws IOException {
         this.user = new User();
@@ -35,10 +35,19 @@ public class Menu {
         System.out.println("3. Upload CVs");
         System.out.println("4. View Ranked CVs");
         System.out.println("5. Logout");
-        int choice = this.kbr.getInt("Enter");
-        switch (choice) {
+
+
+        switch (this.kbr.getInt("Enter")) {
             case 1:
-                JD.start();
+                JobDescriptionRecord jobData = JD.upload();
+
+                System.out.println("\nData extracted\nReturning to main menu...\n");
+
+                System.out.println("People: " + jobData.people());
+                System.out.println("Locations: " + jobData.locations());
+                System.out.println("Organizations: " + jobData.organizations());
+                System.out.println("Dates: " + jobData.dates());
+                System.out.println("Times: " + jobData.times());
                 break;
 
             case 2:
@@ -63,9 +72,8 @@ public class Menu {
         System.out.println("Welcome to Track Genesis!");
         System.out.println("1. Login");
         System.out.println("2. Register");
-        int choice = this.kbr.getInt("Enter your choice");
 
-        switch (choice) {
+        switch (this.kbr.getInt("Enter your choice")) {
             case 1:
                 user.login();
                 break;
