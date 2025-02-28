@@ -26,7 +26,7 @@ public class JobDescription {
         this.jobDescriptionNLP = new JobDescriptionNLP();
 
         Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/application.properties");
+        InputStream inputStream = getClass().getResourceAsStream("/properties/application.properties");
         properties.load(inputStream);
 
 

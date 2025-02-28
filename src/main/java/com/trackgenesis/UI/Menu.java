@@ -4,6 +4,8 @@ import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.User;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class Menu {
 
@@ -12,35 +14,27 @@ public class Menu {
     private final User user;
     private final String loggedInMenuView;
     private final String loggedOutMenuView;
+    private final Properties properties;
 
     public Menu() throws IOException {
+        this.properties = new Properties();
         this.user = new User();
         this.kbr = new KeyboardReader();
         this.JD = new JobDescription();
 
-        this.loggedInMenuView = """
-                \n---------------------------------
-                Welcome to Track Genesis!
-                ---------------------------------
-                1. 📁 Upload Job Description
-                2. 📄 Show Job Description
-                3. 📂 Upload CVs
-                4. 📊 View Ranked CVs
-                5. 🚪 Logout
-                ---------------------------------
-                Enter your choice""";
+        this.loggedInMenuView = this.getFromProperties("loggedInMenu");
+        this.loggedOutMenuView = this.getFromProperties("loggedOutMenu");
 
-        this.loggedOutMenuView = """
-                -------------------------
-                Welcome to Track Genesis!
-                -------------------------
-                1. 🔑 Login
-                2. 📝 Register
-                -------------------------
-                Enter your choice""";
     }
 
-    public void showMenu() throws IOException {
+    private String getFromProperties(String name) throws IOException {
+        InputStream input = getClass().getClassLoader().getResourceAsStream("properties/menu.properties");
+        this.properties.load(input);
+        return this.properties.getProperty(name);
+    }
+
+
+        public void showMenu() throws IOException {
         if (user.isLoggedIn()) {
             this.loggedInMenu();
         } else {
@@ -51,7 +45,7 @@ public class Menu {
     private void loggedInMenu() throws IOException {
 
         //System.out.println(loggedInMenuView);
-        switch (this.kbr.getInt(loggedInMenuView + "\nEnter")) {
+        switch (this.kbr.getInt(loggedInMenuView)) {
             case 1:
                 JobDescriptionRecord jobData = JD.upload();
 
@@ -83,10 +77,6 @@ public class Menu {
     }
 
     private void loggedOutMenu() throws IOException {
-//        System.out.println("Welcome to Track Genesis!");
-//        System.out.println("1. Login");
-//        System.out.println("2. Register");
-
         switch (this.kbr.getInt(this.loggedOutMenuView)) {
             case 1:
                 user.login();

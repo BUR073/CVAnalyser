@@ -18,7 +18,7 @@ public class FileSaver {
         this.convert = new FileExtractor();
 
         Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/application.properties");
+        InputStream inputStream = getClass().getResourceAsStream("/properties/application.properties");
         properties.load(inputStream);
 
         this.startDir = properties.getProperty("jchooser.start.dir");
