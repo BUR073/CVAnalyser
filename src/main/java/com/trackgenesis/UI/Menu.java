@@ -10,13 +10,34 @@ public class Menu {
     private final KeyboardReader kbr;
     private final JobDescription JD;
     private final User user;
+    private final String loggedInMenuView;
+    private final String loggedOutMenuView;
 
     public Menu() throws IOException {
         this.user = new User();
         this.kbr = new KeyboardReader();
         this.JD = new JobDescription();
 
+        this.loggedInMenuView = """
+                \n---------------------------------
+                Welcome to Track Genesis!
+                ---------------------------------
+                1. 📁 Upload Job Description
+                2. 📄 Show Job Description
+                3. 📂 Upload CVs
+                4. 📊 View Ranked CVs
+                5. 🚪 Logout
+                ---------------------------------
+                Enter your choice""";
 
+        this.loggedOutMenuView = """
+                -------------------------
+                Welcome to Track Genesis!
+                -------------------------
+                1. 🔑 Login
+                2. 📝 Register
+                -------------------------
+                Enter your choice""";
     }
 
     public void showMenu() throws IOException {
@@ -29,15 +50,8 @@ public class Menu {
 
     private void loggedInMenu() throws IOException {
 
-        System.out.println("Welcome to Track Genesis " + user.getUsername() + "!");
-        System.out.println("1. Upload Job Description");
-        System.out.println("2. Show Job Description");
-        System.out.println("3. Upload CVs");
-        System.out.println("4. View Ranked CVs");
-        System.out.println("5. Logout");
-
-
-        switch (this.kbr.getInt("Enter")) {
+        //System.out.println(loggedInMenuView);
+        switch (this.kbr.getInt(loggedInMenuView + "\nEnter")) {
             case 1:
                 JobDescriptionRecord jobData = JD.upload();
 
@@ -69,11 +83,11 @@ public class Menu {
     }
 
     private void loggedOutMenu() throws IOException {
-        System.out.println("Welcome to Track Genesis!");
-        System.out.println("1. Login");
-        System.out.println("2. Register");
+//        System.out.println("Welcome to Track Genesis!");
+//        System.out.println("1. Login");
+//        System.out.println("2. Register");
 
-        switch (this.kbr.getInt("Enter your choice")) {
+        switch (this.kbr.getInt(this.loggedOutMenuView)) {
             case 1:
                 user.login();
                 break;
