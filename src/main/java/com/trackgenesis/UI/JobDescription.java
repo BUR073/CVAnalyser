@@ -1,7 +1,10 @@
 // SID: 2408078
 package com.trackgenesis.UI;
 
+import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.NLP.JobDescriptionNLP;
+import com.trackgenesis.actions.jobDescription.SaveToNewFileAction;
+import com.trackgenesis.actions.jobDescription.SaveUnknownFileTypeAction;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.FileSaver;
 import com.trackgenesis.util.KeyboardReader;
@@ -10,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class JobDescription {
@@ -20,6 +25,7 @@ public class JobDescription {
     private final String fileName;
     private final JobDescriptionNLP jobDescriptionNLP;
     private final String uploadMenu;
+    private final Map<Integer, UserAction<?>> uploadActions;
 
 
     public JobDescription(KeyboardReader kbr) throws IOException {
@@ -50,6 +56,14 @@ public class JobDescription {
 
         // Get the uploadMenu property
         this.uploadMenu = properties.getProperty("uploadMenu");
+
+        SaveToNewFileAction saveToNewFileAction = new SaveToNewFileAction(this.save, this.kbr, this.saveLocation, this.fileName);
+        SaveUnknownFileTypeAction saveUnknownFileTypeAction = new SaveUnknownFileTypeAction(this.save, this.fileName, this.saveLocation);
+        this.uploadActions = new HashMap<>();
+        this.uploadActions.put(1, saveToNewFileAction);
+        this.uploadActions.put(2, saveUnknownFileTypeAction);
+
+
     }
 
     public void showJobDescription() {
@@ -67,20 +81,18 @@ public class JobDescription {
 
     public JobDescriptionRecord upload() throws IOException {
 
-        switch (kbr.getInt(this.uploadMenu, 1, 2)) {
-            case 1:
-                save.saveToNewFile(kbr.getLongString("Enter the job description: "),
-                        this.saveLocation,
-                        this.fileName);
-                break;
+        int choice = this.kbr.getInt(this.uploadMenu);
+        UserAction<?> action = this.uploadActions.get(choice);
 
-            case 2:
-                save.saveUnknownFileType(save.chooseFile(), this.saveLocation, this.fileName);
-                break;
-
+        if (action != null) {
+            try {
+                action.execute();
+            } catch (IOException e) {
+                System.err.println("An error occurred during the action: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Invalid choice. Please try again.");
         }
-
-        System.out.println("Job Description upload complete.\nExtracting Data...");
 
         return this.jobDescriptionNLP.extractInformation();
     }
