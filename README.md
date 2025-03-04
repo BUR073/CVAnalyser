@@ -253,6 +253,14 @@ classDiagram
         -applicantSection: ApplicantSection[]
         +deleteApplicant(): void
     }
+    
+    class DetailType {
+        <<Enumeration>>
+        - Required Skills
+        - Desired Skills 
+        - Education
+        - Experience 
+    }
 
     User "1" -- "0..*" CVAnalyser : uses
     CVAnalyser "1" -- "1" Menu : uses
@@ -271,5 +279,5 @@ classDiagram
     ApplicantJobScore "1" -- "1" Applicant : refers
     ApplicantJobScore "1" -- "1" JobDescription : refers
     Applicant "1" -- "*" ApplicantSection : contains
-    ApplicantSection "1" -- "1" String : refers
-    JobDetail "1" -- "1" String : refers
+    ApplicantSection "1" -- "1" DetailType : refers
+    JobDetail "1" -- "1" DetailType : refers
