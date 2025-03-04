@@ -6,6 +6,7 @@ import com.trackgenesis.main.User;
 
 import java.io.IOException;
 
+
 public class UserLoginAction implements UserAction<Void> {
     private final User user;
 
