@@ -134,6 +134,7 @@ This project focuses on designing an automated system to solve real-world challe
 
 ```mermaid
 classDiagram
+graph TB
     class User {
         -name: String
         -email: String
