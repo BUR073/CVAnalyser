@@ -2,7 +2,7 @@
 package com.trackgenesis.UI;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
-import com.trackgenesis.User;
+import com.trackgenesis.main.User;
 
 import java.io.IOException;
 import java.io.InputStream;

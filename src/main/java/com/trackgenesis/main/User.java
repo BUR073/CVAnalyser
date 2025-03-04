@@ -1,5 +1,5 @@
 // SID: 2408078
-package com.trackgenesis;
+package com.trackgenesis.main;
 
 import com.trackgenesis.UI.Login;
 import com.trackgenesis.UI.Register;

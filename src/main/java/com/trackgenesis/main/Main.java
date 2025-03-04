@@ -1,6 +1,6 @@
 // SID: 2408078
 
-package com.trackgenesis;
+package com.trackgenesis.main;
 import com.trackgenesis.UI.Menu;
 
 import java.io.IOException;
