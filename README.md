@@ -130,6 +130,8 @@ This project focuses on designing an automated system to solve real-world challe
 
 ## How this project differs from the plan
 
+### Class Diagram
+
 ```mermaid
 classDiagram
     class User {
