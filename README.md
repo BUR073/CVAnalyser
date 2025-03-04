@@ -109,27 +109,27 @@ This project focuses on designing an automated system to solve real-world challe
 * **Ambiguous Terms:** Map synonyms (e.g., "ML" = "Machine Learning") using a glossary.
 
 
-## Classes
+## Package and Class Overview
 
 | Package   | Class Name             | Description                                                                |
 |-----------|------------------------|----------------------------------------------------------------------------|
-| `auth`    | `LoginAuth`            | Handles the logic for the login                                            |
-| `auth`    | `RegisterAuth`         | Handles the logic for register                                             |
-| `NLP`     | `JobDescriptionNLP`    | Uses NLP to parse the job description                                      |
-| `records` | `CVRecord`             | Stores the data from the CV                                                |
-| `records` | `JobDescriptionRecord` | Stores the data from the Job description, parsed using `JobDescriptionNLP` |
+| `main`    | `Main`                 | The entry point for the program                                            |
+| `main`    | `User`                 | Handles the user login and register as well as storing the username        | 
 | `UI`      | `JobDescription`       | The UI for uploading the job description                                   |
 | `UI`      | `Login`                | The UI for the login                                                       |
 | `UI`      | `Menu`                 | The menu UI                                                                |
 | `UI`      | `Register`             | The UI for register                                                        |
+| `NLP`     | `JobDescriptionNLP`    | Uses NLP to parse the job description                                      |
+| `records` | `CVRecord`             | Stores the data from the CV                                                |
+| `records` | `JobDescriptionRecord` | Stores the data from the Job description, parsed using `JobDescriptionNLP` |
 | `util`    | `FileExtractor`        | Extracts data from files and saves to `.txt` file                          |
-| `util`    | `FileSaver`            | Saves file to chosen dir                                                   |
 | `util`    | `KeyboardReader`       | Utility function that takes user inputs                                    |
-| `main`    | `Main`                 | The entry point for the program                                            |
-| `main`    | `User`                 | Handles the user login and register as well as storing the username        | 
+| `util`    | `FileSaver`            | Saves file to chosen dir                                                   |
+| `auth`    | `LoginAuth`            | Handles the logic for the login                                            |
+| `auth`    | `RegisterAuth`         | Handles the logic for register                                             |
 
-## How this project differs from the plan
+## Project Adaptations and Modifications
 
-### Class Diagram
+### Class Diagram Adaptations and Modifications 
 ![Class diagram created in the planning stage of this project](src/main/resources/READMEResources/ClassDiagram.png)
 Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will detail why below. 
