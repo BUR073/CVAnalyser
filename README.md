@@ -211,7 +211,7 @@ To install and run CVAnalyser, follow these steps:
     Run the JAR file:
 
     ```bash
-    java -jar CVAnalyser-1.0-SNAPSHOT.jar #Replace with the correct jar name if different.
+    java -jar CVAnalyser-1.0-SNAPSHOT.jar 
     ```
     Note: The actual jar name will depend on your project version, check the target folder for the correct name.
     If you have issues with the snapshot jar name, you can also run the application using maven.
