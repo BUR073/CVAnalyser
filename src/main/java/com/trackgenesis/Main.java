@@ -7,11 +7,15 @@ import java.io.IOException;
 
 
 public class Main {
-
-
-    public Main() {}
-
-
+    /**
+     * The main entry point for the application.
+     *
+     * This method initializes the application, sets the console encoding to UTF-8,
+     * creates a Menu object, and displays the main menu.
+     *
+     * @param args Command-line arguments (not used in this application).
+     * @throws IOException If an I/O error occurs during menu display or encoding setup.
+     */
     public static void main(String[] args) throws IOException {
         System.setProperty("console.encoding", "UTF-8");
         Menu menu = new Menu();

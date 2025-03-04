@@ -20,8 +20,19 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
+/**
+ * File extract class. This is used for taking pdf, doc and docx files and extracting the text to save to .txt files
+ * @author Henry Burbridge
+ */
 public class FileExtractor {
 
+    /**
+     * To extract the contents of a docx file and save to a txt
+     * @param docxFilePath - the file path of the docx file
+     * @param folderPath - the folder to save the file too
+     * @param newFileName - what to name the file
+     * @throws IOException - if there is an error extracting data from the file
+     */
     public void docxToTxt(String docxFilePath, String folderPath, String newFileName) throws IOException {
         if (docxFilePath == null || folderPath == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
@@ -62,7 +73,13 @@ public class FileExtractor {
         }
     }
 
-
+    /**
+     * To convert a doc to txt
+     * @param docFilePath - file path of the doc file
+     * @param destinationDirectory - where to save the file
+     * @param newFileName - the name of the file when saving
+     * @throws IOException - if there is an error extracting data from the file
+     */
     public void docToTxt(String docFilePath, String destinationDirectory, String newFileName) throws IOException {
         if (docFilePath == null || destinationDirectory == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
@@ -92,6 +109,13 @@ public class FileExtractor {
         }
     }
 
+    /**
+     * Convert pdf to a txt
+     * @param pdfFilePath - path of the file to convert
+     * @param destinationDirectory - path of were to save it
+     * @param newFileName - name of file
+     * @throws IOException - if there is an error converting or saving file
+     */
     public void pdfToTxt(String pdfFilePath, String destinationDirectory, String newFileName) throws IOException {
         if (pdfFilePath == null || destinationDirectory == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
@@ -120,6 +144,13 @@ public class FileExtractor {
         }
     }
 
+    /**
+     * This function simply copies a .txt file into a new location
+     * @param sourceFilePath - the path of the original .txt
+     * @param destinationDirectory - where it is to be saved
+     * @param newFileName - the name it is to be saved as
+     * @throws IOException - if there is an error saving
+     */
     public void copyAndRename(String sourceFilePath, String destinationDirectory, String newFileName) throws IOException {
         if (sourceFilePath == null || destinationDirectory == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
@@ -143,6 +174,15 @@ public class FileExtractor {
         }
     }
 
+    /**
+     * Function to determine the MIME type of a file. (e.g., "image/jpeg", "text/plain")
+     * @param filePath - takes a filepath
+     * @return -The MIME type of the file (e.g., "image/jpeg", "text/plain"),
+     * or null if the file path is invalid, the file does not exist, is a
+     * directory, or if an IOException occurs during content type probing.
+     * It is also possible for Files.probeContentType to return null, if the
+     * content type cannot be determined.
+     */
     public String getFileType(String filePath) {
         if (filePath == null || filePath.isEmpty()) {
             return null; // Or throw an IllegalArgumentException
@@ -159,7 +199,6 @@ public class FileExtractor {
             return Files.probeContentType(path);
         } catch (IOException e) {
             // Handle the exception (e.g., log it, return null, or throw a custom exception)
-            e.printStackTrace(); // For debugging purposes
             return null; // Or handle the error appropriately
         }
     }
