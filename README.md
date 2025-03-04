@@ -163,4 +163,15 @@ function and then add that to the hash map.
 While this may sound overkill for short menu's, which to an extent it is, it makes it easier to extend. If in the future, the project 
 required a menu with 10 options, the switch statement would be very long and thus hard to read and maintain. I have even used ```UserAction``` 
 for a menu that only has two options, the reason I have done this is because this project if for Track Genesis. In the future they may want to 
-add more functionality to the program which could mean adding more menu options, this avoids the aforementioned long switch statements. 
+add more functionality to the program which could mean adding more menu options, this avoids the aforementioned long switch statements.
+
+#### User Class
+
+In the plan the User class had 3 variables: ```String: name```, ```String: email``` and ```String: password```, along with one method ```logout()```.
+I have gone with a different approach. I only have two variables: ```String: username``` and ```Boolean: isLoggedIn``` and various functions including
+```login()```, ```register()```, ```logout()``` and ```isLoggedIn()```. The reasons I have changed this are below:
+1. I see no reason to store the password in the class, this is very private, and it would be best for security to have it stored in a file 
+2. For simplicity, I have not required an email to register so there is no need to store one
+3. I have added a boolean variable ```isLoggedIn()``` along with a getter function. This is used when accessing the menu to make sure you see the correct one (Logged in menu or logged out menu).
+4. ```register()``` and ```login()``` have no actual logic in the class, they simply call functions in the `Login` and `Register` classes respectively. I have done this for readability, `user.login()` is far more clear compared to `Login.login()`. It also makes more sense that only `User` can access the `Login` and `Register` compared to `Menu`.
+5. `logout()` is a setter function that sets `isLoggedIn()` to `false`. This means when the menu is next viewed it shows the correct menu, which in this case would be the logged out menu. 
