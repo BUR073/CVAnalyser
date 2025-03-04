@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main {
     /**
      * The main entry point for the application.
-     *
+     * <p>
      * This method initializes the application, sets the console encoding to UTF-8,
      * creates a Menu object, and displays the main menu.
      *

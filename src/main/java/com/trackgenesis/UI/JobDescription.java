@@ -1,6 +1,7 @@
 // SID: 2408078
 package com.trackgenesis.UI;
 
+import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.NLP.JobDescriptionNLP;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
@@ -90,6 +91,7 @@ public class JobDescription {
     public String getFullPath() {
         return this.saveLocation + "/" + fileName + ".txt";
     }
+
 
 
 }
