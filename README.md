@@ -171,7 +171,7 @@ classDiagram
         -jd: JobDescription
         -numberApplicants: int
         +selectJobID(): int
-        +sortByDetailType(detailType: DetailType): void
+        +sortByDetailType(detailType: String): void
         +filterByDetail(detail: String): void
         +filterNumberApplicants(numberApplicants: int): void
         +scoreApplicant(): ApplicantJobScore
@@ -183,7 +183,7 @@ classDiagram
         +getFileType(): String
         +convertToTxt(): String
         +addExtractionError(): boolean
-        +extractSection(detailType: DetailType): String
+        +extractSection(detailType: String): String
         +extractKeywords(): String
     }
     class JobProcessor {
@@ -212,13 +212,13 @@ classDiagram
     class JobDetail {
         -detail: String
         -detailWeighting: int
-        -detailType: DetailType
+        -detailType: String
         +editDetail(): String
         +editWeighting(): int
     }
     class JobSection {
         -section: String
-        -sectionType: DetailType
+        -sectionType: String
         -extractionError: boolean
         -jobDetail: JobDetail[]
         -sectionWeighting: int
@@ -239,7 +239,7 @@ classDiagram
     class ApplicantSection {
         -sectionFullText: String
         -sectionKeywords: String
-        -sectionType: DetailType
+        -sectionType: String
     }
     class Applicant {
         -cvText: String
@@ -252,12 +252,6 @@ classDiagram
         -keywords: String[]
         -applicantSection: ApplicantSection[]
         +deleteApplicant(): void
-    }
-    enum DetailType {
-        RequiredSkills,
-        DesiredSkills,
-        Education,
-        Experience
     }
 
     User "1" -- "0..*" CVAnalyser : uses
@@ -277,5 +271,5 @@ classDiagram
     ApplicantJobScore "1" -- "1" Applicant : refers
     ApplicantJobScore "1" -- "1" JobDescription : refers
     Applicant "1" -- "*" ApplicantSection : contains
-    ApplicantSection "1" -- "1" DetailType : refers
-    JobDetail "1" -- "1" DetailType : refers
+    ApplicantSection "1" -- "1" String : refers
+    JobDetail "1" -- "1" String : refers
