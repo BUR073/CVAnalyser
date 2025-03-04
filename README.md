@@ -150,7 +150,7 @@ critical thinking, data processing, and optimization to improve hiring workflows
 Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will
 detail why below. 
 
-#### Interfaces 
+#### Interfaces and Action classes
 
 So one of the most obvious changes is the addition of an interface class ``UserAction`` along with a group of action classes
 split into a few packages (```actions.loggedin```, ```actions.loggedOut```, ```action.jobDescription```).
@@ -176,6 +176,12 @@ I have gone with a different approach. I only have two variables: ```String: use
 4. ```register()``` and ```login()``` have no actual logic in the class, they simply call functions in the `Login` and `Register` classes respectively. I have done this for readability, `user.login()` is far more clear compared to `Login.login()`. It also makes more sense that only `User` can access the `Login` and `Register` compared to `Menu`.
 5. `logout()` is a setter function that sets `isLoggedIn()` to `false`. This means when the menu is next viewed it shows the correct menu, which in this case would be the logged out menu. 
 
+#### Separation of UI and logic
+
+While the implementation of `Login` and `Register` is already a step away from the initial plan, I have also created two other classes
+`LoginAuth` and `RegisterAuth`. This separates the UI loggging in and registering from the actual logic that makes it work. I have done this to make it easier to read and easier to maintain.
+By separating the UI and logic, you make files smaller. This makes it easier to read as you have to scroll around less, it also makes it simpler to find bugs.
+Also, it allows for reuse of logic, which I haven't done in this project but in the future there may be a scenario where that is useful. I have also done this to `JobDescripton`. 
 ## Installation
 
 To install and run CVAnalyser, follow these steps:
