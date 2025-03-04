@@ -1,10 +1,10 @@
-# Smart CV Analyzer - 
+# Smart CV Analyzer 
 
 ## SID: 2408078
 
 ## Introduction
 
-The project outlined below is part of my 1st year Software Principles module assesment at Anglia Ruskin University. This is my first project in Java as well as my first introduction to the Object Oriented Programming style. 
+The project outlined below is part of my 1st year Software Principles module assessment at Anglia Ruskin University. This is my first project in Java as well as my first introduction to the Object-Oriented Programming style. 
 ## Background
 
 Recruitment teams face the challenge of manually screening hundreds of resumes, a process that is both time-consuming and prone to errors. This project aims to develop a **Smart CV Analyzer** that automates this process by leveraging Natural Language Processing (NLP) to jobDescriptionNLP resumes, extract relevant skills and experience, and match them to job requirements.
