@@ -149,3 +149,18 @@ critical thinking, data processing, and optimization to improve hiring workflows
 ![Class diagram created in the planning stage of this project](src/main/resources/READMEResources/ClassDiagram.png)
 Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will
 detail why below. 
+
+#### Interfaces 
+
+So one of the most obvious changes is the addition of an interface class ``UserAction`` along with a group of action classes
+split into a few packages (```actions.loggedin```, ```actions.loggedOut```, ```action.jobDescription```).
+These are used in the various menus within the project. ```UserAction``` defines a method ```execute()```. The action functions
+implement ```UserAction``` to call functions in other classes in the project, for example ```login()``` in the ```User``` class.
+This in OOP concept called polymorphism. There are a few benefits to doing it this way instead of using switch statements. One benfit is 
+it is modular and easy to extend. All you need to do is create a new Action class write what you would like to do within the ```execute()```
+function and then add that to the hash map. 
+
+While this may sound overkill for short menu's, which to an extent it is, it makes it easier to extend. If in the future, the project 
+required a menu with 10 options, the switch statement would be very long and thus hard to read and maintain. I have even used ```UserAction``` 
+for a menu that only has two options, the reason I have done this is because this project if for Track Genesis. In the future they may want to 
+add more functionality to the program which could mean adding more menu options, this avoids the aforementioned long switch statements. 
