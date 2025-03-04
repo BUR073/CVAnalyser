@@ -129,3 +129,16 @@ This project focuses on designing an automated system to solve real-world challe
 | `main`    | `User`                 | Handles the user login and register as well as storing the username        | 
 
 ## How this project differs from the plan
+
+```plantuml
+@startuml
+class User {
+  - username: string
+  - password: string
+}
+class Login {
+  + authenticate(User): boolean
+}
+User -- Login
+@enduml
+```
