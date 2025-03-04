@@ -131,5 +131,5 @@ This project focuses on designing an automated system to solve real-world challe
 ## How this project differs from the plan
 
 ### Class Diagram
-![Class diagram created in the planning stage of this project](/Users/henryburbridge/CVAnalyser/src/main/resources/READMEResources/ClassDiagram.png)
+![Class diagram created in the planning stage of this project](src/main/resources/READMEResources/ClassDiagram.png)
 Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will detail why below. 
