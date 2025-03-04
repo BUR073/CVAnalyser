@@ -132,11 +132,148 @@ This project focuses on designing an automated system to solve real-world challe
 
 ```mermaid
 classDiagram
-    User "1" -- "*" Login : uses
-    class User{
-        -string username
-        -string password
+    class User {
+        -name: String
+        -email: String
+        -password: String
+        +logout(): void
     }
-    class Login{
-        +boolean authenticate(User user)
+    class CVAnalyser {
+        -u: User
+        -m: Menu
+        -userFilePath: String
+        +login(): void
+        +register(): void
+        +usernameExist(): boolean
+        +createUser(): void
+        +runMenu(): void
     }
+    class Menu {
+        -userChoice: int
+        -a: Applicant[]
+        -jd: JobDescription[]
+        -ar: ApplicantRanking
+        -u: User
+        -jobFilePath: String
+        -applicantFilePath: String
+        -applicantRankingFilePath: String
+        +addApplicant(): Applicant
+        +addJobDescription(): JobDescription
+        +rankCVs(): ApplicantRanking
+        +save(): void
+        +uploadJobDescription(): void
+        +inputJobDescription(): void
+    }
+    class ApplicantRanking {
+        -ajs: ApplicantJobScore[]
+        -jd: JobDescription
+        -numberApplicants: int
+        +selectJobID(): int
+        +sortByDetailType(detailType: DetailType): void
+        +filterByDetail(detail: String): void
+        +filterNumberApplicants(numberApplicants: int): void
+        +scoreApplicant(): ApplicantJobScore
+    }
+    class FileProcessor {
+        -pathToOpenFrom: String
+        -pathToSaveTo: String
+        +chooseFile(): String
+        +getFileType(): String
+        +convertToTxt(): String
+        +addExtractionError(): boolean
+        +extractSection(detailType: DetailType): String
+        +extractKeywords(): String
+    }
+    class JobProcessor {
+        +extractTitle(): String
+        +extractID(): int
+        +editTitle(): String
+        +editID(): int
+        +editJobDetails(): String
+    }
+    class ApplicantProcessor {
+        +extractName(): String
+        +extractEmail(): String
+        +extractAddress(): String
+        +extractPhoneNumber(): String
+        +addExtraConsideration(): boolean
+    }
+    class JobDescription {
+        -title: String
+        -titleExtractionError: boolean
+        -ID: int
+        -iDExtractionError: boolean
+        -jobSection: JobSection[]
+        +deleteJobDescription(): void
+        +addExtractionError(): void
+    }
+    class JobDetail {
+        -detail: String
+        -detailWeighting: int
+        -detailType: DetailType
+        +editDetail(): String
+        +editWeighting(): int
+    }
+    class JobSection {
+        -section: String
+        -sectionType: DetailType
+        -extractionError: boolean
+        -jobDetail: JobDetail[]
+        -sectionWeighting: int
+        +editWeighting(): int
+        +addExtractionError(): boolean
+    }
+    class ApplicantJobScore {
+        -a: Applicant
+        -jd: JobDescription
+        -jobID: int
+        -totalScore: int
+        -sectionScore: int[]
+        -detailMatches: boolean[]
+        -extraConsideration: boolean
+        +detailMatch(): boolean
+        +calculateScore(detailCategory: String): int
+    }
+    class ApplicantSection {
+        -sectionFullText: String
+        -sectionKeywords: String
+        -sectionType: DetailType
+    }
+    class Applicant {
+        -cvText: String
+        -name: String
+        -email: String
+        -address: String
+        -phoneNumber: String
+        -extraConsideration: boolean
+        -extractionError: boolean
+        -keywords: String[]
+        -applicantSection: ApplicantSection[]
+        +deleteApplicant(): void
+    }
+    enum DetailType {
+        RequiredSkills
+        DesiredSkills
+        Education
+        Experience
+    }
+
+    User "1" -- "0..*" CVAnalyser : uses
+    CVAnalyser "1" -- "1" Menu : uses
+    CVAnalyser "1" -- "0..*" Applicant : manages
+    CVAnalyser "1" -- "0..*" JobDescription : manages
+    CVAnalyser "1" -- "1" ApplicantRanking : creates
+    Menu "1" -- "0..*" Applicant : manages
+    Menu "1" -- "0..*" JobDescription : manages
+    Menu "1" -- "1" ApplicantRanking : creates
+    ApplicantRanking "1" -- "*" ApplicantJobScore : contains
+    ApplicantRanking "1" -- "1" JobDescription : refers
+    FileProcessor <|-- JobProcessor : extends
+    FileProcessor <|-- ApplicantProcessor : extends
+    JobDescription "1" -- "*" JobSection : contains
+    JobSection "1" -- "*" JobDetail : contains
+    ApplicantJobScore "1" -- "1" Applicant : refers
+    ApplicantJobScore "1" -- "1" JobDescription : refers
+    Applicant "1" -- "*" ApplicantSection : contains
+    ApplicantSection "1" -- "1" DetailType : refers
+    JobDetail "1" -- "1" DetailType : refers
