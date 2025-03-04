@@ -117,23 +117,28 @@ critical thinking, data processing, and optimization to improve hiring workflows
 * **Ambiguous Terms:** Map synonyms (e.g., "ML" = "Machine Learning") using a glossary.
 
 ## Package and Class Overview
-
-| Package   | Class Name             | Description                                                                |
-|-----------|------------------------|----------------------------------------------------------------------------|
-| `main`    | `Main`                 | The entry point for the program                                            |
-| `main`    | `User`                 | Handles the user login and register as well as storing the username        | 
-| `UI`      | `JobDescription`       | The UI for uploading the job description                                   |
-| `UI`      | `Login`                | The UI for the login                                                       |
-| `UI`      | `Menu`                 | The menu UI                                                                |
-| `UI`      | `Register`             | The UI for register                                                        |
-| `NLP`     | `JobDescriptionNLP`    | Uses NLP to parse the job description                                      |
-| `records` | `CVRecord`             | Stores the data from the CV                                                |
-| `records` | `JobDescriptionRecord` | Stores the data from the Job description, parsed using `JobDescriptionNLP` |
-| `util`    | `FileExtractor`        | Extracts data from files and saves to `.txt` file                          |
-| `util`    | `KeyboardReader`       | Utility function that takes user inputs                                    |
-| `util`    | `FileSaver`            | Saves file to chosen dir                                                   |
-| `auth`    | `LoginAuth`            | Handles the logic for the login                                            |
-| `auth`    | `RegisterAuth`         | Handles the logic for register                                             |
+| Package             | Class Name                   | Description                                                                  |
+|---------------------|------------------------------|------------------------------------------------------------------------------|
+| `main`              | `Main`                       | The entry point for the program                                              |
+| `main`              | `User`                       | Handles the user login and register as well as storing the username          | 
+| `UI`                | `JobDescription`             | The UI for uploading the job description                                     |
+| `UI`                | `Login`                      | The UI for the login                                                         |
+| `UI`                | `Menu`                       | The menu UI                                                                  |
+| `UI`                | `Register`                   | The UI for register                                                          |
+| `NLP`               | `JobDescriptionNLP`          | Uses NLP to parse the job description                                        |
+| `records`           | `CVRecord`                   | Stores the data from the CV                                                  |
+| `records`           | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`   |
+| `util`              | `FileExtractor`              | Extracts data from files and saves to `.txt` file                            |
+| `util`              | `KeyboardReader`             | Utility function that takes user inputs                                      |
+| `util`              | `FileSaver`                  | Saves file to chosen dir                                                     |
+| `auth`              | `LoginAuth`                  | Handles the logic for the login                                              |
+| `auth`              | `RegisterAuth`               | Handles the logic for register                                               |
+| `actions.loggedIn`  | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`              | 
+| `actions.loggedIn`  | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`    |
+| `actions.loggedIn`  | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                        |
+| `actions.loggedOut` | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                         |
+| `actions.loggedOut` | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                      |
+| `Interface`         | `UserAction`                 | An interface that can return any data type and has an empty execute() method |
 
 ## Project Adaptations and Modifications
 
