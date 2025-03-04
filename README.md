@@ -254,9 +254,9 @@ classDiagram
         +deleteApplicant(): void
     }
     enum DetailType {
-        RequiredSkills
-        DesiredSkills
-        Education
+        RequiredSkills,
+        DesiredSkills,
+        Education,
         Experience
     }
 
