@@ -1,0 +1,166 @@
+@startuml
+
+package com.trackgenesis.util {
+  class FileExtractor {
+    + docxToTxt(docxFilePath: String, folderPath: String, newFileName: String): void throws IOException
+    + docToTxt(docFilePath: String, destinationDirectory: String, newFileName: String): void throws IOException
+    + pdfToTxt(pdfFilePath: String, destinationDirectory: String, newFileName: String): void throws IOException
+    + copyAndRename(sourceFilePath: String, destinationDirectory: String, newFileName: String): void throws IOException
+    + getFileType(filePath: String): String
+  }
+
+  class FileSaver {
+    - convert: FileExtractor
+    - startDir: String
+    + FileSaver() throws IOException
+    + saveUnknownFileType(filePath: String, saveLocation: String, fileName: String): void throws IOException
+    + chooseFile(): String
+    + saveToNewFile(contents: String, folderPath: String, fileName: String): void throws IOException
+  }
+
+  class KeyboardReader {
+    - kbr: Scanner
+    + KeyboardReader()
+    + close(): void
+    + getInt(mes: String): int
+    + getLongString(mes: String): String
+    + getInt(mes: String, min: int, max: int): int
+    + getString(mes: String): String
+  }
+}
+
+package com.trackgenesis.UI {
+  class Register {
+    - registerAuth: RegisterAuth
+    - kbr: KeyboardReader
+    + Register(filePath: String)
+    + register(): void throws IOException
+  }
+
+  class Menu {
+    - kbr: KeyboardReader
+    - JD: JobDescription
+    - user: User
+    - properties: Properties
+    - loggedInMenuView: String
+    - loggedOutMenuView: String
+    + Menu() throws IOException
+    - getFromProperties(name: String): String throws IOException
+    + showMenu(): void throws IOException
+    - loggedInMenu(): void throws IOException
+    - loggedOutMenu(): void throws IOException
+  }
+
+  class Login {
+    - loginAuth: LoginAuth
+    - kbr: KeyboardReader
+    - username: String
+    + Login(filePath: String) throws IOException
+    + getUsername(): String
+    + login(): boolean
+  }
+
+  class JobDescription {
+    - kbr: KeyboardReader
+    - save: FileSaver
+    - saveLocation: String
+    - fileName: String
+    - jobDescriptionNLP: JobDescriptionNLP
+    - uploadMenu: String
+    + JobDescription() throws IOException
+    + showJobDescription(): void
+    + upload(): JobDescriptionRecord throws IOException
+    + getFullPath(): String
+  }
+}
+
+package com.trackgenesis.records {
+  class JobDescriptionRecord {
+    people: Set<String>
+    locations: Set<String>
+    organizations: Set<String>
+    dates: Set<String>
+    times: Set<String>
+    + JobDescriptionRecord()
+  }
+
+  class CVRecord {
+    education: Set<String>
+    experience: Set<String>
+    skills: Set<String>
+    jobTitles: Set<String>
+    name: String
+    email: String
+    phoneNumber: int
+    + CVRecord()
+  }
+}
+
+package com.trackgenesis.NLP {
+  class JobDescriptionNLP {
+    - people: Set<String>
+    - locations: Set<String>
+    - organizations: Set<String>
+    - dates: Set<String>
+    - times: Set<String>
+    - text: String
+    + JobDescriptionNLP() throws IOException
+    + extractInformation(): JobDescriptionRecord throws IOException
+    - reconstruct(tokens: String, start: int, end: int): String
+    - load(model: String): InputStream
+  }
+}
+
+package com.trackgenesis.main {
+  class Main {
+    + main(args: String): void throws IOException
+  }
+
+  class User {
+    - username: String
+    - loggedIn: boolean
+    - register: Register
+    - login: Login
+    + User() throws IOException
+    + login(): void throws IOException
+    + register(): void throws IOException
+    + logout(): void
+    + isLoggedIn(): boolean
+    + getUsername(): String
+  }
+}
+
+package com.trackgenesis.auth {
+  class RegisterAuth {
+    - filePath: String
+    + RegisterAuth(filePath: String)
+    + register(username: String, password: String): void throws IOException
+  }
+
+  class LoginAuth {
+    - users: Map<String, String>
+    + LoginAuth(filePath: String) throws IOException
+    - loadUsersFromFile(filePath: String): Map<String, String> throws IOException
+    + login(username: String, password: String): boolean
+  }
+}
+
+' Relationships
+Main --> Menu : creates
+FileSaver --> FileExtractor : uses
+JobDescription --> KeyboardReader : uses
+JobDescription --> FileSaver : uses
+JobDescription --> JobDescriptionNLP : uses
+JobDescription --> JobDescriptionRecord : creates
+Menu --> KeyboardReader : uses
+Menu --> JobDescription : uses
+Menu --> User : uses
+Login --> LoginAuth : uses
+Login --> KeyboardReader : uses
+Register --> RegisterAuth : uses
+Register --> KeyboardReader : uses
+User --> Login : uses
+User --> Register : uses
+JobDescriptionNLP --> JobDescriptionRecord : creates
+
+@enduml
