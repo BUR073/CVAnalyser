@@ -40,13 +40,14 @@ public class FileExtractor {
 
         Path docxPath = Paths.get(docxFilePath);
         Path destinationPath = Paths.get(folderPath, newFileName + ".txt");
+        Path folder = Paths.get(folderPath);
 
         if (!Files.exists(docxPath)) {
             throw new IOException("DOCX file does not exist: " + docxPath);
         }
 
-        if (!Files.isDirectory(Paths.get(folderPath))) {
-            Files.createDirectories(Paths.get(folderPath));
+        if (!Files.isDirectory(folder)) {
+            Files.createDirectories(folder);
         }
 
         try (XWPFDocument document = new XWPFDocument(Files.newInputStream(docxPath));
@@ -87,13 +88,14 @@ public class FileExtractor {
 
         Path docPath = Paths.get(docFilePath);
         Path destinationPath = Paths.get(destinationDirectory, newFileName + ".txt");
+        Path destinationFolder = Paths.get(destinationDirectory);
 
         if (!Files.exists(docPath)) {
             throw new IOException("DOC file does not exist: " + docPath);
         }
 
-        if (!Files.isDirectory(Paths.get(destinationDirectory))) {
-            Files.createDirectories(Paths.get(destinationDirectory));
+        if (!Files.isDirectory(destinationFolder)) {
+            Files.createDirectories(destinationFolder);
         }
 
         try (InputStream inputStream = Files.newInputStream(docPath);
@@ -123,13 +125,14 @@ public class FileExtractor {
 
         Path pdfPath = Paths.get(pdfFilePath);
         Path destinationPath = Paths.get(destinationDirectory, newFileName + ".txt");
+        Path destinationFolder = Paths.get(destinationDirectory);
 
         if (!Files.exists(pdfPath)) {
             throw new IOException("PDF file does not exist: " + pdfPath);
         }
 
-        if (!Files.isDirectory(Paths.get(destinationDirectory))) {
-            Files.createDirectories(Paths.get(destinationDirectory));
+        if (!Files.isDirectory(destinationFolder)) {
+            Files.createDirectories(destinationFolder);
         }
 
         try (PDDocument document = PDDocument.load(new java.io.File(pdfFilePath));
@@ -158,13 +161,14 @@ public class FileExtractor {
 
         Path sourcePath = Paths.get(sourceFilePath);
         Path destinationPath = Paths.get(destinationDirectory, newFileName + ".txt"); // Append .txt
+        Path destinationDir = Paths.get(destinationDirectory);
 
         if (!Files.exists(sourcePath)) {
             throw new IOException("Source file does not exist: " + sourcePath);
         }
 
-        if (!Files.isDirectory(Paths.get(destinationDirectory))) {
-            Files.createDirectories(Paths.get(destinationDirectory));
+        if (!Files.isDirectory(destinationDir)) {
+            Files.createDirectories(destinationDir);
         }
 
         try {
