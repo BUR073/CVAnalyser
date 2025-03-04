@@ -11,9 +11,9 @@ public class Register {
     private final RegisterAuth registerAuth;
     private final KeyboardReader kbr;
 
-    public Register(String filePath) {
+    public Register(String filePath, KeyboardReader kbr) throws IOException {
         this.registerAuth = new RegisterAuth(filePath);
-        this.kbr = new KeyboardReader();
+        this.kbr = kbr;
     }
 
     public void register() throws IOException {

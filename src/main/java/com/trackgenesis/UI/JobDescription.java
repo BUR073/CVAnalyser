@@ -22,8 +22,8 @@ public class JobDescription {
     private final String uploadMenu;
 
 
-    public JobDescription() throws IOException {
-        this.kbr = new KeyboardReader();
+    public JobDescription(KeyboardReader kbr) throws IOException {
+        this.kbr = kbr;
         this.save = new FileSaver();
         this.jobDescriptionNLP = new JobDescriptionNLP();
 

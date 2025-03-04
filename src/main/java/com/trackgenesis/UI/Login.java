@@ -12,17 +12,17 @@ import java.io.IOException;
 public class Login {
 
     private final LoginAuth loginAuth; // Make LoginService a member
-    private final KeyboardReader kbr;
     private String username;
+    private final KeyboardReader kbr;
 
 
     /**
      *
      * @param filePath - File Path of the username and password file
      */
-    public Login(String filePath) throws IOException { // Constructor
+    public Login(String filePath, KeyboardReader kbr) throws IOException { // Constructor
         this.loginAuth = new LoginAuth(filePath);
-        this.kbr = new KeyboardReader();
+        this.kbr = kbr;
     }
 
     public String getUsername(){

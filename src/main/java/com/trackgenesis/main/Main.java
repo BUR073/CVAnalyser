@@ -2,6 +2,7 @@
 
 package com.trackgenesis.main;
 import com.trackgenesis.UI.Menu;
+import com.trackgenesis.util.KeyboardReader;
 
 import java.io.IOException;
 
@@ -18,7 +19,8 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         System.setProperty("console.encoding", "UTF-8");
-        Menu menu = new Menu();
+        KeyboardReader kbr = new KeyboardReader();
+        Menu menu = new Menu(kbr);
         menu.showMenu();
 
     }

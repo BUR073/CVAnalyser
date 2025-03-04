@@ -3,6 +3,7 @@ package com.trackgenesis.main;
 
 import com.trackgenesis.UI.Login;
 import com.trackgenesis.UI.Register;
+import com.trackgenesis.util.KeyboardReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +18,8 @@ public class User {
     private String username; // String to store username
     private boolean loggedIn; // Boolean for storing whether a user is logged in
     private final Register register; // Register class
-    private final Login login; // Login class
+    private final Login login;// Login class
+    private final KeyboardReader kbr;
 
     /**
      * Constructor
@@ -25,8 +27,8 @@ public class User {
      * Sets initial state of loggedIn
      * @throws IOException if there is I/O error when loading the properties file
      */
-    public User() throws IOException {
-
+    public User(KeyboardReader kbr) throws IOException {
+        this.kbr = kbr;
         // Load file.properties
         Properties properties = new Properties();
         InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
@@ -37,8 +39,8 @@ public class User {
 
         // Set var initial states
         this.loggedIn = false;
-        this.register = new Register(UserFilePath);
-        this.login = new Login(UserFilePath);
+        this.register = new Register(UserFilePath, this.kbr);
+        this.login = new Login(UserFilePath, this.kbr);
     }
 
     /**

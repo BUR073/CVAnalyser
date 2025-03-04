@@ -19,11 +19,11 @@ public class Menu {
     private final String loggedOutMenuView;
 
 
-    public Menu() throws IOException {
+    public Menu(KeyboardReader kbr) throws IOException {
         this.properties = new Properties();
-        this.user = new User();
-        this.kbr = new KeyboardReader();
-        this.JD = new JobDescription();
+        this.kbr = kbr;
+        this.JD = new JobDescription(this.kbr);
+        this.user = new User(this.kbr);
 
         this.loggedInMenuView = this.getFromProperties("loggedInMenu");
         this.loggedOutMenuView = this.getFromProperties("loggedOutMenu");
