@@ -130,15 +130,13 @@ This project focuses on designing an automated system to solve real-world challe
 
 ## How this project differs from the plan
 
-```plantuml
-@startuml
-class User {
-  - username: string
-  - password: string
-}
-class Login {
-  + authenticate(User): boolean
-}
-User -- Login
-@enduml
-```
+```mermaid
+classDiagram
+    User "1" -- "*" Login : uses
+    class User{
+        -string username
+        -string password
+    }
+    class Login{
+        +boolean authenticate(User user)
+    }
