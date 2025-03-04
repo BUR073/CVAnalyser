@@ -175,3 +175,52 @@ I have gone with a different approach. I only have two variables: ```String: use
 3. I have added a boolean variable ```isLoggedIn()``` along with a getter function. This is used when accessing the menu to make sure you see the correct one (Logged in menu or logged out menu).
 4. ```register()``` and ```login()``` have no actual logic in the class, they simply call functions in the `Login` and `Register` classes respectively. I have done this for readability, `user.login()` is far more clear compared to `Login.login()`. It also makes more sense that only `User` can access the `Login` and `Register` compared to `Menu`.
 5. `logout()` is a setter function that sets `isLoggedIn()` to `false`. This means when the menu is next viewed it shows the correct menu, which in this case would be the logged out menu. 
+
+## Installation
+
+To install and run CVAnalyser, follow these steps:
+
+1.  **Prerequisites:**
+    * Java Development Kit (JDK) 8 or later.
+    * Maven.
+    * Git (optional, but recommended for cloning the repository).
+
+2.  **Clone the Repository (if you haven't already):**
+
+    ```bash
+    git clone [https://github.com/BUR073/CVAnalyser.git](https://www.google.com/search?q=https://github.com/BUR073/CVAnalyser.git)
+    cd CVAnalyser
+    ```
+
+3.  **Build the Project using Maven:**
+
+    ```bash
+    mvn clean install
+    ```
+
+    This command will download the necessary dependencies and compile the project. The executable JAR file will be created in the `target` directory.
+
+4.  **Run the Application:**
+
+    Navigate to the `target` directory:
+
+    ```bash
+    cd target
+    ```
+
+    Run the JAR file:
+
+    ```bash
+    java -jar CVAnalyser-1.0-SNAPSHOT.jar #Replace with the correct jar name if different.
+    ```
+    Note: The actual jar name will depend on your project version, check the target folder for the correct name.
+    If you have issues with the snapshot jar name, you can also run the application using maven.
+    ```bash
+    mvn exec:java -Dexec.mainClass="com.trackgenesis.main.Main"
+    ```
+
+**Troubleshooting:**
+
+* If you encounter dependency issues during the build process, ensure that your Maven installation is configured correctly.
+* If you get a java version error, ensure you are using java 8 or higher.
+* If you have issues with the main class not being found, double check the package and main class name.
