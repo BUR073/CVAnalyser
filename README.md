@@ -282,3 +282,5 @@ graph LR
     Applicant "1" -- "*" ApplicantSection : contains
     ApplicantSection "1" -- "1" DetailType : refers
     JobDetail "1" -- "1" DetailType : refers
+```
+Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will detail why below. 
