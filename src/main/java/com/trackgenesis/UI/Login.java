@@ -12,12 +12,11 @@ import java.io.IOException;
 public class Login {
 
     private final LoginAuth loginAuth; // Make LoginService a member
-    private String username;
     private final KeyboardReader kbr;
+    private String username;
 
 
     /**
-     *
      * @param filePath - File Path of the username and password file
      */
     public Login(String filePath, KeyboardReader kbr) throws IOException { // Constructor
@@ -25,11 +24,11 @@ public class Login {
         this.kbr = kbr;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
+
     /**
-     *
      * @return boolean - Returns True when logged in, false when not
      */
     public boolean login() { // No need for throws here, handle in login

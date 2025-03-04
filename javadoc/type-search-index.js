@@ -1,1 +1,8 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.trackgenesis.util","l":"KeyboardReader"},{"p":"com.trackgenesis.UI","l":"Login"},{"p":"com.trackgenesis.auth","l":"LoginService"},{"p":"com.trackgenesis","l":"Main"},{"p":"com.trackgenesis.UI","l":"Menu"}];updateSearchResults();
+typeSearchIndex = [{"l": "All Classes and Interfaces", "u": "allclasses-index.html"}, {
+    "p": "com.trackgenesis.util",
+    "l": "KeyboardReader"
+}, {"p": "com.trackgenesis.UI", "l": "Login"}, {
+    "p": "com.trackgenesis.auth",
+    "l": "LoginService"
+}, {"p": "com.trackgenesis", "l": "Main"}, {"p": "com.trackgenesis.UI", "l": "Menu"}];
+updateSearchResults();

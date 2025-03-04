@@ -1,5 +1,6 @@
 // SID: 2408078
 package com.trackgenesis.util;
+
 import java.util.Scanner;
 
 // This Class is taken from the tutorial session, I have made minor changes, but it is on the whole, unchanged.
@@ -8,7 +9,6 @@ import java.util.Scanner;
  * A helper class to enable input of data from the keyboard ensuring exceptions are handled here.
  *
  * @author Nigel Edwards
- *
  */
 public class KeyboardReader {
 
@@ -17,16 +17,14 @@ public class KeyboardReader {
     /**
      * Constructor -  instantiate a scanner
      */
-    public KeyboardReader()
-    {
+    public KeyboardReader() {
         kbr = new Scanner(System.in);
     }
 
     /**
      * Should only be used when we no longer need the reader
      */
-    public void close()
-    {
+    public void close() {
         kbr.close();
     }
 
@@ -36,22 +34,17 @@ public class KeyboardReader {
      * @param mes - message to display to the user
      * @return - Integer entered by the user
      */
-    public int getInt(String mes)
-    {
+    public int getInt(String mes) {
         int retv = 0;
         boolean valid = false;
 
-        while (!valid)
-        {
-            try
-            {
-                System.out.print(mes +": ");
+        while (!valid) {
+            try {
+                System.out.print(mes + ": ");
                 String input = kbr.nextLine();
                 retv = Integer.parseInt(input);
                 valid = true;
-            }
-            catch (NumberFormatException ex)
-            {
+            } catch (NumberFormatException ex) {
                 //ex.printStackTrace();
                 //System.out.println(ex.getMessage());
                 System.out.println("Please enter a valid Integer");
@@ -88,13 +81,11 @@ public class KeyboardReader {
         int retv = 0;
         boolean valid = false;
 
-        while (!valid)
-        {
+        while (!valid) {
             retv = getInt(mes);
             if (retv >= min && retv <= max)
                 valid = true;
-            else
-            {
+            else {
                 System.out.println("Please enter an Integer between " + min + " and " + max);
             }
         }
@@ -103,13 +94,11 @@ public class KeyboardReader {
 
 
     /**
-     *
      * @param mes - Message to display
      * @return - Data entered at keyboard by user
      */
-    public String getString(String mes)
-    {
-        System.out.print(mes +": ");
+    public String getString(String mes) {
+        System.out.print(mes + ": ");
         return kbr.nextLine();
     }
 

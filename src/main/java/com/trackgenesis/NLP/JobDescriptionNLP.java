@@ -2,13 +2,6 @@
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.JobDescriptionRecord;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
@@ -16,6 +9,12 @@ import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class JobDescriptionNLP {
 
@@ -39,7 +38,6 @@ public class JobDescriptionNLP {
         } else {
             this.text = "";
         }
-
 
 
     }
@@ -69,9 +67,7 @@ public class JobDescriptionNLP {
                      InputStream DateModel = this.load("models/en-ner-date.bin");
                      InputStream TimeModel = this.load("models/en-ner-time.bin")
 
-                )
-
-                {
+                ) {
                     if (PersonModel == null || LocationModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
                         throw new IOException("One or more NER models not found");
                     }
@@ -132,11 +128,11 @@ public class JobDescriptionNLP {
         }
     }
 
-    private String reconstruct(String[] tokens, int start, int end){
+    private String reconstruct(String[] tokens, int start, int end) {
         return String.join(" ", Arrays.copyOfRange(tokens, start, end));
     }
 
-    private InputStream load(String model){
+    private InputStream load(String model) {
         return getClass().getClassLoader().getResourceAsStream(model);
     }
 }

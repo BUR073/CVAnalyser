@@ -1,36 +1,33 @@
 // SID: 2408078
 package com.trackgenesis.util;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
-import java.nio.file.StandardCopyOption;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.io.InputStream;
-
-import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 /**
  * File extract class. This is used for taking pdf, doc and docx files and extracting the text to save to .txt files
+ *
  * @author Henry Burbridge
  */
 public class FileExtractor {
 
     /**
      * To extract the contents of a docx file and save to a txt
+     *
      * @param docxFilePath - the file path of the docx file
-     * @param folderPath - the folder to save the file too
-     * @param newFileName - what to name the file
+     * @param folderPath   - the folder to save the file too
+     * @param newFileName  - what to name the file
      * @throws IOException - if there is an error extracting data from the file
      */
     public void docxToTxt(String docxFilePath, String folderPath, String newFileName) throws IOException {
@@ -76,9 +73,10 @@ public class FileExtractor {
 
     /**
      * To convert a doc to txt
-     * @param docFilePath - file path of the doc file
+     *
+     * @param docFilePath          - file path of the doc file
      * @param destinationDirectory - where to save the file
-     * @param newFileName - the name of the file when saving
+     * @param newFileName          - the name of the file when saving
      * @throws IOException - if there is an error extracting data from the file
      */
     public void docToTxt(String docFilePath, String destinationDirectory, String newFileName) throws IOException {
@@ -113,9 +111,10 @@ public class FileExtractor {
 
     /**
      * Convert pdf to a txt
-     * @param pdfFilePath - path of the file to convert
+     *
+     * @param pdfFilePath          - path of the file to convert
      * @param destinationDirectory - path of were to save it
-     * @param newFileName - name of file
+     * @param newFileName          - name of file
      * @throws IOException - if there is an error converting or saving file
      */
     public void pdfToTxt(String pdfFilePath, String destinationDirectory, String newFileName) throws IOException {
@@ -149,9 +148,10 @@ public class FileExtractor {
 
     /**
      * This function simply copies a .txt file into a new location
-     * @param sourceFilePath - the path of the original .txt
+     *
+     * @param sourceFilePath       - the path of the original .txt
      * @param destinationDirectory - where it is to be saved
-     * @param newFileName - the name it is to be saved as
+     * @param newFileName          - the name it is to be saved as
      * @throws IOException - if there is an error saving
      */
     public void copyAndRename(String sourceFilePath, String destinationDirectory, String newFileName) throws IOException {
@@ -180,6 +180,7 @@ public class FileExtractor {
 
     /**
      * Function to determine the MIME type of a file. (e.g., "image/jpeg", "text/plain")
+     *
      * @param filePath - takes a filepath
      * @return -The MIME type of the file (e.g., "image/jpeg", "text/plain"),
      * or null if the file path is invalid, the file does not exist, is a

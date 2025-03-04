@@ -1,16 +1,14 @@
-package com.trackgenesis.actions;
+package com.trackgenesis.actions.loggedIn;
 
 import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.main.User;
 
 import java.io.IOException;
 
-public class LogoutAction implements UserAction<Void> {
-    private final User user;
+public class UserLogoutAction implements UserAction<Void> {
     private final Runnable logoutFunction;
 
-    public LogoutAction(User user) {
-        this.user = user;
+    public UserLogoutAction(User user) {
         this.logoutFunction = user::logout; // Use a method reference
     }
 

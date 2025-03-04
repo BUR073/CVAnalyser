@@ -12,19 +12,21 @@ import java.util.Properties;
 /**
  * Class to handle the User
  * Contains functions: login(), register(), logout(), isLoggedIn(), getUsername()
+ *
  * @author Henry Burbridge
  */
 public class User {
-    private String username; // String to store username
-    private boolean loggedIn; // Boolean for storing whether a user is logged in
     private final Register register; // Register class
     private final Login login;// Login class
     private final KeyboardReader kbr;
+    private String username; // String to store username
+    private boolean loggedIn; // Boolean for storing whether a user is logged in
 
     /**
      * Constructor
      * Initiates properties, register and login
      * Sets initial state of loggedIn
+     *
      * @throws IOException if there is I/O error when loading the properties file
      */
     public User(KeyboardReader kbr) throws IOException {
@@ -47,6 +49,7 @@ public class User {
      * Attempts to login the User
      * Calls login() from the login class
      * Calls get username from the login class and sets it
+     *
      * @throws IOException if an I/O error occurs during the login process.
      */
     public void login() throws IOException {
@@ -57,6 +60,7 @@ public class User {
     /**
      * Attempts to register a new user account
      * Calls the register() function from the register class
+     *
      * @throws IOException if an I/O error occurs during the registration process
      */
     public void register() throws IOException {
@@ -66,13 +70,14 @@ public class User {
     /**
      * Logs out the user by setting the boolean var loggedIn to false
      */
-    public void logout(){
+    public void logout() {
         this.loggedIn = false;
         System.out.println("Logged out\n\n");
     }
 
     /**
      * Getter function for isLoggedIn
+     *
      * @return loggedIn
      */
     public boolean isLoggedIn() {
@@ -81,6 +86,7 @@ public class User {
 
     /**
      * Getter function for username
+     *
      * @return username
      */
     public String getUsername() {

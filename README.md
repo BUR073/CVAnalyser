@@ -1,13 +1,18 @@
-# Smart CV Analyzer 
+# Smart CV Analyzer
 
 ## SID: 2408078
 
 ## Introduction
 
-The project outlined below is part of my 1st year Software Principles module assessment at Anglia Ruskin University. This is my first project in Java as well as my first introduction to the Object-Oriented Programming style. 
+The project outlined below is part of my 1st year Software Principles module assessment at Anglia Ruskin University.
+This is my first project in Java as well as my first introduction to the Object-Oriented Programming style.
+
 ## Background
 
-Recruitment teams face the challenge of manually screening hundreds of resumes, a process that is both time-consuming and prone to errors. This project aims to develop a **Smart CV Analyzer** that automates this process by leveraging Natural Language Processing (NLP) to jobDescriptionNLP resumes, extract relevant skills and experience, and match them to job requirements.
+Recruitment teams face the challenge of manually screening hundreds of resumes, a process that is both time-consuming
+and prone to errors. This project aims to develop a **Smart CV Analyzer** that automates this process by leveraging
+Natural Language Processing (NLP) to jobDescriptionNLP resumes, extract relevant skills and experience, and match them
+to job requirements.
 
 **NLP Basics:**
 
@@ -20,7 +25,9 @@ Recruitment teams face the challenge of manually screening hundreds of resumes, 
 
 ## Summary
 
-This project involves researching and designing a Smart Resume Analyzer system to automate resume screening. You will explore tools and techniques for extracting relevant information from resumes and matching them to job requirements. You'll need to clearly define the requirements, assumptions, and decisions involved in this process.
+This project involves researching and designing a Smart Resume Analyzer system to automate resume screening. You will
+explore tools and techniques for extracting relevant information from resumes and matching them to job requirements.
+You'll need to clearly define the requirements, assumptions, and decisions involved in this process.
 
 **Key Objectives:**
 
@@ -36,7 +43,8 @@ This project involves researching and designing a Smart Resume Analyzer system t
 
 **Objective:**
 
-This project focuses on designing an automated system to solve real-world challenges in recruitment. It emphasizes critical thinking, data processing, and optimization to improve hiring workflows.
+This project focuses on designing an automated system to solve real-world challenges in recruitment. It emphasizes
+critical thinking, data processing, and optimization to improve hiring workflows.
 
 ## Deliverables
 
@@ -108,7 +116,6 @@ This project focuses on designing an automated system to solve real-world challe
 * **Formatting Variations:** Start with resumes using standard headings (e.g., "Work Experience").
 * **Ambiguous Terms:** Map synonyms (e.g., "ML" = "Machine Learning") using a glossary.
 
-
 ## Package and Class Overview
 
 | Package   | Class Name             | Description                                                                |
@@ -130,6 +137,8 @@ This project focuses on designing an automated system to solve real-world challe
 
 ## Project Adaptations and Modifications
 
-### Class Diagram Adaptations and Modifications 
+### Class Diagram Adaptations and Modifications
+
 ![Class diagram created in the planning stage of this project](src/main/resources/READMEResources/ClassDiagram.png)
-Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will detail why below. 
+Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will
+detail why below. 

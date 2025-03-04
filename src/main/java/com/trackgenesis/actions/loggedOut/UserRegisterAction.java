@@ -1,14 +1,14 @@
-package com.trackgenesis.actions;
+package com.trackgenesis.actions.loggedOut;
 
 import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.main.User;
 
 import java.io.IOException;
 
-public class RegisterAction implements UserAction<Void> {
+public class UserRegisterAction implements UserAction<Void> {
     private final User user;
 
-    public RegisterAction(User user) {
+    public UserRegisterAction(User user) {
         this.user = user;
     }
 

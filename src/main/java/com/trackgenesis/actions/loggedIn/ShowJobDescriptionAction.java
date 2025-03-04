@@ -1,4 +1,4 @@
-package com.trackgenesis.actions;
+package com.trackgenesis.actions.loggedIn;
 
 import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.UI.JobDescription;

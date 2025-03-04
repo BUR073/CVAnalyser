@@ -34,8 +34,6 @@ public class LoginAuth {
     }
 
 
-
-
     public boolean login(String username, String password) {
         String storedPassword = users.get(username);
         return storedPassword != null && storedPassword.equals(password);

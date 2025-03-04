@@ -1,15 +1,14 @@
 // SID: 2408078
 package com.trackgenesis.UI;
 
-import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.NLP.JobDescriptionNLP;
 import com.trackgenesis.records.JobDescriptionRecord;
-import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.util.FileSaver;
+import com.trackgenesis.util.KeyboardReader;
 
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -66,7 +65,6 @@ public class JobDescription {
     }
 
 
-
     public JobDescriptionRecord upload() throws IOException {
 
         switch (kbr.getInt(this.uploadMenu, 1, 2)) {
@@ -91,7 +89,6 @@ public class JobDescription {
     public String getFullPath() {
         return this.saveLocation + "/" + fileName + ".txt";
     }
-
 
 
 }

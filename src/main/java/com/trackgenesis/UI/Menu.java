@@ -1,10 +1,15 @@
 // SID: 2408078
 package com.trackgenesis.UI;
-import com.trackgenesis.actions.*;
+
 import com.trackgenesis.Interface.UserAction;
+import com.trackgenesis.actions.loggedIn.JobDescriptionUploadAction;
+import com.trackgenesis.actions.loggedIn.ShowJobDescriptionAction;
+import com.trackgenesis.actions.loggedIn.UserLogoutAction;
+import com.trackgenesis.actions.loggedOut.UserLoginAction;
+import com.trackgenesis.actions.loggedOut.UserRegisterAction;
+import com.trackgenesis.main.User;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
-import com.trackgenesis.main.User;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,11 +38,11 @@ public class Menu {
         this.user = new User(this.kbr);
 
         // Create instances of the action classes
-        LogoutAction logoutAction = new LogoutAction(user);
+        UserLogoutAction userLogoutAction = new UserLogoutAction(user);
         ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(this.JD);
-        UploadAction uploadAction = new UploadAction(this.JD);
-        LoginAction loginAction = new LoginAction(this.user);
-        RegisterAction registerAction = new RegisterAction(this.user);
+        JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(this.JD);
+        UserLoginAction userLoginAction = new UserLoginAction(this.user);
+        UserRegisterAction userRegisterAction = new UserRegisterAction(this.user);
 
 
         // Get the menu UI
@@ -49,12 +54,12 @@ public class Menu {
         this.loggedOutActions = new HashMap<>();
 
         // Add the action classes to the hashmaps
-        this.loggedInActions.put(1, uploadAction);
+        this.loggedInActions.put(1, jobDescriptionUploadAction);
         this.loggedInActions.put(2, showJobDescriptionAction);
-        this.loggedInActions.put(5, logoutAction);
+        this.loggedInActions.put(5, userLogoutAction);
 
-        this.loggedOutActions.put(1, loginAction);
-        this.loggedOutActions.put(2, registerAction);
+        this.loggedOutActions.put(1, userLoginAction);
+        this.loggedOutActions.put(2, userRegisterAction);
 
 
     }
@@ -66,12 +71,14 @@ public class Menu {
     }
 
 
-        public void showMenu() throws IOException {
-        if (user.isLoggedIn()) {
-            this.loggedInMenu();
-        } else {
-            this.loggedOutMenu();
-        }
+    public void showMenu() throws IOException {
+       while (true) {
+           if (user.isLoggedIn()) {
+               this.loggedInMenu();
+           } else {
+               this.loggedOutMenu();
+           }
+       }
     }
 
     private void loggedInMenu() throws IOException {
@@ -96,7 +103,7 @@ public class Menu {
             } catch (IOException e) {
                 System.err.println("An error occurred during the action: " + e.getMessage());
 
-            } catch (ClassCastException e){
+            } catch (ClassCastException e) {
                 System.err.println("Unexpected return type from UserAction");
 
             }
@@ -118,6 +125,7 @@ public class Menu {
         } else {
             System.out.println("Invalid choice. Please try again.");
         }
+
     }
 
 }

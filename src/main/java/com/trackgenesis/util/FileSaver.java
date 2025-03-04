@@ -1,18 +1,15 @@
 // SID: 2408078
 package com.trackgenesis.util;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 /**
  * Class FileSaver
  * This class handles saving files
+ *
  * @author Henry Burbridge
  */
 public class FileSaver {
@@ -24,6 +21,7 @@ public class FileSaver {
      * Creates new FileExtractor object
      * Loads properties file
      * Sets start directory for the file chooser
+     *
      * @throws IOException
      */
     public FileSaver() throws IOException {
@@ -40,14 +38,15 @@ public class FileSaver {
     /**
      * This function is used for saving a file when the type is unknown
      * Calls multiples functions including: copyAndRename, pdfToTxt, docToTxt and docxToTxt
-     * @param filePath - the path of the file that you want to save
+     *
+     * @param filePath     - the path of the file that you want to save
      * @param saveLocation - the path for where you want to save the file
-     * @param fileName - what you want to save the file name as
+     * @param fileName     - what you want to save the file name as
      * @throws IOException - if there is an I/O error
      */
     public void saveUnknownFileType(String filePath, String saveLocation, String fileName) throws IOException {
 
-        switch(convert.getFileType(filePath)){
+        switch (convert.getFileType(filePath)) {
             case "text/plain":
                 // Convert and save .txt
                 convert.copyAndRename(filePath, saveLocation, fileName);
@@ -71,6 +70,7 @@ public class FileSaver {
 
     /**
      * Function to be able to choose the file which you wish to save
+     *
      * @return - the file path of the chosen file or null if there is an error
      */
     public String chooseFile() {
@@ -95,9 +95,10 @@ public class FileSaver {
     /**
      * Function used to save a string to a .txt file.
      * This is used when the user wants to type instead of uploading a file
-     * @param contents - String contain what you want to save to the file
+     *
+     * @param contents   - String contain what you want to save to the file
      * @param folderPath - The folder path for where the file is to be saved
-     * @param fileName - The name for the file
+     * @param fileName   - The name for the file
      * @throws IOException - If there is an error saving the file
      */
     public void saveToNewFile(String contents, String folderPath, String fileName) throws IOException {
@@ -113,5 +114,5 @@ public class FileSaver {
     }
 
 
-    }
+}
 
