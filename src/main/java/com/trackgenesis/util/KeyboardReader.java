@@ -1,7 +1,8 @@
+// SID: 2408078
 package com.trackgenesis.util;
 import java.util.Scanner;
 
-
+// This Class is taken from the tutorial session, I have made minor changes, but it is on the whole, unchanged.
 
 /**
  * A helper class to enable input of data from the keyboard ensuring exceptions are handled here.
