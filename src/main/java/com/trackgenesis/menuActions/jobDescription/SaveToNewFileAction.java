@@ -1,7 +1,7 @@
 // SID: 2408078
-package com.trackgenesis.actions.jobDescription;
+package com.trackgenesis.menuActions.jobDescription;
 
-import com.trackgenesis.Interface.UserAction;
+import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.util.FileSaver;
 import com.trackgenesis.util.KeyboardReader;
 

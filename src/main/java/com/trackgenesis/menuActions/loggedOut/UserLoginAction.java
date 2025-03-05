@@ -1,7 +1,7 @@
 // SID: 2408078
-package com.trackgenesis.actions.loggedOut;
+package com.trackgenesis.menuActions.loggedOut;
 
-import com.trackgenesis.Interface.UserAction;
+import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.main.User;
 
 import java.io.IOException;

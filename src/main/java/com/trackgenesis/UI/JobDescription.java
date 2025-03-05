@@ -1,10 +1,10 @@
 // SID: 2408078
 package com.trackgenesis.UI;
 
-import com.trackgenesis.Interface.UserAction;
+import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.NLP.JobDescriptionNLP;
-import com.trackgenesis.actions.jobDescription.SaveToNewFileAction;
-import com.trackgenesis.actions.jobDescription.SaveUnknownFileTypeAction;
+import com.trackgenesis.menuActions.jobDescription.SaveToNewFileAction;
+import com.trackgenesis.menuActions.jobDescription.SaveUnknownFileTypeAction;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.FileSaver;
 import com.trackgenesis.util.KeyboardReader;

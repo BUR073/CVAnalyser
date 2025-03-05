@@ -1,14 +1,14 @@
 // SID: 2408078
 package com.trackgenesis.UI;
 
-import com.trackgenesis.Interface.UserAction;
-import com.trackgenesis.actions.loggedIn.*;
-import com.trackgenesis.actions.loggedOut.UserLoginAction;
-import com.trackgenesis.actions.loggedOut.UserRegisterAction;
+import com.trackgenesis.menuActions.Interface.UserAction;
+import com.trackgenesis.menuActions.loggedIn.*;
+import com.trackgenesis.menuActions.loggedOut.UserLoginAction;
+import com.trackgenesis.menuActions.loggedOut.UserRegisterAction;
 import com.trackgenesis.main.User;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
-import com.trackgenesis.UI.UploadCV;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
