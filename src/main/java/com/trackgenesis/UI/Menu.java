@@ -4,13 +4,14 @@ package com.trackgenesis.UI;
 import com.trackgenesis.Interface.UserAction;
 import com.trackgenesis.actions.loggedIn.JobDescriptionUploadAction;
 import com.trackgenesis.actions.loggedIn.ShowJobDescriptionAction;
+import com.trackgenesis.actions.loggedIn.UploadCVAction;
 import com.trackgenesis.actions.loggedIn.UserLogoutAction;
 import com.trackgenesis.actions.loggedOut.UserLoginAction;
 import com.trackgenesis.actions.loggedOut.UserRegisterAction;
 import com.trackgenesis.main.User;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
-
+import com.trackgenesis.UI.UploadCV;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class Menu {
 
 
     public Menu(KeyboardReader kbr) throws IOException {
+        UploadCV uploadCV = new UploadCV();
         this.properties = new Properties();
         this.kbr = kbr;
         this.JD = new JobDescription(this.kbr);
@@ -41,6 +43,8 @@ public class Menu {
         UserLogoutAction userLogoutAction = new UserLogoutAction(user);
         ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(this.JD);
         JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(this.JD);
+        UploadCVAction uploadCVAction = new UploadCVAction(uploadCV);
+
         UserLoginAction userLoginAction = new UserLoginAction(this.user);
         UserRegisterAction userRegisterAction = new UserRegisterAction(this.user);
 
@@ -56,6 +60,7 @@ public class Menu {
         // Add the action classes to the hashmaps
         this.loggedInActions.put(1, jobDescriptionUploadAction);
         this.loggedInActions.put(2, showJobDescriptionAction);
+        this.loggedInActions.put(3, uploadCVAction);
         this.loggedInActions.put(5, userLogoutAction);
 
         this.loggedOutActions.put(1, userLoginAction);
