@@ -125,7 +125,10 @@ critical thinking, data processing, and optimization to improve hiring workflows
 | `UI`                          | `Login`                      | The UI for the login                                                         |
 | `UI`                          | `Menu`                       | The menu UI                                                                  |
 | `UI`                          | `Register`                   | The UI for register                                                          |
+| `UI`                          | `UploadCV`                   | The UI for uploading CVs                                                     |
+| `UI`                          | `ViewRankedCV`               | Allow the user to view the CV after they have been ranked                    |
 | `NLP`                         | `JobDescriptionNLP`          | Uses NLP to parse the job description                                        |
+| `NLP`                         | `CVsNLP`                     | Uses NLP to parse the CVs                                                    |
 | `records`                     | `CVRecord`                   | Stores the data from the CV                                                  |
 | `records`                     | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`   |
 | `util`                        | `FileExtractor`              | Extracts data from files and saves to `.txt` file                            |

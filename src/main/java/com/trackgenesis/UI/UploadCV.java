@@ -1,6 +1,7 @@
 package com.trackgenesis.UI;
 
 import com.trackgenesis.NLP.CVsNLP;
+import com.trackgenesis.records.CVRecord;
 import com.trackgenesis.util.FileSaver;
 
 import javax.swing.*;
@@ -10,7 +11,6 @@ import java.util.List;
 public class UploadCV {
 
     private final FileSaver fileSaver;
-    private List<String> folderPath;
 
     public UploadCV() throws IOException {
         this.fileSaver = new FileSaver();
@@ -19,9 +19,9 @@ public class UploadCV {
 
     public void upload() {
         System.out.println("Please choose a folder to upload\nAcceptable CV format includes: .txt, .pdf, .doc and .docx");
-        this.folderPath = this.fileSaver.chooseFiles("Text files", "txt");
-        CVsNLP cvsNLP = new CVsNLP(this.folderPath);
-        cvsNLP.start();
+        List<String> folderPath = this.fileSaver.chooseFiles("Text files", "txt");
+        CVsNLP cvsNLP = new CVsNLP(folderPath);
+        List<CVRecord> CVRecords = cvsNLP.start();
 
 
 

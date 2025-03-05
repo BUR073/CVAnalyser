@@ -1,5 +1,7 @@
 package com.trackgenesis.NLP;
 
+import com.trackgenesis.records.CVRecord;
+
 import java.util.List;
 
 public class CVsNLP {
@@ -10,8 +12,10 @@ public class CVsNLP {
 
     }
 
-    public void start(){
+    public List<CVRecord> start(){
+
         System.out.println(this.folderPath);
+        return List.of();
     }
 
 
