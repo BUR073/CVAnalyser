@@ -4,6 +4,8 @@ package com.trackgenesis.util;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -68,6 +70,29 @@ public class FileSaver {
         System.out.println("Successfully Saved");
     }
 
+
+    public List<String> chooseFiles(String description, String... extensions) {
+        JFileChooser fileChooser = new JFileChooser(this.startDir);
+        fileChooser.setMultiSelectionEnabled(true); // Enable multiple file selection
+
+        if (description != null && extensions != null && extensions.length > 0) {
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(description, extensions);
+            fileChooser.setFileFilter(filter);
+        }
+
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File[] selectedFiles = fileChooser.getSelectedFiles();
+            List<String> filePaths = new ArrayList<>();
+            for (File file : selectedFiles) {
+                filePaths.add(file.getAbsolutePath());
+            }
+            return filePaths;
+        } else {
+            return null; // or return an empty list: return new ArrayList<>();
+        }
+    }
     /**
      * Function to be able to choose the file which you wish to save
      *
