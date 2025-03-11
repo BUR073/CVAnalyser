@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: technote-space/toc-generator@v2
+      - uses: technote-space/toc-generator@v3  # Update to v3
         with:
-          FOLDING: false # Optional: set to true for a collapsible TOC
+          FOLDING: false
