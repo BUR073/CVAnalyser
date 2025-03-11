@@ -1,8 +1,8 @@
 # Smart CV Analyzer
 
-## SID: 2408078
+### SID: 2408078
 
-## Table of Contents 
+## Table of Contents
 
 - [Smart CV Analyzer](#smart-cv-analyzer)
     * [Introduction](#introduction)
@@ -26,6 +26,7 @@
 
 The project outlined below is part of my 1st year Software Principles module assessment at Anglia Ruskin University.
 This is my first project in Java as well as my first introduction to the Object-Oriented Programming style.
+Note: Everything from Background through too Challenges is a direct copy from the assignment specification outline. 
 
 ## Background
 
