@@ -18,7 +18,6 @@ import java.util.Properties;
 public class Menu {
 
     private final KeyboardReader kbr;
-    private final JobDescription JD;
     private final User user;
     private final Properties properties;
 
@@ -34,13 +33,13 @@ public class Menu {
         ViewRankedCVs viewRankedCvs = new ViewRankedCVs();
         this.properties = new Properties();
         this.kbr = kbr;
-        this.JD = new JobDescription(this.kbr);
+        JobDescription JD = new JobDescription(this.kbr);
         this.user = new User(this.kbr);
 
         // Create instances of the action classes
         UserLogoutAction userLogoutAction = new UserLogoutAction(user);
-        ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(this.JD);
-        JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(this.JD);
+        ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(JD);
+        JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(JD);
         UploadCVAction uploadCVAction = new UploadCVAction(uploadCV);
         ViewRankedCVsAction viewRankedCVsAction = new ViewRankedCVsAction(viewRankedCvs);
         UserLoginAction userLoginAction = new UserLoginAction(this.user);
@@ -74,16 +73,20 @@ public class Menu {
         return this.properties.getProperty(name);
     }
 
-
-    public void showMenu() throws IOException {
-       while (true) {
-           if (user.isLoggedIn()) {
-               this.loggedInMenu();
-           } else {
-               this.loggedOutMenu();
-           }
-       }
+    public void showMenu() {
+        while (true) {
+            try {
+                if (user.isLoggedIn()) {
+                    this.loggedInMenu();
+                } else {
+                    this.loggedOutMenu();
+                }
+            } catch (IOException e) {
+                System.err.println("Error displaying menu: " + e.getMessage());
+            }
+        }
     }
+
 
     private void loggedInMenu() throws IOException {
         int choice = this.kbr.getInt(loggedInMenuView);

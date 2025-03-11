@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * A helper class to enable input of data from the keyboard ensuring exceptions are handled here.
- *
+ * Taken from tutorial sessions with minor adaptations
  * @author Nigel Edwards
  */
 public class KeyboardReader {

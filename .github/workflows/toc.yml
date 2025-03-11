@@ -1,0 +1,15 @@
+name: Generate TOC
+
+on:
+  push:
+    branches:
+      - main  # or your main branch name
+
+jobs:
+  generate_toc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: technote-space/toc-generator@v2
+        with:
+          FOLDING: false # Optional: set to true for a collapsible TOC
