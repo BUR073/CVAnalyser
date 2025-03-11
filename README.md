@@ -2,7 +2,25 @@
 
 ## SID: 2408078
 
-``TOC``
+## Table of Contents 
+
+- [Smart CV Analyzer](#smart-cv-analyzer)
+    * [Introduction](#introduction)
+    * [Background](#background)
+    * [Summary](#summary)
+    * [Deliverables](#deliverables)
+    * [Requirements](#requirements)
+    * [Suggestions](#suggestions)
+    * [Challenges](#challenges)
+    * [Package and Class Overview](#package-and-class-overview)
+    * [Project Adaptations and Modifications](#project-adaptations-and-modifications)
+        + [Class Diagram Adaptations and Modifications](#class-diagram-adaptations-and-modifications)
+            - [Interfaces and Action classes](#interfaces-and-action-classes)
+            - [User Class](#user-class)
+            - [Separation of UI and logic](#separation-of-ui-and-logic)
+    * [Installation](#installation)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## Introduction
 
