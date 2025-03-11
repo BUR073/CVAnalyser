@@ -2,6 +2,8 @@
 
 ## SID: 2408078
 
+``TOC``
+
 ## Introduction
 
 The project outlined below is part of my 1st year Software Principles module assessment at Anglia Ruskin University.
