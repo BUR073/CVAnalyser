@@ -11,12 +11,12 @@ public class Register {
     private final RegisterAuth registerAuth;
     private final KeyboardReader kbr;
 
-    public Register(String filePath, KeyboardReader kbr) throws IOException {
+    public Register(String filePath, KeyboardReader kbr) {
         this.registerAuth = new RegisterAuth(filePath);
         this.kbr = kbr;
     }
 
-    public void register() throws IOException {
+    public void register() {
         String username = kbr.getString("Enter username");
         String password = kbr.getString("Enter password");
         this.registerAuth.register(username, password);

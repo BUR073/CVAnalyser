@@ -15,7 +15,7 @@ public class LoginAuth {
     private Map<String, String> users;
 
 
-    public LoginAuth(String filePath) throws IOException {
+    public LoginAuth(String filePath) {
         this.filePath = filePath;
         this.hash = new Hashing();
     }
@@ -23,6 +23,7 @@ public class LoginAuth {
 
     private Map<String, String> loadUsersFromFile(String filePath) throws IOException {
         Map<String, String> userMap = new HashMap<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {

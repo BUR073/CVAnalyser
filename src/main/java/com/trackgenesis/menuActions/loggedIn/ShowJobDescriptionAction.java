@@ -4,7 +4,7 @@ package com.trackgenesis.menuActions.loggedIn;
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.UI.JobDescription;
 
-import java.io.IOException;
+
 
 public class ShowJobDescriptionAction implements UserAction<Void> {
 
@@ -15,7 +15,7 @@ public class ShowJobDescriptionAction implements UserAction<Void> {
     }
 
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         jobDescription.showJobDescription(); // Call showJobDescription() here
 
         return null;

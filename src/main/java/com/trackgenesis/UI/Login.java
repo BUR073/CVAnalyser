@@ -19,7 +19,7 @@ public class Login {
     /**
      * @param filePath - File Path of the username and password file
      */
-    public Login(String filePath, KeyboardReader kbr) throws IOException { // Constructor
+    public Login(String filePath, KeyboardReader kbr) { // Constructor
         this.loginAuth = new LoginAuth(filePath);
         this.kbr = kbr;
     }

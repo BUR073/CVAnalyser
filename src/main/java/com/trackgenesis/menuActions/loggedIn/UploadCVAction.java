@@ -4,7 +4,7 @@ package com.trackgenesis.menuActions.loggedIn;
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.UI.UploadCV;
 
-import java.io.IOException;
+
 
 public class UploadCVAction implements UserAction<Void> {
     private final UploadCV uploadCV;
@@ -13,7 +13,7 @@ public class UploadCVAction implements UserAction<Void> {
         this.uploadCV = uploadCV;
     }
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         uploadCV.upload();
 
         return null;

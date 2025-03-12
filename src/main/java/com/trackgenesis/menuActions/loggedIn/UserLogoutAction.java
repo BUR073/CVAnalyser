@@ -4,7 +4,7 @@ package com.trackgenesis.menuActions.loggedIn;
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.main.User;
 
-import java.io.IOException;
+
 
 public class UserLogoutAction implements UserAction<Void> {
     private final Runnable logoutFunction;
@@ -14,7 +14,7 @@ public class UserLogoutAction implements UserAction<Void> {
     }
 
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         logoutFunction.run(); // Call the logout() method
         return null;
     }

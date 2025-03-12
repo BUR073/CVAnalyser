@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /**
- * File extract class. This is used for taking pdf, doc and docx files and extracting the text to save to .txt files
+ * File extract class. This is used for taking PDF, doc and docx files and extracting the text to save to .txt files
  *
  * @author Henry Burbridge
  */
@@ -30,7 +30,7 @@ public class FileExtractor {
      * @param newFileName  - what to name the file
      * @throws IOException - if there is an error extracting data from the file
      */
-    public void docxToTxt(String docxFilePath, String folderPath, String newFileName) throws IOException {
+    public void docxToTxt(String docxFilePath, String folderPath, String newFileName) {
         if (docxFilePath == null || folderPath == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
         }
@@ -40,11 +40,15 @@ public class FileExtractor {
         Path folder = Paths.get(folderPath);
 
         if (!Files.exists(docxPath)) {
-            throw new IOException("DOCX file does not exist: " + docxPath);
+            System.err.println("DOCX file does not exist: " + docxPath);
         }
 
         if (!Files.isDirectory(folder)) {
-            Files.createDirectories(folder);
+            try {
+                Files.createDirectories(folder);
+            } catch (IOException e) {
+                System.err.println("Could not create folder: " + folderPath);
+            }
         }
 
         try (XWPFDocument document = new XWPFDocument(Files.newInputStream(docxPath));
@@ -67,7 +71,7 @@ public class FileExtractor {
             }
 
         } catch (IOException e) {
-            throw new IOException("Error converting DOCX to TXT: " + e.getMessage(), e);
+            System.err.println("Error converting DOCX to TXT: " + e.getMessage());
         }
     }
 
@@ -77,9 +81,8 @@ public class FileExtractor {
      * @param docFilePath          - file path of the doc file
      * @param destinationDirectory - where to save the file
      * @param newFileName          - the name of the file when saving
-     * @throws IOException - if there is an error extracting data from the file
      */
-    public void docToTxt(String docFilePath, String destinationDirectory, String newFileName) throws IOException {
+    public void docToTxt(String docFilePath, String destinationDirectory, String newFileName) {
         if (docFilePath == null || destinationDirectory == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
         }
@@ -89,11 +92,15 @@ public class FileExtractor {
         Path destinationFolder = Paths.get(destinationDirectory);
 
         if (!Files.exists(docPath)) {
-            throw new IOException("DOC file does not exist: " + docPath);
+            System.err.println("DOC file does not exist: " + docPath);
         }
 
         if (!Files.isDirectory(destinationFolder)) {
-            Files.createDirectories(destinationFolder);
+            try {
+                Files.createDirectories(destinationFolder);
+            } catch (IOException e) {
+                System.err.println("Unable to create directory: " + destinationFolder);
+            }
         }
 
         try (InputStream inputStream = Files.newInputStream(docPath);
@@ -105,19 +112,18 @@ public class FileExtractor {
             writer.write(text);
 
         } catch (IOException e) {
-            throw new IOException("Error converting DOC to TXT: ", e);
+            System.err.println("Error converting DOC to TXT: " + e.getMessage());
         }
     }
 
     /**
-     * Convert pdf to a txt
+     * Convert PDF to a txt
      *
      * @param pdfFilePath          - path of the file to convert
      * @param destinationDirectory - path of were to save it
-     * @param newFileName          - name of file
-     * @throws IOException - if there is an error converting or saving file
+     * @param newFileName          - name of a file
      */
-    public void pdfToTxt(String pdfFilePath, String destinationDirectory, String newFileName) throws IOException {
+    public void pdfToTxt(String pdfFilePath, String destinationDirectory, String newFileName) {
         if (pdfFilePath == null || destinationDirectory == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
         }
@@ -127,11 +133,15 @@ public class FileExtractor {
         Path destinationFolder = Paths.get(destinationDirectory);
 
         if (!Files.exists(pdfPath)) {
-            throw new IOException("PDF file does not exist: " + pdfPath);
+            System.err.println("PDF file does not exist: " + pdfPath);
         }
 
         if (!Files.isDirectory(destinationFolder)) {
-            Files.createDirectories(destinationFolder);
+            try {
+                Files.createDirectories(destinationFolder);
+            } catch (IOException e) {
+                System.err.println("Could not create directory: " + destinationFolder);
+            }
         }
 
         try (PDDocument document = PDDocument.load(new java.io.File(pdfFilePath));
@@ -142,7 +152,7 @@ public class FileExtractor {
             writer.write(text);
 
         } catch (IOException e) {
-            throw new IOException("Error converting PDF to TXT: ", e);
+            System.err.println("Error converting PDF to TXT: " + e);
         }
     }
 
@@ -152,9 +162,8 @@ public class FileExtractor {
      * @param sourceFilePath       - the path of the original .txt
      * @param destinationDirectory - where it is to be saved
      * @param newFileName          - the name it is to be saved as
-     * @throws IOException - if there is an error saving
      */
-    public void copyAndRename(String sourceFilePath, String destinationDirectory, String newFileName) throws IOException {
+    public void copyAndRename(String sourceFilePath, String destinationDirectory, String newFileName) {
         if (sourceFilePath == null || destinationDirectory == null || newFileName == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
         }
@@ -163,18 +172,23 @@ public class FileExtractor {
         Path destinationPath = Paths.get(destinationDirectory, newFileName + ".txt"); // Append .txt
         Path destinationDir = Paths.get(destinationDirectory);
 
+
         if (!Files.exists(sourcePath)) {
-            throw new IOException("Source file does not exist: " + sourcePath);
+            System.err.println("Source file does not exist: " + sourcePath);
         }
 
         if (!Files.isDirectory(destinationDir)) {
-            Files.createDirectories(destinationDir);
+            try {
+                Files.createDirectories(destinationDir);
+            } catch (IOException e) {
+                System.err.println("Unable to create directory: " + destinationDir);
+            }
         }
 
         try {
             Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new IOException("Error copying and renaming file: ", e);
+            System.err.println("Unable to copy file: " + sourcePath);
         }
     }
 
@@ -182,10 +196,10 @@ public class FileExtractor {
      * Function to determine the MIME type of a file. (e.g., "image/jpeg", "text/plain")
      *
      * @param filePath - takes a filepath
-     * @return -The MIME type of the file (e.g., "image/jpeg", "text/plain"),
+     * @return The MIME type of the file (e.g., "image/jpeg", "text/plain"),
      * or null if the file path is invalid, the file does not exist, is a
      * directory, or if an IOException occurs during content type probing.
-     * It is also possible for Files.probeContentType to return null, if the
+     * It is also possible for Files.probeContentType to return null if the
      * content type cannot be determined.
      */
     public String getFileType(String filePath) {

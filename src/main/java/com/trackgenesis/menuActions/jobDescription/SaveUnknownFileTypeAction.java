@@ -4,7 +4,7 @@ package com.trackgenesis.menuActions.jobDescription;
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.util.FileSaver;
 
-import java.io.IOException;
+
 
 public class SaveUnknownFileTypeAction implements UserAction<Void> {
 
@@ -19,7 +19,7 @@ public class SaveUnknownFileTypeAction implements UserAction<Void> {
     }
 
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         save.saveUnknownFileType(save.chooseFile(), this.saveLocation, this.fileName);
         return null;
     }

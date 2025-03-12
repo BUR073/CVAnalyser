@@ -25,16 +25,19 @@ public class JobDescriptionNLP {
     private final Set<String> dates = new HashSet<>();
     private final Set<String> times = new HashSet<>();
 
-    private final String text;
+    private String text;
 
-    public JobDescriptionNLP() throws IOException {
+    public JobDescriptionNLP() {
 
         String filePath = "SampleJobDescriptions/JobDescription.txt";
-
         InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
         if (fileInputStream != null) {
-            this.text = new String(fileInputStream.readAllBytes());
+            try {
+                this.text = new String(fileInputStream.readAllBytes());
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
         } else {
             this.text = "";
         }

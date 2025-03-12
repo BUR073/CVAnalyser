@@ -4,7 +4,7 @@ package com.trackgenesis.menuActions.loggedIn;
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.UI.ViewRankedCVs;
 
-import java.io.IOException;
+
 
 public class ViewRankedCVsAction implements UserAction<Void> {
 
@@ -17,7 +17,7 @@ public class ViewRankedCVsAction implements UserAction<Void> {
 
 
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         this.viewRankedCVs.view();
         return null;
     }

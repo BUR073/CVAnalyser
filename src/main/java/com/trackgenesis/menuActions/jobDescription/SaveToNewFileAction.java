@@ -23,7 +23,7 @@ public class SaveToNewFileAction implements UserAction<Void> {
     }
 
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         save.saveToNewFile(kbr.getLongString("Enter the job description: "), this.saveLocation, this.fileName);
         return null;
     }

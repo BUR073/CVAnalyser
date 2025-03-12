@@ -4,7 +4,7 @@ package com.trackgenesis.menuActions.loggedOut;
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.main.User;
 
-import java.io.IOException;
+
 
 
 public class UserLoginAction implements UserAction<Void> {
@@ -15,7 +15,7 @@ public class UserLoginAction implements UserAction<Void> {
     }
 
     @Override
-    public Void execute() throws IOException {
+    public Void execute() {
         user.login(); // Call the login() method directly
         return null;
     }

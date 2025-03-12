@@ -5,7 +5,7 @@ import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.UI.JobDescription;
 import com.trackgenesis.records.JobDescriptionRecord;
 
-import java.io.IOException;
+
 
 public class JobDescriptionUploadAction implements UserAction<JobDescriptionRecord> { // Change class name to UploadAction
 
@@ -16,7 +16,7 @@ public class JobDescriptionUploadAction implements UserAction<JobDescriptionReco
     }
 
     @Override
-    public JobDescriptionRecord execute() throws IOException {
+    public JobDescriptionRecord execute() {
         return jobDescription.upload(); // Call the upload() method and return the result
     }
 }

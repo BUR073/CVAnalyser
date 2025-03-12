@@ -27,14 +27,17 @@ public class User {
      * Initiates properties, register and login
      * Sets initial state of loggedIn
      *
-     * @throws IOException if there is I/O error when loading the properties file
      */
-    public User(KeyboardReader kbr) throws IOException {
+    public User(KeyboardReader kbr) {
         this.kbr = kbr;
         // Load file.properties
         Properties properties = new Properties();
         InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
-        properties.load(inputStream);
+        try {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            System.err.println("Error loading properties file" + e.getMessage());
+        }
 
         // Get the file path for the user file from the file.properties
         String UserFilePath = properties.getProperty("user.file.path");
@@ -50,9 +53,8 @@ public class User {
      * Calls login() from the login class
      * Calls get username from the login class and sets it
      *
-     * @throws IOException if an I/O error occurs during the login process.
      */
-    public void login() throws IOException {
+    public void login() {
         this.loggedIn = login.login();
         this.username = login.getUsername();
     }
@@ -60,10 +62,8 @@ public class User {
     /**
      * Attempts to register a new user account
      * Calls the register() function from the register class
-     *
-     * @throws IOException if an I/O error occurs during the registration process
      */
-    public void register() throws IOException {
+    public void register() {
         register.register();
     }
 
@@ -84,12 +84,4 @@ public class User {
         return this.loggedIn;
     }
 
-    /**
-     * Getter function for username
-     *
-     * @return username
-     */
-    public String getUsername() {
-        return this.username;
-    }
 }

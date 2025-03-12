@@ -28,7 +28,7 @@ public class Menu {
     private final Map<Integer, UserAction<?>> loggedOutActions;
 
 
-    public Menu(KeyboardReader kbr) throws IOException {
+    public Menu(KeyboardReader kbr) {
         UploadCV uploadCV = new UploadCV();
         ViewRankedCVs viewRankedCvs = new ViewRankedCVs();
         this.properties = new Properties();
@@ -67,26 +67,26 @@ public class Menu {
 
     }
 
-    private String getFromProperties(String name) throws IOException {
+    private String getFromProperties(String name) {
         InputStream input = getClass().getClassLoader().getResourceAsStream("properties/menu.properties");
-        this.properties.load(input);
+        try {
+            this.properties.load(input);
+        } catch (IOException e) {
+            System.err.println("Error loading properties file: " + e.getMessage());
+        }
         return this.properties.getProperty(name);
     }
 
     public void showMenu() {
-        try {
-            if (user.isLoggedIn()) {
-                this.loggedInMenu();
-            } else {
-                this.loggedOutMenu();
-            }
-        } catch (IOException e) {
-            System.err.println("Error displaying menu: " + e.getMessage());
+        if (user.isLoggedIn()) {
+            this.loggedInMenu();
+        } else {
+            this.loggedOutMenu();
         }
     }
 
 
-    private void loggedInMenu() throws IOException {
+    private void loggedInMenu() {
         int choice = this.kbr.getInt(loggedInMenuView);
         UserAction<?> action = this.loggedInActions.get(choice);
 
@@ -119,7 +119,7 @@ public class Menu {
         this.showMenu();
     }
 
-    private void loggedOutMenu() throws IOException {
+    private void loggedOutMenu() {
         int choice = this.kbr.getInt(loggedOutMenuView);
         UserAction<?> action = this.loggedOutActions.get(choice);
 

@@ -24,14 +24,20 @@ public class FileSaver {
      * Loads properties file
      * Sets start directory for the file chooser
      *
-     * @throws IOException
      */
-    public FileSaver() throws IOException {
+    public FileSaver(){
         this.convert = new FileExtractor();
 
         Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
-        properties.load(inputStream);
+        String filePath = "/properties/file.properties";
+        try {
+
+            InputStream inputStream = getClass().getResourceAsStream(filePath);
+            properties.load(inputStream);
+        } catch (Exception e) {
+            System.err.println("Error loading properties file: " + filePath + ". Exception: " + e.getClass().getSimpleName() + ": " + e.getMessage());
+        }
+
 
         this.startDir = properties.getProperty("jchooser.start.dir");
 
@@ -39,14 +45,13 @@ public class FileSaver {
 
     /**
      * This function is used for saving a file when the type is unknown
-     * Calls multiples functions including: copyAndRename, pdfToTxt, docToTxt and docxToTxt
+     * Calls multiples functions including copyAndRename, pdfToTxt, docToTxt and docxToTxt
      *
      * @param filePath     - the path of the file that you want to save
      * @param saveLocation - the path for where you want to save the file
      * @param fileName     - what you want to save the file name as
-     * @throws IOException - if there is an I/O error
      */
-    public void saveUnknownFileType(String filePath, String saveLocation, String fileName) throws IOException {
+    public void saveUnknownFileType(String filePath, String saveLocation, String fileName) {
 
         switch (convert.getFileType(filePath)) {
             case "text/plain":
@@ -121,12 +126,12 @@ public class FileSaver {
      * Function used to save a string to a .txt file.
      * This is used when the user wants to type instead of uploading a file
      *
-     * @param contents   - String contain what you want to save to the file
+     * @param contents   - String contains what you want to save to the file
      * @param folderPath - The folder path for where the file is to be saved
      * @param fileName   - The name for the file
-     * @throws IOException - If there is an error saving the file
      */
-    public void saveToNewFile(String contents, String folderPath, String fileName) throws IOException {
+
+    public void saveToNewFile(String contents, String folderPath, String fileName) {
         File folder = new File(folderPath);
 
         File file = new File(folder, fileName + ".txt");
@@ -134,7 +139,7 @@ public class FileSaver {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(contents);
         } catch (IOException e) {
-            throw new IOException("Error saving file: " + file.getAbsolutePath(), e);
+            System.out.println("Error saving to file: " + e.getMessage());
         }
     }
 

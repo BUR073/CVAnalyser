@@ -12,7 +12,7 @@ public class UploadCV {
 
     private final FileSaver fileSaver;
 
-    public UploadCV() throws IOException {
+    public UploadCV() {
         this.fileSaver = new FileSaver();
     }
 

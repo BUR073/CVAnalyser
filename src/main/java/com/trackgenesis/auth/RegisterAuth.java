@@ -17,7 +17,7 @@ public class RegisterAuth {
         this.hash = new Hashing();
     }
 
-    public void register(String username, String password) throws IOException {
+    public void register(String username, String password) {
         File file = new File(filePath);
         boolean isEmpty = file.length() == 0; // Check if the file is empty
 
@@ -28,7 +28,7 @@ public class RegisterAuth {
             password = hash.hash(password);
             writer.write(username + "," + password);
         } catch (IOException e) {
-            throw new IOException("Error registering user: " + e.getMessage(), e);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
