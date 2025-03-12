@@ -44,7 +44,7 @@ public class User {
 
         // Set var initial states
         this.loggedIn = false;
-        this.register = new Register(UserFilePath, this.kbr);
+        this.register = new Register(UserFilePath, this.kbr, this);
         this.login = new Login(UserFilePath, this.kbr);
     }
 
@@ -56,6 +56,11 @@ public class User {
      */
     public void login() {
         this.loggedIn = login.login();
+        this.username = login.getUsername();
+    }
+
+    public void login(String username, String password) {
+        this.loggedIn = login.login(username, password);
         this.username = login.getUsername();
     }
 

@@ -98,8 +98,18 @@ public class KeyboardReader {
      * @return - Data entered at keyboard by user
      */
     public String getString(String mes) {
-        System.out.print(mes + ": ");
-        return kbr.nextLine();
+        String input;
+        while (true) { // Loop until valid input
+            System.out.print(mes + ": ");
+            input = kbr.nextLine().trim(); // Read input and trim whitespace
+
+            if (!input.isEmpty()) { // Check for empty string
+                return input; // Return valid input
+            } else {
+                System.out.println("Input cannot be empty. Please try again.");
+            }
+        }
     }
+
 
 }

@@ -43,6 +43,20 @@ public class Login {
             return false;
         }
     }
+
+    // Method overloading
+    public boolean login(String username, String password) { // No need for throws here, handle in login
+        boolean isLoggedIn = loginAuth.login(username, password);
+
+        if (isLoggedIn) {
+            this.username = username;
+            return true;
+
+        } else {
+            System.out.println("Login failed.");
+            return false;
+        }
+    }
 }
 
 
