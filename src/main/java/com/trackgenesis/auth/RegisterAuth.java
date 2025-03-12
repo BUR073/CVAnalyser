@@ -1,5 +1,6 @@
 // SID: 2408078
 package com.trackgenesis.auth;
+import com.trackgenesis.util.Hashing;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,9 +10,11 @@ import java.io.IOException;
 public class RegisterAuth {
 
     private final String filePath;
+    private final Hashing hash;
 
     public RegisterAuth(String filePath) {
         this.filePath = filePath;
+        this.hash = new Hashing();
     }
 
     public void register(String username, String password) throws IOException {
@@ -22,6 +25,7 @@ public class RegisterAuth {
             if (!isEmpty) { // Add a newline only if the file is not empty
                 writer.newLine();
             }
+            password = hash.hash(password);
             writer.write(username + "," + password);
         } catch (IOException e) {
             throw new IOException("Error registering user: " + e.getMessage(), e);

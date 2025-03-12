@@ -1,6 +1,7 @@
 // SID: 2408078
 package com.trackgenesis.auth;
 
+import com.trackgenesis.util.Hashing;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,10 +11,12 @@ import java.util.Map;
 
 public class LoginAuth {
     private final Map<String, String> users; // Store users in a Map
+    private final Hashing hash;
 
 
     public LoginAuth(String filePath) throws IOException {
-        users = loadUsersFromFile(filePath);
+        this.users = loadUsersFromFile(filePath);
+        this.hash = new Hashing();
     }
 
 
@@ -35,7 +38,12 @@ public class LoginAuth {
 
 
     public boolean login(String username, String password) {
-        String storedPassword = users.get(username);
-        return storedPassword != null && storedPassword.equals(password);
+        String storedHashedPassword = this.users.get(username); // Retrieve the stored hashed password
+
+        if (storedHashedPassword != null) {
+            return this.hash.checkHash(password, storedHashedPassword); // Check the password
+        } else {
+            return false; // User not found
+        }
     }
 }
