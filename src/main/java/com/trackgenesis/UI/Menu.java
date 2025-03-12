@@ -74,16 +74,14 @@ public class Menu {
     }
 
     public void showMenu() {
-        while (true) {
-            try {
-                if (user.isLoggedIn()) {
-                    this.loggedInMenu();
-                } else {
-                    this.loggedOutMenu();
-                }
-            } catch (IOException e) {
-                System.err.println("Error displaying menu: " + e.getMessage());
+        try {
+            if (user.isLoggedIn()) {
+                this.loggedInMenu();
+            } else {
+                this.loggedOutMenu();
             }
+        } catch (IOException e) {
+            System.err.println("Error displaying menu: " + e.getMessage());
         }
     }
 
@@ -117,6 +115,8 @@ public class Menu {
         } else {
             System.out.println("Invalid choice. Please try again.");
         }
+
+        this.showMenu();
     }
 
     private void loggedOutMenu() throws IOException {
@@ -132,7 +132,7 @@ public class Menu {
         } else {
             System.out.println("Invalid choice. Please try again.");
         }
-
+        this.showMenu();
     }
 
 }

@@ -15,7 +15,7 @@ public class UserRegisterAction implements UserAction<Void> {
 
     @Override
     public Void execute() throws IOException {
-        user.login(); // Call the login() method directly
+        user.register(); // Call the login() method directly
         return null;
     }
 }
