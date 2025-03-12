@@ -32,11 +32,7 @@ public class Login {
      * @return boolean - Returns True when logged in, false when not
      */
     public boolean login() { // No need for throws here, handle in login
-        String username = kbr.getString("\nEnter username");
-
-        String password = kbr.getString("Enter password");
-
-        boolean isLoggedIn = loginAuth.login(username, password);
+        boolean isLoggedIn = loginAuth.login(kbr.getString("Enter username"), kbr.getString("Enter password"));
 
         if (isLoggedIn) {
             this.username = username;

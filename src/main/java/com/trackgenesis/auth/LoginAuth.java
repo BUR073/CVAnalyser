@@ -10,12 +10,13 @@ import java.util.Map;
 
 
 public class LoginAuth {
-    private final Map<String, String> users; // Store users in a Map
+    private final String filePath;
     private final Hashing hash;
+    private Map<String, String> users;
 
 
     public LoginAuth(String filePath) throws IOException {
-        this.users = loadUsersFromFile(filePath);
+        this.filePath = filePath;
         this.hash = new Hashing();
     }
 
@@ -38,6 +39,11 @@ public class LoginAuth {
 
 
     public boolean login(String username, String password) {
+        try {
+            this.users = loadUsersFromFile(this.filePath);
+        } catch (IOException e) {
+            System.err.println("Failed to load users from file: " + e.getMessage());
+        }
         String storedHashedPassword = this.users.get(username); // Retrieve the stored hashed password
 
         if (storedHashedPassword != null) {

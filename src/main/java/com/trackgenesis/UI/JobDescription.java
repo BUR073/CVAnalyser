@@ -20,7 +20,6 @@ import java.util.Properties;
 public class JobDescription {
 
     private final KeyboardReader kbr;
-    private final FileSaver save;
     private final String saveLocation;
     private final String fileName;
     private final JobDescriptionNLP jobDescriptionNLP;
@@ -30,7 +29,7 @@ public class JobDescription {
 
     public JobDescription(KeyboardReader kbr) throws IOException {
         this.kbr = kbr;
-        this.save = new FileSaver();
+        FileSaver save = new FileSaver();
         this.jobDescriptionNLP = new JobDescriptionNLP();
 
         Properties properties = new Properties();
@@ -57,8 +56,8 @@ public class JobDescription {
         // Get the uploadMenu property
         this.uploadMenu = properties.getProperty("uploadMenu");
 
-        SaveToNewFileAction saveToNewFileAction = new SaveToNewFileAction(this.save, this.kbr, this.saveLocation, this.fileName);
-        SaveUnknownFileTypeAction saveUnknownFileTypeAction = new SaveUnknownFileTypeAction(this.save, this.fileName, this.saveLocation);
+        SaveToNewFileAction saveToNewFileAction = new SaveToNewFileAction(save, this.kbr, this.saveLocation, this.fileName);
+        SaveUnknownFileTypeAction saveUnknownFileTypeAction = new SaveUnknownFileTypeAction(save, this.fileName, this.saveLocation);
         this.uploadActions = new HashMap<>();
         this.uploadActions.put(1, saveToNewFileAction);
         this.uploadActions.put(2, saveUnknownFileTypeAction);
