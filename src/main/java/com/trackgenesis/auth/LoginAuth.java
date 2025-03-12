@@ -18,33 +18,34 @@ public class LoginAuth {
     public LoginAuth(String filePath) {
         this.filePath = filePath;
         this.hash = new Hashing();
+        this.users = new HashMap<>();
     }
 
 
-    private Map<String, String> loadUsersFromFile(String filePath) throws IOException {
-        Map<String, String> userMap = new HashMap<>();
-
+    private void loadUsersFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            String savedUsername;
+            String savedPassword;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    userMap.put(parts[0].trim(), parts[1].trim());
+                    savedUsername = parts[0].trim();
+                    savedPassword = parts[1].trim();
+                    this.users.put(savedUsername, savedPassword);
                 } else {
                     System.err.println("Invalid line in user file: " + line);
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error reading user file: " + e.getMessage());
         }
-        return userMap;
+
     }
 
 
     public boolean login(String username, String password) {
-        try {
-            this.users = loadUsersFromFile(this.filePath);
-        } catch (IOException e) {
-            System.err.println("Failed to load users from file: " + e.getMessage());
-        }
+        loadUsersFromFile(this.filePath);
         String storedHashedPassword = this.users.get(username); // Retrieve the stored hashed password
 
         if (storedHashedPassword != null) {

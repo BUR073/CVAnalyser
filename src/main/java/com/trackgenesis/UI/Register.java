@@ -5,6 +5,7 @@ import com.trackgenesis.auth.RegisterAuth;
 import com.trackgenesis.util.KeyboardReader;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Register {
 
@@ -19,7 +20,14 @@ public class Register {
     public void register() {
         String username = kbr.getString("Enter username");
         String password = kbr.getString("Enter password");
-        this.registerAuth.register(username, password);
+        if (Objects.equals(username, password)) {
+            System.out.println("Username and password cannot be the same");
+        }
+        if(this.registerAuth.register(username, password)){
+            System.out.println("User registered successfully");
+        } else {
+            System.out.println("Username: " + username + " already exists\nRegistration unsuccessful.");
+        }
 
 
     }
