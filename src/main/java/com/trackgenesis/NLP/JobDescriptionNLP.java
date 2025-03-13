@@ -2,6 +2,7 @@
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.JobDescriptionRecord;
+import com.trackgenesis.util.GetProperties;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
@@ -27,9 +28,8 @@ public class JobDescriptionNLP {
 
     private String text;
 
-    public JobDescriptionNLP() {
-
-        String filePath = "SampleJobDescriptions/JobDescription.txt";
+    public JobDescriptionNLP(GetProperties getProperties) {
+        String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
         InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
         if (fileInputStream != null) {

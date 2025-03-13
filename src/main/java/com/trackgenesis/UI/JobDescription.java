@@ -32,7 +32,7 @@ public class JobDescription {
     public JobDescription(KeyboardReader kbr, GetProperties getProperties) {
         this.kbr = kbr;
         this.save = new FileSaver();
-        this.jobDescriptionNLP = new JobDescriptionNLP();
+        this.jobDescriptionNLP = new JobDescriptionNLP(getProperties);
 
         this.saveLocation = getProperties.get("job.description.save.location","properties/file.properties");
         this.fileName = getProperties.get("job.description.file.name","properties/file.properties");
