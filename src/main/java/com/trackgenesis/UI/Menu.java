@@ -90,8 +90,6 @@ public class Menu {
 
                 // Handle the result based on its type
                 if (result instanceof JobDescriptionRecord record) {
-                    // Store or process the record (e.g., add it to a list, display its contents)
-                    System.out.println("Received JobDescriptionRecord: " + record);
                     this.recordRepo.saveRecord(record);
                 }
 

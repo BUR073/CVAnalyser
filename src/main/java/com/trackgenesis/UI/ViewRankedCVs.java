@@ -1,5 +1,6 @@
 package com.trackgenesis.UI;
 
+import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.records.RecordRepository;
 
 public class ViewRankedCVs {
@@ -8,7 +9,17 @@ public class ViewRankedCVs {
         this.recordRepo = recordRepo;
     }
     public void view(){
-        System.out.println("ViewRankedCVs.view");
-        System.out.println(this.recordRepo.getJobDescriptionRecord());
+        JobDescriptionRecord JDRecord = this.recordRepo.getJobDescriptionRecord();
+        if (JDRecord != null) {
+            try{
+                System.out.println(JDRecord);
+            } catch (Exception e){
+                System.err.println("Error displaying JobDescriptionRecord" + e.getMessage());
+            }
+        } else {
+            System.err.println("No job description record found. Please upload a job description first.");
+        }
     }
+
 }
+

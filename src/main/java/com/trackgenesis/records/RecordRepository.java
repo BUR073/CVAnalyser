@@ -5,8 +5,8 @@ import java.util.List;
 
 public class RecordRepository {
 
-    private List<JobDescriptionRecord> JobDescriptionrecords = new ArrayList<>();
-    private List<CVRecord> CVRecords = new ArrayList<>();
+    private final List<JobDescriptionRecord> JobDescriptionrecords = new ArrayList<>();
+    private final List<CVRecord> CVRecords = new ArrayList<>();
 
     public <T> void saveRecord(T record) {
         if (record instanceof JobDescriptionRecord) {
@@ -18,8 +18,12 @@ public class RecordRepository {
         }
     }
 
-    public List<JobDescriptionRecord> getJobDescriptionRecord() {
-        return new ArrayList<>(JobDescriptionrecords); // Return a copy to prevent modification
+    public JobDescriptionRecord getJobDescriptionRecord() {
+        if (!JobDescriptionrecords.isEmpty()) {
+            return JobDescriptionrecords.get(0);
+        } else {
+            return null; // Or throw an exception if appropriate
+        }
     }
 
 
