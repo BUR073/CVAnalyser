@@ -157,6 +157,7 @@ critical thinking, data processing, and optimization to improve hiring workflows
 | `util`                        | `KeyboardReader`             | Utility function that takes user inputs                                      |
 | `util`                        | `FileSaver`                  | Saves file to chosen dir                                                     |
 | `util`                        | `Hashing`                    | Hashes text for security                                                     |
+| `util`                        | `GetProperties`              | Retrieves values from properties files                                       |
 | `auth`                        | `LoginAuth`                  | Handles the logic for the login                                              |
 | `auth`                        | `RegisterAuth`               | Handles the logic for register                                               |
 | `menuActions.loggedIn`        | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`              | 

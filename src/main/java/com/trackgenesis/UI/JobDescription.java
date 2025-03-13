@@ -25,13 +25,14 @@ public class JobDescription {
     private final String fileName;
     private final JobDescriptionNLP jobDescriptionNLP;
     private final String uploadMenu;
+    private final FileSaver save;
     private final Map<Integer, UserAction<?>> uploadActions;
 
 
     public JobDescription(KeyboardReader kbr){
         this.kbr = kbr;
         GetProperties getProperties = new GetProperties();
-        FileSaver save = new FileSaver();
+        this.save = new FileSaver();
         this.jobDescriptionNLP = new JobDescriptionNLP();
 
         this.saveLocation = getProperties.get("job.description.save.location","properties/file.properties");
@@ -39,13 +40,15 @@ public class JobDescription {
         this.uploadMenu = getProperties.get("upload.Menu","properties/menu.properties");
 
 
-        SaveToNewFileAction saveToNewFileAction = new SaveToNewFileAction(save, this.kbr, this.saveLocation, this.fileName);
-        SaveUnknownFileTypeAction saveUnknownFileTypeAction = new SaveUnknownFileTypeAction(save, this.fileName, this.saveLocation);
         this.uploadActions = new HashMap<>();
-        this.uploadActions.put(1, saveToNewFileAction);
-        this.uploadActions.put(2, saveUnknownFileTypeAction);
+        populateUploadActionsMap();
 
 
+    }
+
+    private void populateUploadActionsMap(){
+        this.uploadActions.put(1, new SaveToNewFileAction(this.save, this.kbr, this.saveLocation, this.fileName));
+        this.uploadActions.put(2, new SaveUnknownFileTypeAction(this.save, this.fileName, this.saveLocation));
     }
 
     public void showJobDescription() {
