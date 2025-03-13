@@ -20,6 +20,9 @@ public class Menu {
     private final KeyboardReader kbr;
     private final User user;
     private final Properties properties;
+    private final JobDescription JD;
+    private final UploadCV uploadCV;
+    private final ViewRankedCVs viewRankedCvs;
 
     private final String loggedInMenuView;
     private final String loggedOutMenuView;
@@ -28,38 +31,13 @@ public class Menu {
     private final Map<Integer, UserAction<?>> loggedOutActions;
 
 
-    private Map<Integer, UserAction<?>> loggedOutActionsMap(User user) {
-        UserLoginAction userLoginAction = new UserLoginAction(this.user);
-        UserRegisterAction userRegisterAction = new UserRegisterAction(this.user);
-        Map<Integer, UserAction<?>> loggedOutActionCreate = new HashMap<>();
-        loggedOutActionCreate.put(1, userLoginAction);
-        loggedOutActionCreate.put(2, userRegisterAction);
-        return loggedOutActionCreate;
-    }
-
-    private Map<Integer, UserAction<?>> loggedInActionsMap(User user, JobDescription JD, UploadCV uploadCV, ViewRankedCVs viewRankedCvs) {
-        UserLogoutAction userLogoutAction = new UserLogoutAction(user);
-        ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(JD);
-        JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(JD);
-        UploadCVAction uploadCVAction = new UploadCVAction(uploadCV);
-        ViewRankedCVsAction viewRankedCVsAction = new ViewRankedCVsAction(viewRankedCvs);
-
-        Map<Integer, UserAction<?>> loggedInActionCreate = new HashMap<>();
-        loggedInActionCreate.put(1, jobDescriptionUploadAction);
-        loggedInActionCreate.put(2, showJobDescriptionAction);
-        loggedInActionCreate.put(3, uploadCVAction);
-        loggedInActionCreate.put(4, viewRankedCVsAction);
-        loggedInActionCreate.put(5, userLogoutAction);
-        return loggedInActionCreate;
-    }
-
 
     public Menu(KeyboardReader kbr) {
-        UploadCV uploadCV = new UploadCV();
-        ViewRankedCVs viewRankedCvs = new ViewRankedCVs();
-        this.properties = new Properties();
         this.kbr = kbr;
-        JobDescription JD = new JobDescription(this.kbr);
+        this.uploadCV = new UploadCV();
+        this.viewRankedCvs = new ViewRankedCVs();
+        this.properties = new Properties();
+        this.JD = new JobDescription(this.kbr);
         this.user = new User(this.kbr);
 
         // Get the menu UI
@@ -67,8 +45,10 @@ public class Menu {
         this.loggedOutMenuView = this.getFromProperties("loggedOutMenu");
 
         // Create and fill new hashmaps to store the action classes
-        this.loggedInActions = loggedInActionsMap(this.user, JD, uploadCV, viewRankedCvs);
-        this.loggedOutActions = loggedOutActionsMap(this.user);
+        this.loggedInActions = new HashMap<>();
+        this.loggedOutActions = new HashMap<>();
+        this.populateLoggedInActionsMap();
+        this.populateLoggedOutActionsMap();
 
 
     }
@@ -82,6 +62,20 @@ public class Menu {
         }
         return this.properties.getProperty(name);
     }
+
+    private void populateLoggedOutActionsMap() {
+        this.loggedOutActions.put(1, new UserLoginAction(this.user));
+        this.loggedOutActions.put(2, new UserRegisterAction(this.user));
+    }
+
+    private void populateLoggedInActionsMap() {
+        this.loggedInActions.put(1, new JobDescriptionUploadAction(this.JD));
+        this.loggedInActions.put(2, new ShowJobDescriptionAction(this.JD));
+        this.loggedInActions.put(3, new UploadCVAction(this.uploadCV));
+        this.loggedInActions.put(4, new ViewRankedCVsAction(this.viewRankedCvs));
+        this.loggedInActions.put(5, new UserLogoutAction(this.user));
+    }
+
 
     public void showMenu() {
         if (user.isLoggedIn()) {
