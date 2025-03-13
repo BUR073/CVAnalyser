@@ -15,8 +15,7 @@ public class Main {
      */
     public static void main(String[] args) {
         System.setProperty("console.encoding", "UTF-8");
-        KeyboardReader kbr = new KeyboardReader();
-        Menu menu = new Menu(kbr);
+        Menu menu = new Menu();
         menu.showMenu();
 
     }

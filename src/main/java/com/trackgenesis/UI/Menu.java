@@ -8,9 +8,9 @@ import com.trackgenesis.menuActions.loggedOut.UserRegisterAction;
 import com.trackgenesis.main.User;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.KeyboardReader;
+import com.trackgenesis.util.GetProperties;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -19,7 +19,6 @@ public class Menu {
 
     private final KeyboardReader kbr;
     private final User user;
-    private final Properties properties;
     private final JobDescription JD;
     private final UploadCV uploadCV;
     private final ViewRankedCVs viewRankedCvs;
@@ -32,17 +31,17 @@ public class Menu {
 
 
 
-    public Menu(KeyboardReader kbr) {
-        this.kbr = kbr;
+    public Menu() {
+        this.kbr = new KeyboardReader();
         this.uploadCV = new UploadCV();
         this.viewRankedCvs = new ViewRankedCVs();
-        this.properties = new Properties();
         this.JD = new JobDescription(this.kbr);
         this.user = new User(this.kbr);
+        GetProperties getProperties = new GetProperties();
 
         // Get the menu UI
-        this.loggedInMenuView = this.getFromProperties("loggedInMenu");
-        this.loggedOutMenuView = this.getFromProperties("loggedOutMenu");
+        this.loggedInMenuView = getProperties.get("logged.In.Menu", "properties/menu.properties");
+        this.loggedOutMenuView = getProperties.get("logged.Out.Menu", "properties/menu.properties");
 
         // Create and fill new hashmaps to store the action classes
         this.loggedInActions = new HashMap<>();
@@ -51,16 +50,6 @@ public class Menu {
         this.populateLoggedOutActionsMap();
 
 
-    }
-
-    private String getFromProperties(String name) {
-        InputStream input = getClass().getClassLoader().getResourceAsStream("properties/menu.properties");
-        try {
-            this.properties.load(input);
-        } catch (IOException e) {
-            System.err.println("Error loading properties file: " + e.getMessage());
-        }
-        return this.properties.getProperty(name);
     }
 
     private void populateLoggedOutActionsMap() {
@@ -99,18 +88,10 @@ public class Menu {
                     // Store or process the record (e.g., add it to a list, display its contents)
                     System.out.println("Received JobDescriptionRecord: " + record);
                     // ... your logic to store or use the record ...
-                } else if (result instanceof String message) {
-                    // Handle a String result
-                    System.out.println("Received message: " + message);
                 }
-                // ... add more 'else if' blocks for other return types ...
 
             } catch (IOException e) {
                 System.err.println("An error occurred during the action: " + e.getMessage());
-
-            } catch (ClassCastException e) {
-                System.err.println("Unexpected return type from UserAction");
-
             }
         } else {
             System.out.println("Invalid choice. Please try again.");

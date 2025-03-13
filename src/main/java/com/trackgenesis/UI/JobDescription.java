@@ -7,6 +7,7 @@ import com.trackgenesis.menuActions.jobDescription.SaveToNewFileAction;
 import com.trackgenesis.menuActions.jobDescription.SaveUnknownFileTypeAction;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.FileSaver;
+import com.trackgenesis.util.GetProperties;
 import com.trackgenesis.util.KeyboardReader;
 
 import java.io.BufferedReader;
@@ -29,39 +30,14 @@ public class JobDescription {
 
     public JobDescription(KeyboardReader kbr){
         this.kbr = kbr;
+        GetProperties getProperties = new GetProperties();
         FileSaver save = new FileSaver();
         this.jobDescriptionNLP = new JobDescriptionNLP();
 
-        Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
+        this.saveLocation = getProperties.get("job.description.save.location","properties/file.properties");
+        this.fileName = getProperties.get("job.description.file.name","properties/file.properties");
+        this.uploadMenu = getProperties.get("upload.Menu","properties/menu.properties");
 
-        if (inputStream == null) {
-            System.err.println("Could not find /properties/file.properties");
-        }
-
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            System.err.println("Error in loading properties file");
-        }
-
-        this.saveLocation = properties.getProperty("job.description.save.location");
-        this.fileName = properties.getProperty("job.description.file.name");
-
-        // Load the next properties file: /properties/menu.properties
-        InputStream menuInputStream = getClass().getResourceAsStream("/properties/menu.properties");
-
-        if (menuInputStream == null) {
-            System.err.println("Could not find /properties/menu.properties");
-        }
-
-        try {
-            properties.load(menuInputStream);
-        } catch (IOException e) {
-            System.err.println("Error in loading properties file");
-        }
-        // Get the uploadMenu property
-        this.uploadMenu = properties.getProperty("uploadMenu");
 
         SaveToNewFileAction saveToNewFileAction = new SaveToNewFileAction(save, this.kbr, this.saveLocation, this.fileName);
         SaveUnknownFileTypeAction saveUnknownFileTypeAction = new SaveUnknownFileTypeAction(save, this.fileName, this.saveLocation);
