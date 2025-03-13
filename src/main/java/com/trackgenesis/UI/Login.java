@@ -39,7 +39,7 @@ public class Login {
             return true;
 
         } else {
-            System.out.println("Login failed.");
+            System.err.println("Login failed.");
             return false;
         }
     }

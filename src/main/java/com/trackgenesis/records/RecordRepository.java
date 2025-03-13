@@ -22,6 +22,7 @@ public class RecordRepository {
         if (!JobDescriptionrecords.isEmpty()) {
             return JobDescriptionrecords.get(0);
         } else {
+            System.err.println("No job description record found. Please upload a job description first.");
             return null; // Or throw an exception if appropriate
         }
     }
@@ -29,7 +30,12 @@ public class RecordRepository {
 
 
     public List<CVRecord> getCVRecord() {
-        return new ArrayList<>(CVRecords);
+        if (!CVRecords.isEmpty()) {
+            return new ArrayList<>(CVRecords);
+        } else {
+            System.err.println("No cv record found. Please upload a cv first.");
+            return null;
+        }
     }
 
 }
