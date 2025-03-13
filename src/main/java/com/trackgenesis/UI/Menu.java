@@ -7,6 +7,7 @@ import com.trackgenesis.menuActions.loggedOut.UserLoginAction;
 import com.trackgenesis.menuActions.loggedOut.UserRegisterAction;
 import com.trackgenesis.main.User;
 import com.trackgenesis.records.JobDescriptionRecord;
+import com.trackgenesis.records.RecordRepository;
 import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.util.GetProperties;
 
@@ -22,6 +23,7 @@ public class Menu {
     private final JobDescription JD;
     private final UploadCV uploadCV;
     private final ViewRankedCVs viewRankedCvs;
+    private final RecordRepository recordRepo;
 
     private final String loggedInMenuView;
     private final String loggedOutMenuView;
@@ -32,12 +34,15 @@ public class Menu {
 
 
     public Menu() {
+        GetProperties getProperties = new GetProperties();
         this.kbr = new KeyboardReader();
         this.uploadCV = new UploadCV();
-        this.viewRankedCvs = new ViewRankedCVs();
-        this.JD = new JobDescription(this.kbr);
+        this.recordRepo = new RecordRepository();
+        this.viewRankedCvs = new ViewRankedCVs(this.recordRepo);
+        this.JD = new JobDescription(this.kbr, getProperties);
         this.user = new User(this.kbr);
-        GetProperties getProperties = new GetProperties();
+
+
 
         // Get the menu UI
         this.loggedInMenuView = getProperties.get("logged.In.Menu", "properties/menu.properties");
@@ -76,7 +81,7 @@ public class Menu {
 
 
     private void loggedInMenu() {
-        int choice = this.kbr.getInt(loggedInMenuView);
+        int choice = this.kbr.getInt(this.loggedInMenuView);
         UserAction<?> action = this.loggedInActions.get(choice);
 
         if (action != null) {
@@ -87,7 +92,7 @@ public class Menu {
                 if (result instanceof JobDescriptionRecord record) {
                     // Store or process the record (e.g., add it to a list, display its contents)
                     System.out.println("Received JobDescriptionRecord: " + record);
-                    // ... your logic to store or use the record ...
+                    this.recordRepo.addJobDescriptionRecord(record);
                 }
 
             } catch (IOException e) {
@@ -101,7 +106,7 @@ public class Menu {
     }
 
     private void loggedOutMenu() {
-        int choice = this.kbr.getInt(loggedOutMenuView);
+        int choice = this.kbr.getInt(this.loggedOutMenuView);
         UserAction<?> action = this.loggedOutActions.get(choice);
 
         if (action != null) {

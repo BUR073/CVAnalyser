@@ -7,6 +7,7 @@
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/menuActions/loggedIn/JobDescriptionUploadAction.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/menuActions/loggedIn/ShowJobDescriptionAction.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/Hashing.java
+/Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/util/GetProperties.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/UI/UploadCV.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/main/User.java
 /Users/henryburbridge/CVAnalyser/src/main/java/com/trackgenesis/menuActions/jobDescription/SaveUnknownFileTypeAction.java

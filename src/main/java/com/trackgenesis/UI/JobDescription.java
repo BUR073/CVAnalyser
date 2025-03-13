@@ -29,9 +29,8 @@ public class JobDescription {
     private final Map<Integer, UserAction<?>> uploadActions;
 
 
-    public JobDescription(KeyboardReader kbr){
+    public JobDescription(KeyboardReader kbr, GetProperties getProperties) {
         this.kbr = kbr;
-        GetProperties getProperties = new GetProperties();
         this.save = new FileSaver();
         this.jobDescriptionNLP = new JobDescriptionNLP();
 

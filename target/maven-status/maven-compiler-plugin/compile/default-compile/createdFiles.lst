@@ -21,6 +21,7 @@ com/trackgenesis/util/FileSaver.class
 com/trackgenesis/UI/UploadCV.class
 com/trackgenesis/menuActions/loggedIn/UploadCVAction.class
 com/trackgenesis/menuActions/jobDescription/SaveToNewFileAction.class
+com/trackgenesis/util/GetProperties.class
 com/trackgenesis/util/FileExtractor.class
 com/trackgenesis/UI/Login.class
 com/trackgenesis/menuActions/loggedOut/UserLoginAction.class

@@ -153,6 +153,7 @@ critical thinking, data processing, and optimization to improve hiring workflows
 | `NLP`                         | `CVsNLP`                     | Uses NLP to parse the CVs                                                    |
 | `records`                     | `CVRecord`                   | Stores the data from the CV                                                  |
 | `records`                     | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`   |
+| `records`                     | `RecordRepository`           | Class to store Record objects                                                |
 | `util`                        | `FileExtractor`              | Extracts data from files and saves to `.txt` file                            |
 | `util`                        | `KeyboardReader`             | Utility function that takes user inputs                                      |
 | `util`                        | `FileSaver`                  | Saves file to chosen dir                                                     |
