@@ -4,7 +4,6 @@ package com.trackgenesis.UI;
 import com.trackgenesis.auth.LoginAuth;
 import com.trackgenesis.util.KeyboardReader;
 
-import java.io.IOException;
 
 /**
  * Login class handles the UI for the user to login
@@ -35,7 +34,6 @@ public class Login {
         boolean isLoggedIn = loginAuth.login(kbr.getString("Enter username"), kbr.getString("Enter password"));
 
         if (isLoggedIn) {
-            this.username = username;
             return true;
 
         } else {

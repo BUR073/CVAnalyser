@@ -5,8 +5,6 @@ import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.util.FileSaver;
 import com.trackgenesis.util.KeyboardReader;
 
-import java.io.IOException;
-
 
 public class SaveToNewFileAction implements UserAction<Void> {
 

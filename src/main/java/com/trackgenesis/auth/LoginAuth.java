@@ -12,7 +12,7 @@ import java.util.Map;
 public class LoginAuth {
     private final String filePath;
     private final Hashing hash;
-    private Map<String, String> users;
+    private final Map<String, String> users;
 
 
     public LoginAuth(String filePath) {

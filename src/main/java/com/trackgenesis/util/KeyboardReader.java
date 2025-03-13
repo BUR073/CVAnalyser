@@ -45,8 +45,6 @@ public class KeyboardReader {
                 retv = Integer.parseInt(input);
                 valid = true;
             } catch (NumberFormatException ex) {
-                //ex.printStackTrace();
-                //System.out.println(ex.getMessage());
                 System.out.println("Please enter a valid Integer");
             }
         }
@@ -75,23 +73,6 @@ public class KeyboardReader {
 
         return stringBuilder.toString();
     }
-
-    public int getInt(String mes, int min, int max) {
-
-        int retv = 0;
-        boolean valid = false;
-
-        while (!valid) {
-            retv = getInt(mes);
-            if (retv >= min && retv <= max)
-                valid = true;
-            else {
-                System.out.println("Please enter an Integer between " + min + " and " + max);
-            }
-        }
-        return retv;
-    }
-
 
     /**
      * @param mes - Message to display

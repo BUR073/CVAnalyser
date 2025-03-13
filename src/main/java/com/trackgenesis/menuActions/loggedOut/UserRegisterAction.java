@@ -3,9 +3,6 @@ package com.trackgenesis.menuActions.loggedOut;
 
 import com.trackgenesis.menuActions.Interface.UserAction;
 import com.trackgenesis.main.User;
-import com.trackgenesis.util.KeyboardReader;
-
-import java.io.IOException;
 
 public class UserRegisterAction implements UserAction<Void> {
     private final User user;

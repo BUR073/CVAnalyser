@@ -5,12 +5,12 @@ import java.util.List;
 
 public class RecordRepository {
 
-    private final List<JobDescriptionRecord> JobDescriptionrecords = new ArrayList<>();
+    private final List<JobDescriptionRecord> JobDescriptionRecords = new ArrayList<>();
     private final List<CVRecord> CVRecords = new ArrayList<>();
 
     public <T> void saveRecord(T record) {
         if (record instanceof JobDescriptionRecord) {
-            JobDescriptionrecords.add((JobDescriptionRecord) record);
+            JobDescriptionRecords.add((JobDescriptionRecord) record);
         } else if (record instanceof CVRecord) {
             CVRecords.add((CVRecord) record);
         } else {
@@ -19,8 +19,8 @@ public class RecordRepository {
     }
 
     public JobDescriptionRecord getJobDescriptionRecord() {
-        if (!JobDescriptionrecords.isEmpty()) {
-            return JobDescriptionrecords.get(0);
+        if (!JobDescriptionRecords.isEmpty()) {
+            return JobDescriptionRecords.get(0);
         } else {
             System.err.println("No job description record found. Please upload a job description first.");
             return null; // Or throw an exception if appropriate

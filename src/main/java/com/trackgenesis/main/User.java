@@ -18,7 +18,6 @@ import java.util.Properties;
 public class User {
     private final Register register; // Register class
     private final Login login;// Login class
-    private final KeyboardReader kbr;
     private String username; // String to store username
     private boolean loggedIn; // Boolean for storing whether a user is logged in
 
@@ -29,7 +28,6 @@ public class User {
      *
      */
     public User(KeyboardReader kbr) {
-        this.kbr = kbr;
         // Load file.properties
         Properties properties = new Properties();
         InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
@@ -44,8 +42,8 @@ public class User {
 
         // Set var initial states
         this.loggedIn = false;
-        this.register = new Register(UserFilePath, this.kbr, this);
-        this.login = new Login(UserFilePath, this.kbr);
+        this.register = new Register(UserFilePath, kbr, this);
+        this.login = new Login(UserFilePath, kbr);
     }
 
     /**
