@@ -28,7 +28,6 @@ public class FileExtractor {
      * @param docxFilePath - the file path of the docx file
      * @param folderPath   - the folder to save the file too
      * @param newFileName  - what to name the file
-     * @throws IOException - if there is an error extracting data from the file
      */
     public void docxToTxt(String docxFilePath, String folderPath, String newFileName) {
         if (docxFilePath == null || folderPath == null || newFileName == null) {

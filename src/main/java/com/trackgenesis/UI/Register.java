@@ -28,14 +28,14 @@ public class Register {
         }
         if(this.registerAuth.register(username, password)){
             System.out.println("User registered successfully");
-            String choice;
-            choice = kbr.getString("\nWould you like to login to your account automatically? \nEnter Y to do so or press enter to continue");
+
+            String choice = kbr.getString("\nWould you like to login to your account automatically? \nEnter 'Y' to do so or press enter to continue");
             if (choice.equalsIgnoreCase("Y") || choice.equalsIgnoreCase("YES")) {
                 this.user.login(username, password);
             }
 
         } else {
-            System.out.println("Username: " + username + " already exists\nRegistration unsuccessful.");
+            System.err.println("Username: " + username + " already exists. Registration unsuccessful.");
 
         }
 

@@ -28,6 +28,32 @@ public class Menu {
     private final Map<Integer, UserAction<?>> loggedOutActions;
 
 
+    private Map<Integer, UserAction<?>> loggedOutActionsMap(User user) {
+        UserLoginAction userLoginAction = new UserLoginAction(this.user);
+        UserRegisterAction userRegisterAction = new UserRegisterAction(this.user);
+        Map<Integer, UserAction<?>> loggedOutActionCreate = new HashMap<>();
+        loggedOutActionCreate.put(1, userLoginAction);
+        loggedOutActionCreate.put(2, userRegisterAction);
+        return loggedOutActionCreate;
+    }
+
+    private Map<Integer, UserAction<?>> loggedInActionsMap(User user, JobDescription JD, UploadCV uploadCV, ViewRankedCVs viewRankedCvs) {
+        UserLogoutAction userLogoutAction = new UserLogoutAction(user);
+        ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(JD);
+        JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(JD);
+        UploadCVAction uploadCVAction = new UploadCVAction(uploadCV);
+        ViewRankedCVsAction viewRankedCVsAction = new ViewRankedCVsAction(viewRankedCvs);
+
+        Map<Integer, UserAction<?>> loggedInActionCreate = new HashMap<>();
+        loggedInActionCreate.put(1, jobDescriptionUploadAction);
+        loggedInActionCreate.put(2, showJobDescriptionAction);
+        loggedInActionCreate.put(3, uploadCVAction);
+        loggedInActionCreate.put(4, viewRankedCVsAction);
+        loggedInActionCreate.put(5, userLogoutAction);
+        return loggedInActionCreate;
+    }
+
+
     public Menu(KeyboardReader kbr) {
         UploadCV uploadCV = new UploadCV();
         ViewRankedCVs viewRankedCvs = new ViewRankedCVs();
@@ -36,33 +62,13 @@ public class Menu {
         JobDescription JD = new JobDescription(this.kbr);
         this.user = new User(this.kbr);
 
-        // Create instances of the action classes
-        UserLogoutAction userLogoutAction = new UserLogoutAction(user);
-        ShowJobDescriptionAction showJobDescriptionAction = new ShowJobDescriptionAction(JD);
-        JobDescriptionUploadAction jobDescriptionUploadAction = new JobDescriptionUploadAction(JD);
-        UploadCVAction uploadCVAction = new UploadCVAction(uploadCV);
-        ViewRankedCVsAction viewRankedCVsAction = new ViewRankedCVsAction(viewRankedCvs);
-        UserLoginAction userLoginAction = new UserLoginAction(this.user);
-        UserRegisterAction userRegisterAction = new UserRegisterAction(this.user);
-
-
         // Get the menu UI
         this.loggedInMenuView = this.getFromProperties("loggedInMenu");
         this.loggedOutMenuView = this.getFromProperties("loggedOutMenu");
 
-        // Create new hashmaps to store the action classes
-        this.loggedInActions = new HashMap<>();
-        this.loggedOutActions = new HashMap<>();
-
-        // Add the action classes to the hashmaps
-        this.loggedInActions.put(1, jobDescriptionUploadAction);
-        this.loggedInActions.put(2, showJobDescriptionAction);
-        this.loggedInActions.put(3, uploadCVAction);
-        this.loggedInActions.put(4, viewRankedCVsAction);
-        this.loggedInActions.put(5, userLogoutAction);
-
-        this.loggedOutActions.put(1, userLoginAction);
-        this.loggedOutActions.put(2, userRegisterAction);
+        // Create and fill new hashmaps to store the action classes
+        this.loggedInActions = loggedInActionsMap(this.user, JD, uploadCV, viewRankedCvs);
+        this.loggedOutActions = loggedOutActionsMap(this.user);
 
 
     }
