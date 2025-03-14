@@ -2,6 +2,7 @@
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.JobDescriptionRecord;
+import com.trackgenesis.util.FileExtractor;
 import com.trackgenesis.util.GetProperties;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
@@ -26,21 +27,12 @@ public class JobDescriptionNLP {
     private final Set<String> dates = new HashSet<>();
     private final Set<String> times = new HashSet<>();
 
-    private String text;
+    private final String text;
 
     public JobDescriptionNLP(GetProperties getProperties) {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
-        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath);
-
-        if (fileInputStream != null) {
-            try {
-                this.text = new String(fileInputStream.readAllBytes());
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-        } else {
-            this.text = "";
-        }
+        FileExtractor extractor = new FileExtractor();
+        this.text = extractor.getText(filePath);
 
 
     }

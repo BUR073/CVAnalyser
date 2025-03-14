@@ -36,8 +36,8 @@ public class Menu {
     public Menu() {
         GetProperties getProperties = new GetProperties();
         this.kbr = new KeyboardReader();
-        this.uploadCV = new UploadCV();
         this.recordRepo = new RecordRepository();
+        this.uploadCV = new UploadCV(this.recordRepo);
         this.viewRankedCvs = new ViewRankedCVs(this.recordRepo);
         this.JD = new JobDescription(this.kbr, getProperties);
         this.user = new User(this.kbr);

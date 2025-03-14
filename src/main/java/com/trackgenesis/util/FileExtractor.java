@@ -22,6 +22,20 @@ import java.nio.file.StandardCopyOption;
  */
 public class FileExtractor {
 
+
+    public String getText(String filePath) {
+        try (InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath)) {
+            if (fileInputStream != null) {
+                return new String(fileInputStream.readAllBytes());
+            } else {
+                return ""; //return empty string if file not found.
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return null; // Return null to indicate an error
+        }
+    }
+
     /**
      * To extract the contents of a docx file and save to a txt
      *
