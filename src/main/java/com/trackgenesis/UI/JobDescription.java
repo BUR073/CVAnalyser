@@ -6,6 +6,7 @@ import com.trackgenesis.NLP.JobDescriptionNLP;
 import com.trackgenesis.menuActions.jobDescription.SaveToNewFileAction;
 import com.trackgenesis.menuActions.jobDescription.SaveUnknownFileTypeAction;
 import com.trackgenesis.records.JobDescriptionRecord;
+import com.trackgenesis.records.RecordRepository;
 import com.trackgenesis.util.FileSaver;
 import com.trackgenesis.util.GetProperties;
 import com.trackgenesis.util.KeyboardReader;
@@ -26,12 +27,14 @@ public class JobDescription {
     private final String uploadMenu;
     private final FileSaver save;
     private final Map<Integer, UserAction<?>> uploadActions;
+    private final RecordRepository recordRepo;
 
 
-    public JobDescription(KeyboardReader kbr, GetProperties getProperties) {
+    public JobDescription(KeyboardReader kbr, GetProperties getProperties, RecordRepository recordRepo) {
         this.kbr = kbr;
         this.save = new FileSaver();
         this.jobDescriptionNLP = new JobDescriptionNLP(getProperties);
+        this.recordRepo = recordRepo;
 
         this.saveLocation = getProperties.get("job.description.save.location","properties/file.properties");
         this.fileName = getProperties.get("job.description.file.name","properties/file.properties");
@@ -62,7 +65,7 @@ public class JobDescription {
     }
 
 
-    public JobDescriptionRecord upload() {
+    public void upload() {
 
         int choice = this.kbr.getInt(this.uploadMenu);
         UserAction<?> action = this.uploadActions.get(choice);
@@ -77,11 +80,11 @@ public class JobDescription {
             System.out.println("Invalid choice. Please try again.");
         }
         try {
-            return jobDescriptionNLP.extractInformation();
+            this.recordRepo.saveRecord(jobDescriptionNLP.extractInformation());
         } catch (IOException e) {
             System.err.println("An error occurred during the job description extraction: " + e.getMessage());
         }
-        return null;
+
     }
 
 

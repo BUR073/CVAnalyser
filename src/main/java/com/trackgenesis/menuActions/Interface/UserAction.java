@@ -4,5 +4,5 @@ package com.trackgenesis.menuActions.Interface;
 import java.io.IOException;
 
 public interface UserAction<T> {
-    T execute() throws IOException;
+    Void execute() throws IOException;
 }

@@ -4,6 +4,7 @@ package com.trackgenesis.NLP;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.util.FileExtractor;
 import com.trackgenesis.util.GetProperties;
+import com.trackgenesis.util.NLPUtil;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
@@ -28,11 +29,13 @@ public class JobDescriptionNLP {
     private final Set<String> times = new HashSet<>();
 
     private final String text;
+    private NLPUtil nlpUtil;
 
     public JobDescriptionNLP(GetProperties getProperties) {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
         FileExtractor extractor = new FileExtractor();
         this.text = extractor.getText(filePath);
+        this.nlpUtil = new NLPUtil();
 
 
     }
@@ -56,11 +59,11 @@ public class JobDescriptionNLP {
                 TokenizerME tokenizer = new TokenizerME(tokenizerModel);
 
 
-                try (InputStream PersonModel = this.load("models/en-ner-person.bin");
-                     InputStream LocationModel = this.load("models/en-ner-location.bin");
-                     InputStream OrganizationModel = this.load("models/en-ner-organization.bin");
-                     InputStream DateModel = this.load("models/en-ner-date.bin");
-                     InputStream TimeModel = this.load("models/en-ner-time.bin")
+                try (InputStream PersonModel = this.nlpUtil.load("models/en-ner-person.bin");
+                     InputStream LocationModel = this.nlpUtil.load("models/en-ner-location.bin");
+                     InputStream OrganizationModel = this.nlpUtil.load("models/en-ner-organization.bin");
+                     InputStream DateModel = this.nlpUtil.load("models/en-ner-date.bin");
+                     InputStream TimeModel = this.nlpUtil.load("models/en-ner-time.bin")
 
                 ) {
                     if (PersonModel == null || LocationModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
@@ -91,27 +94,27 @@ public class JobDescriptionNLP {
                         Span[] organizationSpans = organizationFinder.find(tokens);
 
                         for (Span span : timesSpans) {
-                            this.times.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.times.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Dates
                         for (Span span : dateSpans) {
-                            this.dates.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.dates.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find People
                         for (Span span : personSpans) {
-                            this.people.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.people.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Locations
                         for (Span span : locationSpans) {
-                            this.locations.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.locations.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Organizations
                         for (Span span : organizationSpans) {
-                            this.organizations.add(this.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.organizations.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
                     }
 
@@ -123,11 +126,5 @@ public class JobDescriptionNLP {
         }
     }
 
-    private String reconstruct(String[] tokens, int start, int end) {
-        return String.join(" ", Arrays.copyOfRange(tokens, start, end));
-    }
 
-    private InputStream load(String model) {
-        return getClass().getClassLoader().getResourceAsStream(model);
-    }
 }

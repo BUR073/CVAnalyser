@@ -39,7 +39,7 @@ public class Menu {
         this.recordRepo = new RecordRepository();
         this.uploadCV = new UploadCV(this.recordRepo);
         this.viewRankedCvs = new ViewRankedCVs(this.recordRepo);
-        this.JD = new JobDescription(this.kbr, getProperties);
+        this.JD = new JobDescription(this.kbr, getProperties, this.recordRepo);
         this.user = new User(this.kbr);
 
 
@@ -87,12 +87,6 @@ public class Menu {
         if (action != null) {
             try {
                 Object result = action.execute(); // Get the result of the action
-
-                // Handle the result based on its type
-                if (result instanceof JobDescriptionRecord record) {
-                    this.recordRepo.saveRecord(record);
-                }
-
             } catch (IOException e) {
                 System.err.println("An error occurred during the action: " + e.getMessage());
             }

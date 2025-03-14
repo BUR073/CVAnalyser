@@ -16,7 +16,8 @@ public class JobDescriptionUploadAction implements UserAction<JobDescriptionReco
     }
 
     @Override
-    public JobDescriptionRecord execute() {
-        return jobDescription.upload(); // Call the upload() method and return the result
+    public Void execute() {
+        jobDescription.upload(); // Call the upload() method and return the result
+        return null;
     }
 }
