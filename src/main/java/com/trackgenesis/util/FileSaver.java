@@ -1,6 +1,8 @@
 // SID: 2408078
 package com.trackgenesis.util;
 
+import com.trackgenesis.enums.FileType;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
@@ -52,27 +54,24 @@ public class FileSaver {
      * @param fileName     - what you want to save the file name as
      */
     public void saveUnknownFileType(String filePath, String saveLocation, String fileName) {
+        FileType fileType = convert.getFileType(filePath);
 
-        switch (convert.getFileType(filePath)) {
-            case "text/plain":
-                // Convert and save .txt
-                convert.copyAndRename(filePath, saveLocation, fileName);
-                break;
-            case "application/pdf":
-                // Convert and save .pdf
-                convert.pdfToTxt(filePath, saveLocation, fileName);
-                break;
-            case "application/msword":
-                // Convert and save .doc
-                convert.docToTxt(filePath, saveLocation, fileName);
-                break;
-            case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-                // Convert and save .docx
-                convert.docxToTxt(filePath, saveLocation, fileName);
-                break;
+        if (fileType != null) {
+            try {
+                switch (fileType) {
+                    case TEXT_PLAIN -> convert.copyAndRename(filePath, saveLocation, fileName);
+                    case APPLICATION_PDF -> convert.pdfToTxt(filePath, saveLocation, fileName);
+                    case APPLICATION_MSWORD -> convert.docToTxt(filePath, saveLocation, fileName);
+                    case APPLICATION_DOCX -> convert.docxToTxt(filePath, saveLocation, fileName);
+                }
+                System.out.println("Successfully Saved: " + fileName);
+            } catch (Exception e) {
+                System.err.println("Error processing file: " + fileName + ". Error: " + e.getMessage());
+            }
 
+        } else {
+            System.err.println("Unsupported file type for file: " + fileName);
         }
-        System.out.println("Successfully Saved");
     }
 
 

@@ -2,6 +2,7 @@
 package com.trackgenesis.NLP;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trackgenesis.enums.ContactType;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,10 +68,6 @@ public class FindInText {
         }
 
         return matchedSkills;
-    }
-
-    public enum ContactType {
-        PHONE, EMAIL
     }
 
     public Set<String> contactData(String text, ContactType type) {

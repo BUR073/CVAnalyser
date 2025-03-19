@@ -1,6 +1,7 @@
 // SID: 2408078
 package com.trackgenesis.util;
 
+import com.trackgenesis.enums.FileType;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.hwpf.HWPFDocument;
@@ -216,7 +217,7 @@ public class FileExtractor {
      * It is also possible for Files.probeContentType to return null if the
      * content type cannot be determined.
      */
-    public String getFileType(String filePath) {
+    public FileType getFileType(String filePath) {
         if (filePath == null || filePath.isEmpty()) {
             return null; // Or throw an IllegalArgumentException
         }
@@ -229,7 +230,8 @@ public class FileExtractor {
         Path path = Paths.get(filePath);
 
         try {
-            return Files.probeContentType(path);
+            String mimeType = Files.probeContentType(path);
+            return FileType.fromMimeType(mimeType);
         } catch (IOException e) {
             // Handle the exception (e.g., log it, return null, or throw a custom exception)
             return null; // Or handle the error appropriately

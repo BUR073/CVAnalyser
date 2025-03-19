@@ -3,7 +3,7 @@ package com.trackgenesis.NLP;
 import com.trackgenesis.records.CVRecord;
 import com.trackgenesis.records.RecordRepository;
 import com.trackgenesis.util.FileExtractor;
-import com.trackgenesis.NLP.FindInText.ContactType;
+import com.trackgenesis.enums.ContactType;
 
 import java.nio.file.Paths;
 import java.util.*;
@@ -101,9 +101,7 @@ public class CVsNLP {
         this.skills = this.findInText.skills(this.text);
         this.phoneNumbers = this.findInText.contactData(this.text, ContactType.PHONE);
         this.emails = this.findInText.contactData(this.text, ContactType.EMAIL);
-        System.out.println("Phone: " + this.phoneNumbers);
-        System.out.println("Email: " + this.emails);
-        System.out.println("Skills: " + this.skills);
+
 
 
         for (String sentence : sentences) {
