@@ -36,8 +36,8 @@ public class CVsNLP {
     private final Set<String> organizations = new HashSet<>();
     private final Set<String> dates = new HashSet<>();
     private final Set<String> times = new HashSet<>();
+    private final List<String> phoneNumbers = new ArrayList<>();
     private String emails;
-    private List<String> phoneNumbers = new ArrayList<>();
 
     public CVsNLP(List<String> filePaths, RecordRepository recordRepo) {
         this.filePaths = filePaths;
@@ -58,15 +58,13 @@ public class CVsNLP {
     }
 
     public void NLP(String text) throws IOException {
-
-
         // Sentence Detection
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin")) {
             if (sentenceModelIn == null) {
                 throw new IOException("en-sent.bin not found");
             }
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
-            SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentenceModel);
+            SentenceDetectorME sentenceDetector = new SentenceDetectorME(new SentenceModel(sentenceModelIn));
             String[] sentences = sentenceDetector.sentDetect(text);
 
             // Tokenization

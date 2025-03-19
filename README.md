@@ -139,36 +139,37 @@ critical thinking, data processing, and optimization to improve hiring workflows
 * **Ambiguous Terms:** Map synonyms (e.g., "ML" = "Machine Learning") using a glossary.
 
 ## Package and Class Overview
-| Package                       | Class Name                   | Description                                                                  |
-|-------------------------------|------------------------------|------------------------------------------------------------------------------|
-| `main`                        | `Main`                       | The entry point for the program                                              |
-| `main`                        | `User`                       | Handles the user login and register as well as storing the username          | 
-| `UI`                          | `JobDescription`             | The UI for uploading the job description                                     |
-| `UI`                          | `Login`                      | The UI for the login                                                         |
-| `UI`                          | `Menu`                       | The menu UI                                                                  |
-| `UI`                          | `Register`                   | The UI for register                                                          |
-| `UI`                          | `UploadCV`                   | The UI for uploading CVs                                                     |
-| `UI`                          | `ViewRankedCV`               | Allow the user to view the CV after they have been ranked                    |
-| `NLP`                         | `JobDescriptionNLP`          | Uses NLP to parse the job description                                        |
-| `NLP`                         | `CVsNLP`                     | Uses NLP to parse the CVs                                                    |
-| `records`                     | `CVRecord`                   | Stores the data from the CV                                                  |
-| `records`                     | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`   |
-| `records`                     | `RecordRepository`           | Class to store Record objects                                                |
-| `util`                        | `FileExtractor`              | Extracts data from files and saves to `.txt` file                            |
-| `util`                        | `KeyboardReader`             | Utility function that takes user inputs                                      |
-| `util`                        | `FileSaver`                  | Saves file to chosen dir                                                     |
-| `util`                        | `Hashing`                    | Hashes text for security                                                     |
-| `util`                        | `GetProperties`              | Retrieves values from properties files                                       |
-| `auth`                        | `LoginAuth`                  | Handles the logic for the login                                              |
-| `auth`                        | `RegisterAuth`               | Handles the logic for register                                               |
-| `menuActions.loggedIn`        | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`              | 
-| `menuActions.loggedIn`        | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`    |
-| `menuActions.loggedIn`        | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                        |
-| `menuActions.loggedOut`       | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                         |
-| `menuActions.loggedOut`       | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                      |
-| `menuAactions.jobDescription` | `SaveToNewFileAction`        | Implements `UserAction`. Calls `saveToNewFile()` from `FileSaver`            |
-| `menuAactions.jobDescription` | `SaveUnknownFileTypeAction`  | Implements `UserAction`. Calls `saveUnkownFileType()` from `FileSaver`       |
-| `menuActions.Interface`       | `UserAction`                 | An interface that can return any data type and has an empty execute() method |
+| Package                       | Class Name                   | Description                                                                    |
+|-------------------------------|------------------------------|--------------------------------------------------------------------------------|
+| `main`                        | `Main`                       | The entry point for the program                                                |
+| `main`                        | `User`                       | Handles the user login and register as well as storing the username            | 
+| `UI`                          | `JobDescription`             | The UI for uploading the job description                                       |
+| `UI`                          | `Login`                      | The UI for the login                                                           |
+| `UI`                          | `Menu`                       | The menu UI                                                                    |
+| `UI`                          | `Register`                   | The UI for register                                                            |
+| `UI`                          | `UploadCV`                   | The UI for uploading CVs                                                       |
+| `UI`                          | `ViewRankedCV`               | Allow the user to view the CV after they have been ranked                      |
+| `NLP`                         | `JobDescriptionNLP`          | Uses NLP to parse the job description                                          |
+| `NLP`                         | `CVsNLP`                     | Uses NLP to parse the CVs                                                      |
+| `NLP`                         | `GetSkills`                  | Extracts skills from a String. Matches againsts skills stored in 'skills.json' |
+| `records`                     | `CVRecord`                   | Stores the data from the CV                                                    |
+| `records`                     | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`     |
+| `records`                     | `RecordRepository`           | Class to store Record objects                                                  |
+| `util`                        | `FileExtractor`              | Extracts data from files and saves to `.txt` file                              |
+| `util`                        | `KeyboardReader`             | Utility function that takes user inputs                                        |
+| `util`                        | `FileSaver`                  | Saves file to chosen dir                                                       |
+| `util`                        | `Hashing`                    | Hashes text for security                                                       |
+| `util`                        | `GetProperties`              | Retrieves values from properties files                                         |
+| `auth`                        | `LoginAuth`                  | Handles the logic for the login                                                |
+| `auth`                        | `RegisterAuth`               | Handles the logic for register                                                 |
+| `menuActions.loggedIn`        | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`                | 
+| `menuActions.loggedIn`        | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`      |
+| `menuActions.loggedIn`        | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                          |
+| `menuActions.loggedOut`       | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                           |
+| `menuActions.loggedOut`       | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                        |
+| `menuAactions.jobDescription` | `SaveToNewFileAction`        | Implements `UserAction`. Calls `saveToNewFile()` from `FileSaver`              |
+| `menuAactions.jobDescription` | `SaveUnknownFileTypeAction`  | Implements `UserAction`. Calls `saveUnkownFileType()` from `FileSaver`         |
+| `menuActions.Interface`       | `UserAction`                 | An interface that can return any data type and has an empty execute() method   |
 
 ## Project Adaptations and Modifications
 

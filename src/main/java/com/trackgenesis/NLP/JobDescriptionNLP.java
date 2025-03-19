@@ -21,8 +21,6 @@ import java.util.Set;
 
 public class JobDescriptionNLP {
 
-
-    private final Set<String> people = new HashSet<>();
     private final Set<String> locations = new HashSet<>();
     private final Set<String> organizations = new HashSet<>();
     private final Set<String> dates = new HashSet<>();
@@ -59,25 +57,22 @@ public class JobDescriptionNLP {
                 TokenizerME tokenizer = new TokenizerME(tokenizerModel);
 
 
-                try (InputStream PersonModel = this.nlpUtil.load("models/en-ner-person.bin");
-                     InputStream LocationModel = this.nlpUtil.load("models/en-ner-location.bin");
+                try (InputStream LocationModel = this.nlpUtil.load("models/en-ner-location.bin");
                      InputStream OrganizationModel = this.nlpUtil.load("models/en-ner-organization.bin");
                      InputStream DateModel = this.nlpUtil.load("models/en-ner-date.bin");
                      InputStream TimeModel = this.nlpUtil.load("models/en-ner-time.bin")
 
                 ) {
-                    if (PersonModel == null || LocationModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
+                    if (LocationModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
                         throw new IOException("One or more NER models not found");
                     }
 
-                    TokenNameFinderModel personModel = new TokenNameFinderModel(PersonModel);
                     TokenNameFinderModel locationModel = new TokenNameFinderModel(LocationModel);
                     TokenNameFinderModel organizationModel = new TokenNameFinderModel(OrganizationModel);
                     TokenNameFinderModel dateModel = new TokenNameFinderModel(DateModel);
                     TokenNameFinderModel timeModel = new TokenNameFinderModel(TimeModel);
 
 
-                    NameFinderME personFinder = new NameFinderME(personModel);
                     NameFinderME locationFinder = new NameFinderME(locationModel);
                     NameFinderME organizationFinder = new NameFinderME(organizationModel);
                     NameFinderME dateFinder = new NameFinderME(dateModel);
@@ -89,7 +84,6 @@ public class JobDescriptionNLP {
 
                         Span[] timesSpans = timeFinder.find(tokens);
                         Span[] dateSpans = dateFinder.find(tokens);
-                        Span[] personSpans = personFinder.find(tokens);
                         Span[] locationSpans = locationFinder.find(tokens);
                         Span[] organizationSpans = organizationFinder.find(tokens);
 
@@ -100,11 +94,6 @@ public class JobDescriptionNLP {
                         // Find Dates
                         for (Span span : dateSpans) {
                             this.dates.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
-                        }
-
-                        // Find People
-                        for (Span span : personSpans) {
-                            this.people.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Locations
@@ -119,7 +108,7 @@ public class JobDescriptionNLP {
                     }
 
                     // Return the reference to the record with the parsed data
-                    return new JobDescriptionRecord(this.people, this.locations, this.organizations, this.dates, this.times);
+                    return new JobDescriptionRecord(this.locations, this.organizations, this.dates, this.times);
 
                 }
             }
