@@ -18,10 +18,14 @@ public class UploadCV {
 
 
     public void upload() {
-        System.out.println("Please choose a folder to upload\nAcceptable CV format includes: .txt, .pdf, .doc and .docx");
+        System.out.println("Please choose file's to upload\nAcceptable CV format includes: .txt, .pdf, .doc and .docx");
         List<String> folderPath = this.fileSaver.chooseFiles("Text files", "txt");
-        CVsNLP cvsNLP = new CVsNLP(folderPath, this.recordRepo);
-        cvsNLP.start();
+        try {
+            CVsNLP cvsNLP = new CVsNLP(folderPath, this.recordRepo);
+            cvsNLP.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }
