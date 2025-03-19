@@ -28,14 +28,14 @@ public class JobDescriptionNLP {
 
     private String text;
     private final NLPUtil nlpUtil;
-    private final FindSkills findSkills;
+    private final FindInText findInText;
 
     public JobDescriptionNLP(GetProperties getProperties)  {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
         FileExtractor extractor = new FileExtractor();
         this.text = extractor.getText(filePath);
         this.nlpUtil = new NLPUtil();
-        this.findSkills = new FindSkills();
+        this.findInText = new FindInText();
 
 
     }
@@ -51,7 +51,7 @@ public class JobDescriptionNLP {
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
             SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentenceModel);
             String[] sentences = sentenceDetector.sentDetect(this.text);
-            this.skills = findSkills.extract(this.text);
+            this.skills = findInText.skills(this.text);
 
             // Tokenization
             try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {

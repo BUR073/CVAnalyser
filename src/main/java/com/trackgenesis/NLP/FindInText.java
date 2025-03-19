@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class FindSkills {
+public class FindInText {
 
     private final List<String> skillsList;
 
-    public FindSkills() {
+    public FindInText() {
         String jsonFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/skills.json";
         skillsList = loadSkillsFromJson(jsonFilePath);
     }
@@ -44,7 +46,7 @@ public class FindSkills {
         return null;
     }
 
-    public Set<String> extract(String text) {
+    public Set<String> skills(String text) {
         Set<String> matchedSkills = new HashSet<>();
         String[] words = text.split("\\s+"); // Split by any whitespace
 
@@ -65,6 +67,32 @@ public class FindSkills {
         }
 
         return matchedSkills;
+    }
+
+    public enum ContactType {
+        PHONE, EMAIL
+    }
+
+    public Set<String> contactData(String text, ContactType type) {
+        Set<String> phoneNumber = new HashSet<>();
+        if (text == null || text.isEmpty()) {
+            return phoneNumber; // Return empty set for null or empty input
+        }
+
+        String regex;
+        switch (type) {
+            case PHONE -> regex = "\\+?(\\d{1,3})?[-.\\s(]?(\\d{3})[-.\\s)]?(\\d{3})[-.\\s]?(\\d{4})(?:\\s*x(\\d+))?";
+            case EMAIL -> regex = "[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}"; // Both regexes from AI
+            default -> throw new IllegalArgumentException("Invalid contact type: " + type);
+        }
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()) {
+            phoneNumber.add(matcher.group(0)); // Add the matched phone number to the set
+        }
+
+        return phoneNumber;
     }
 
 }
