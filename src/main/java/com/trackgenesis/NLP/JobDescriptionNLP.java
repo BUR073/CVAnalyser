@@ -2,9 +2,8 @@
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.JobDescriptionRecord;
-import com.trackgenesis.util.FileExtractor;
 import com.trackgenesis.util.GetProperties;
-import com.trackgenesis.util.NLPUtil;
+import com.trackgenesis.util.NLP;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
@@ -27,14 +26,13 @@ public class JobDescriptionNLP {
     private Set<String> skills = new HashSet<>();
 
     private String text;
-    private final NLPUtil nlpUtil;
+    private final NLP nlp;
     private final FindInText findInText;
 
-    public JobDescriptionNLP(GetProperties getProperties)  {
+    public JobDescriptionNLP(GetProperties getProperties, String text)  {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
-        FileExtractor extractor = new FileExtractor();
-        this.text = extractor.getText(filePath);
-        this.nlpUtil = new NLPUtil();
+        this.text = text;
+        this.nlp = new NLP();
         this.findInText = new FindInText();
 
 
@@ -62,10 +60,10 @@ public class JobDescriptionNLP {
                 TokenizerME tokenizer = new TokenizerME(tokenizerModel);
 
 
-                try (InputStream LocationModel = this.nlpUtil.load("models/en-ner-location.bin");
-                     InputStream OrganizationModel = this.nlpUtil.load("models/en-ner-organization.bin");
-                     InputStream DateModel = this.nlpUtil.load("models/en-ner-date.bin");
-                     InputStream TimeModel = this.nlpUtil.load("models/en-ner-time.bin")
+                try (InputStream LocationModel = this.nlp.load("models/en-ner-location.bin");
+                     InputStream OrganizationModel = this.nlp.load("models/en-ner-organization.bin");
+                     InputStream DateModel = this.nlp.load("models/en-ner-date.bin");
+                     InputStream TimeModel = this.nlp.load("models/en-ner-time.bin")
 
                 ) {
                     if (LocationModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
@@ -93,22 +91,22 @@ public class JobDescriptionNLP {
                         Span[] organizationSpans = organizationFinder.find(tokens);
 
                         for (Span span : timesSpans) {
-                            this.times.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.times.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Dates
                         for (Span span : dateSpans) {
-                            this.dates.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.dates.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Locations
                         for (Span span : locationSpans) {
-                            this.locations.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.locations.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
 
                         // Find Organizations
                         for (Span span : organizationSpans) {
-                            this.organizations.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                            this.organizations.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
                         }
                     }
 

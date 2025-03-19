@@ -9,7 +9,7 @@ About Acme Innovations:
 Acme Innovations, a leading technology firm located in Silicon Valley, is seeking a talented Web Developer to join our dynamic team. We are a fast-paced organization committed to delivering cutting-edge solutions for our clients. Founded in 2010, Acme Innovations has experienced rapid growth and is now expanding its development team.
 
 Job Description:
-
+Python, C, C#, C++, Web dev
 As a Web Developer at Acme Innovations, you will be responsible for designing, developing, and maintaining web applications. You will collaborate with our team of designers and engineers to deliver high-quality, user-friendly websites and applications. The ideal candidate will possess a strong understanding of front-end and back-end development principles.
 
 Recruiter: Dave Blogs

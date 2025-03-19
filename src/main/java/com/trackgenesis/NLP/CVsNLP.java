@@ -2,12 +2,14 @@ package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.CVRecord;
 import com.trackgenesis.records.RecordRepository;
-import com.trackgenesis.util.FileExtractor;
 import com.trackgenesis.enums.ContactType;
 
+import java.io.FileReader;
 import java.nio.file.Paths;
 import java.util.*;
-import com.trackgenesis.util.NLPUtil;
+
+import com.trackgenesis.util.FileReaderUtility;
+import com.trackgenesis.util.NLP;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
@@ -17,16 +19,14 @@ import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class CVsNLP {
 
     private final List<String> filePaths;
     private final RecordRepository recordRepo;
-    private final FileExtractor extract;
-    private final NLPUtil nlpUtil;
+    private final FileReaderUtility extract;
+    private final NLP nlp;
     private final FindInText findInText;
 
     private final Set<String> people = new HashSet<>();
@@ -49,17 +49,17 @@ public class CVsNLP {
     public CVsNLP(List<String> filePaths, RecordRepository recordRepo) throws IOException { // Added throws IOException
         this.filePaths = filePaths;
         this.recordRepo = recordRepo;
-        this.extract = new FileExtractor();
-        this.nlpUtil = new NLPUtil();
+        this.extract = new FileReaderUtility();
+        this.nlp = new NLP();
         this.findInText = new FindInText();
 
         // Load models in the construcor, as when not done they are repeatedley loaded causing a null pointer error
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin");
              InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin");
-             InputStream PersonModel = this.nlpUtil.load("models/en-ner-person.bin");
-             InputStream OrganizationModel = this.nlpUtil.load("models/en-ner-organization.bin");
-             InputStream DateModel = this.nlpUtil.load("models/en-ner-date.bin");
-             InputStream TimeModel = this.nlpUtil.load("models/en-ner-time.bin")) {
+             InputStream PersonModel = this.nlp.load("models/en-ner-person.bin");
+             InputStream OrganizationModel = this.nlp.load("models/en-ner-organization.bin");
+             InputStream DateModel = this.nlp.load("models/en-ner-date.bin");
+             InputStream TimeModel = this.nlp.load("models/en-ner-time.bin")) {
 
             if (sentenceModelIn == null || tokenizerModelIn == null || PersonModel == null || OrganizationModel == null || DateModel == null || TimeModel == null) {
                 throw new IOException("One or more NLP models not found");
@@ -112,22 +112,22 @@ public class CVsNLP {
             Span[] organization = organizationFinder.find(tokens);
 
             for (Span span : times) {
-                this.times.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                this.times.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
 
             // Find Dates
             for (Span span : date) {
-                this.dates.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                this.dates.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
 
             // Find People
             for (Span span : person) {
-                this.people.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                this.people.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
 
             // Find Organizations
             for (Span span : organization) {
-                this.organizations.add(this.nlpUtil.reconstruct(tokens, span.getStart(), span.getEnd()));
+                this.organizations.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
         }
         return new CVRecord(this.people, this.organizations, this.dates, this.times, this.skills, null, null);

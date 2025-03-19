@@ -3,7 +3,7 @@ package com.trackgenesis.util;
 import java.io.InputStream;
 import java.util.Arrays;
 
-public class NLPUtil {
+public class NLP {
 
     public String reconstruct(String[] tokens, int start, int end) {
         return String.join(" ", Arrays.copyOfRange(tokens, start, end));
