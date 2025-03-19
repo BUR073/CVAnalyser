@@ -8,9 +8,10 @@ public record JobDescriptionRecord(
         Set<String> locations,
         Set<String> organizations,
         Set<String> dates,
-        Set<String> times
+        Set<String> times,
+        Set<String> skills
 ) {
     public JobDescriptionRecord() {
-        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>());
+        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>());
     }
 }

@@ -6,24 +6,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GetSkills {
 
     private final List<String> skillsList;
 
-    public GetSkills() throws IOException {
+    public GetSkills() {
         String jsonFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/skills.json";
         skillsList = loadSkillsFromJson(jsonFilePath);
     }
 
-    public List<String> loadSkillsFromJson(String jsonFilePath) throws IOException {
+    public List<String> loadSkillsFromJson(String jsonFilePath) {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(jsonFilePath);
         List<String> loadedSkills = new ArrayList<>();
 
         if (!file.exists()) {
-            throw new IOException("JSON file not found: " + jsonFilePath);
+            System.err.println("JSON file not found: " + jsonFilePath);
         }
 
         try {
@@ -37,12 +39,13 @@ public class GetSkills {
                 throw new IOException("Invalid JSON format: 'skills' field missing or not an array.");
             }
         } catch (IOException e) {
-            throw new IOException("Error reading JSON file: " + e.getMessage());
+            System.err.println("Error reading JSON file: " + e.getMessage());
         }
+        return null;
     }
 
-    public List<String> extract(String text) {
-        List<String> matchedSkills = new ArrayList<>();
+    public Set<String> extract(String text) {
+        Set<String> matchedSkills = new HashSet<>();
         String[] words = text.split("\\s+"); // Split by any whitespace
 
         if (skillsList == null || skillsList.isEmpty()) {

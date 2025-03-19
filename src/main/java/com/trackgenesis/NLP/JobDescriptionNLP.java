@@ -21,24 +21,29 @@ import java.util.Set;
 
 public class JobDescriptionNLP {
 
-    private final Set<String> locations = new HashSet<>();
-    private final Set<String> organizations = new HashSet<>();
-    private final Set<String> dates = new HashSet<>();
-    private final Set<String> times = new HashSet<>();
+    private Set<String> locations = new HashSet<>();
+    private Set<String> organizations = new HashSet<>();
+    private Set<String> dates = new HashSet<>();
+    private Set<String> times = new HashSet<>();
+    private Set<String> skills = new HashSet<>();
 
     private final String text;
-    private NLPUtil nlpUtil;
+    private final NLPUtil nlpUtil;
+    private final GetSkills getSkills;
 
-    public JobDescriptionNLP(GetProperties getProperties) {
+    public JobDescriptionNLP(GetProperties getProperties)  {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
         FileExtractor extractor = new FileExtractor();
         this.text = extractor.getText(filePath);
         this.nlpUtil = new NLPUtil();
+        this.getSkills = new GetSkills();
 
 
     }
 
     public JobDescriptionRecord extractInformation() throws IOException {
+
+
         // Sentence Detection
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin")) {
             if (sentenceModelIn == null) {
@@ -47,6 +52,7 @@ public class JobDescriptionNLP {
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
             SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentenceModel);
             String[] sentences = sentenceDetector.sentDetect(this.text);
+            this.skills = getSkills.extract(this.text);
 
             // Tokenization
             try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {
@@ -108,7 +114,8 @@ public class JobDescriptionNLP {
                     }
 
                     // Return the reference to the record with the parsed data
-                    return new JobDescriptionRecord(this.locations, this.organizations, this.dates, this.times);
+                    System.out.println("Skills: " + this.skills);
+                    return new JobDescriptionRecord(this.locations, this.organizations, this.dates, this.times, this.skills);
 
                 }
             }
