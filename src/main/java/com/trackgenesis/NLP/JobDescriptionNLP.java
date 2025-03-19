@@ -15,7 +15,6 @@ import opennlp.tools.util.Span;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,16 +26,16 @@ public class JobDescriptionNLP {
     private Set<String> times = new HashSet<>();
     private Set<String> skills = new HashSet<>();
 
-    private final String text;
+    private String text;
     private final NLPUtil nlpUtil;
-    private final GetSkills getSkills;
+    private final FindSkills findSkills;
 
     public JobDescriptionNLP(GetProperties getProperties)  {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
         FileExtractor extractor = new FileExtractor();
         this.text = extractor.getText(filePath);
         this.nlpUtil = new NLPUtil();
-        this.getSkills = new GetSkills();
+        this.findSkills = new FindSkills();
 
 
     }
@@ -52,7 +51,7 @@ public class JobDescriptionNLP {
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
             SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentenceModel);
             String[] sentences = sentenceDetector.sentDetect(this.text);
-            this.skills = getSkills.extract(this.text);
+            this.skills = findSkills.extract(this.text);
 
             // Tokenization
             try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {

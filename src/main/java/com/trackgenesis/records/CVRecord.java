@@ -5,15 +5,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public record CVRecord(
-        Set<String> education,
-        Set<String> experience,
+        Set<String> people,
+        Set<String> organizations,
+        Set<String> dates,
+        Set<String> times,
         Set<String> skills,
-        Set<String> jobTitles,
-        String name,
         String email,
-        int phoneNumber
+        String phoneNumber
 ) {
     public CVRecord() {
-        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), null, null, 0);
+        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), null, null);
     }
 }
+

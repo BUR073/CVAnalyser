@@ -7,12 +7,9 @@ import com.trackgenesis.util.FileExtractor;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.trackgenesis.records.JobDescriptionRecord;
-import com.trackgenesis.util.FileExtractor;
-import com.trackgenesis.util.GetProperties;
+
 import com.trackgenesis.util.NLPUtil;
 import opennlp.tools.namefind.NameFinderME;
-import opennlp.tools.namefind.RegexNameFinder;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
@@ -31,33 +28,38 @@ public class CVsNLP {
     private final RecordRepository recordRepo;
     private final FileExtractor extract;
     private final NLPUtil nlpUtil;
+    private final FindSkills findSkills;
 
     private final Set<String> people = new HashSet<>();
     private final Set<String> organizations = new HashSet<>();
     private final Set<String> dates = new HashSet<>();
     private final Set<String> times = new HashSet<>();
-    private final List<String> phoneNumbers = new ArrayList<>();
+    private Set<String> skills = new HashSet<>();
+    private final Set<String> phoneNumbers = new HashSet<>();
     private String emails;
+    private String text;
 
     public CVsNLP(List<String> filePaths, RecordRepository recordRepo) {
         this.filePaths = filePaths;
         this.recordRepo = recordRepo;
         this.extract = new FileExtractor();
         this.nlpUtil = new NLPUtil();
+        this.findSkills = new FindSkills();
     }
 
     public void start() {
         for (String filePath : this.filePaths) { // Iterate over the filePaths list
             System.out.println("Extracting: " + filePath);
             try {
-                this.NLP(this.extract.getText(filePath));
+                this.text = this.extract.getText(filePath);
+                this.recordRepo.saveRecord(this.NLP(this.text));
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
         }
     }
 
-    public void NLP(String text) throws IOException {
+    public CVRecord NLP(String text) throws IOException {
         // Sentence Detection
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin")) {
             if (sentenceModelIn == null) {
@@ -65,7 +67,8 @@ public class CVsNLP {
             }
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
             SentenceDetectorME sentenceDetector = new SentenceDetectorME(new SentenceModel(sentenceModelIn));
-            String[] sentences = sentenceDetector.sentDetect(text);
+            String[] sentences = sentenceDetector.sentDetect(this.text);
+            this.skills = findSkills.extract(this.text);
 
             // Tokenization
             try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {
@@ -140,6 +143,7 @@ public class CVsNLP {
                     }
                     System.out.println("Phone: " + this.phoneNumbers);
                     System.out.println("Complete. Placeholder for now....");
+                    return new CVRecord(this.people, this.organizations, this.dates, this.times, this.skills, null, null);
                 }
             }
         }

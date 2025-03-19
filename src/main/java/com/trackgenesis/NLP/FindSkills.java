@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GetSkills {
+public class FindSkills {
 
     private final List<String> skillsList;
 
-    public GetSkills() {
+    public FindSkills() {
         String jsonFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/skills.json";
         skillsList = loadSkillsFromJson(jsonFilePath);
     }
