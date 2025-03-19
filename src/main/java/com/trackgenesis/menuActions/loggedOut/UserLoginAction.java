@@ -1,7 +1,7 @@
 // SID: 2408078
 package com.trackgenesis.menuActions.loggedOut;
 
-import com.trackgenesis.menuActions.Interface.UserAction;
+import com.trackgenesis.menuActions.UserAction;
 import com.trackgenesis.main.User;
 
 

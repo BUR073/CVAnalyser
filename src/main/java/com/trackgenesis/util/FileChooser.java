@@ -5,7 +5,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class FileChooser {
 
@@ -62,13 +61,5 @@ public class FileChooser {
         }
     }
 
-    /**
-     * Function used to save a string to a .txt file.
-     * This is used when the user wants to type instead of uploading a file
-     *
-     * @param contents   - String contains what you want to save to the file
-     * @param folderPath - The folder path for where the file is to be saved
-     * @param fileName   - The name for the file
-     */
 
 }

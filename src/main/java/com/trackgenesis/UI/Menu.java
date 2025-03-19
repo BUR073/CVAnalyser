@@ -1,12 +1,11 @@
 // SID: 2408078
 package com.trackgenesis.UI;
 
-import com.trackgenesis.menuActions.Interface.UserAction;
+import com.trackgenesis.menuActions.UserAction;
 import com.trackgenesis.menuActions.loggedIn.*;
 import com.trackgenesis.menuActions.loggedOut.UserLoginAction;
 import com.trackgenesis.menuActions.loggedOut.UserRegisterAction;
 import com.trackgenesis.main.User;
-import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.records.RecordRepository;
 import com.trackgenesis.util.KeyboardReader;
 import com.trackgenesis.util.GetProperties;

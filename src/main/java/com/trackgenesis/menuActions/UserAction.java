@@ -1,5 +1,5 @@
 // SID: 2408078
-package com.trackgenesis.menuActions.Interface;
+package com.trackgenesis.menuActions;
 
 import java.io.IOException;
 
