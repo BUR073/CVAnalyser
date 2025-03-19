@@ -49,7 +49,7 @@ public class CVsNLP {
         this.nlpUtil = new NLPUtil();
         this.findSkills = new FindSkills();
 
-        // Load models ONCE in the constructor
+        // Load models in the construcor, as when not done they are repeatedley loaded causing a null pointer error
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin");
              InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin");
              InputStream PersonModel = this.nlpUtil.load("models/en-ner-person.bin");
@@ -77,7 +77,7 @@ public class CVsNLP {
                 this.text = this.extract.getText(filePath);
                 this.recordRepo.saveRecord(this.NLP(this.text));
             } catch (IOException e) {
-                System.err.println(e.getMessage());
+                System.err.println("Error: " + e.getMessage());
             }
         }
     }
@@ -93,8 +93,8 @@ public class CVsNLP {
         String[] sentences = sentenceDetector.sentDetect(this.text);
         this.skills = findSkills.extract(this.text);
 
+
         for (String sentence : sentences) {
-            System.out.println("Sentence: " + sentence);
             String[] tokens = tokenizer.tokenize(sentence);
             Span[] times = timeFinder.find(tokens);
             Span[] date = dateFinder.find(tokens);

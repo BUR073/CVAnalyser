@@ -24,16 +24,17 @@ public class FileExtractor {
 
 
     public String getText(String filePath) {
-        try (InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream(filePath)) {
-            if (fileInputStream != null) {
-                return new String(fileInputStream.readAllBytes());
-            } else {
-                return ""; //return empty string if file not found.
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
             }
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
-            return null; // Return null to indicate an error
+            return "";
         }
+        return content.toString();
     }
 
     /**

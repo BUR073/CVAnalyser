@@ -23,22 +23,22 @@ public class JobDescription {
     private final KeyboardReader kbr;
     private final String saveLocation;
     private final String fileName;
-    private final JobDescriptionNLP jobDescriptionNLP;
+    //private final JobDescriptionNLP jobDescriptionNLP;
     private final String uploadMenu;
     private final FileSaver save;
     private final Map<Integer, UserAction<?>> uploadActions;
     private final RecordRepository recordRepo;
+    private final GetProperties getProperties;
 
 
     public JobDescription(KeyboardReader kbr, GetProperties getProperties, RecordRepository recordRepo) {
         this.kbr = kbr;
         this.save = new FileSaver();
-        this.jobDescriptionNLP = new JobDescriptionNLP(getProperties);
         this.recordRepo = recordRepo;
-
-        this.saveLocation = getProperties.get("job.description.save.location","properties/file.properties");
-        this.fileName = getProperties.get("job.description.file.name","properties/file.properties");
-        this.uploadMenu = getProperties.get("upload.Menu","properties/menu.properties");
+        this.getProperties = getProperties;
+        this.saveLocation = this.getProperties.get("job.description.save.location","properties/file.properties");
+        this.fileName = this.getProperties.get("job.description.file.name","properties/file.properties");
+        this.uploadMenu = this.getProperties.get("upload.Menu","properties/menu.properties");
 
 
         this.uploadActions = new HashMap<>();
@@ -66,7 +66,7 @@ public class JobDescription {
 
 
     public void upload() {
-
+        JobDescriptionNLP jobDescriptionNLP = new JobDescriptionNLP(this.getProperties);
         int choice = this.kbr.getInt(this.uploadMenu);
         UserAction<?> action = this.uploadActions.get(choice);
 
