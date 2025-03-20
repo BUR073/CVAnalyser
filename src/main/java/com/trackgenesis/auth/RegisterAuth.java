@@ -5,18 +5,32 @@ import com.trackgenesis.util.Hashing;
 import java.io.*;
 
 
-
+/**
+ * Class containing the logic for registering a new user
+ * @author henryburbridge
+ */
 public class RegisterAuth {
 
     private final String filePath;
     private final Hashing hash;
 
 
+    /**
+     * Constructor
+     * Defines new Hashing object
+     * @param filePath Filepath for user data storage file
+     */
     public RegisterAuth(String filePath) {
         this.filePath = filePath;
         this.hash = new Hashing();
     }
 
+    /**
+     * Main logic for registering a user
+     * @param username new username
+     * @param password new password
+     * @return true if successfully register, false otherwise
+     */
     public boolean register(String username, String password) {
         if (this.usernameDoesNotExist(username)) {
             File file = new File(filePath);
@@ -37,6 +51,11 @@ public class RegisterAuth {
         }
     }
 
+    /**
+     * Checks whether the username does not already exist
+     * @param username new username
+     * @return false if username does not already exist, true if it does
+     */
     private boolean usernameDoesNotExist(String username) {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             String line;

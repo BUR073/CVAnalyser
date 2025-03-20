@@ -8,22 +8,30 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Class containing the logic for a user to login
+ * @author henryburbridge
+ */
 public class LoginAuth {
     private final String filePath;
     private final Hashing hash;
     private final Map<String, String> users;
 
-
+    /**
+     * Constructor
+     * @param filePath file path for the file containing the user details
+     */
     public LoginAuth(String filePath) {
         this.filePath = filePath;
         this.hash = new Hashing();
         this.users = new HashMap<>();
     }
 
-
-    private void loadUsersFromFile(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    /**
+     * Loads the users from the file into a HashMap
+     */
+    private void loadUsersFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             String line;
             String savedUsername;
             String savedPassword;
@@ -43,7 +51,12 @@ public class LoginAuth {
 
     }
 
-
+    /**
+     * Main logic to login
+     * @param username the user's username
+     * @param password the user's password
+     * @return True if logged in, false if not
+     */
     public boolean login(String username, String password) {
         loadUsersFromFile(this.filePath);
         String storedHashedPassword = this.users.get(username); // Retrieve the stored hashed password
