@@ -5,6 +5,7 @@ import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 import java.io.*;
 
@@ -42,10 +43,14 @@ public class FileReaderUtility {
      * @return the string of the contents
      */
     private StringBuilder readTextFile(String filePath) {
+        // Init string builder to store string
         StringBuilder content = new StringBuilder();
+        // Try statement to make sure BufferedReader is closed automatically
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            // Read lines from the file until the end of the file is reached
             while ((line = reader.readLine()) != null) {
+                // Append the lines to the StringBuilder
                 content.append(line).append(System.lineSeparator());
             }
         } catch (IOException e) {
@@ -60,9 +65,13 @@ public class FileReaderUtility {
      * @return the string contents
      */
     private StringBuilder readPdfFile(String filePath) {
+        // Init new string builder to store string
         StringBuilder content = new StringBuilder();
+        // Use try statement to make sure PDFDocument is closed automatically
         try (PDDocument document = PDDocument.load(new File(filePath))) {
+            // Init a PDFTextStripper
             PDFTextStripper stripper = new PDFTextStripper();
+            // Extract text using PDFTextStripper and append to StringBuilder
             content.append(stripper.getText(document));
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -76,10 +85,16 @@ public class FileReaderUtility {
      * @return the string contents of the file
      */
     private StringBuilder readDocxFile(String filePath) {
+        // Init StringBuilder to store string
         StringBuilder content = new StringBuilder();
+        // Use try statement to ensure input stream is closed automatically
         try (InputStream fis = new FileInputStream(filePath)) {
+            // Load the DOCX document from the input stream
             XWPFDocument document = new XWPFDocument(fis);
-            document.getParagraphs().forEach(paragraph -> content.append(paragraph.getText()).append(System.lineSeparator()));
+            // Loop through each paragraph and append it to the StringBuilder
+            for (XWPFParagraph paragraph : document.getParagraphs()) {
+                content.append(paragraph.getText()).append(System.lineSeparator());
+            }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -92,10 +107,15 @@ public class FileReaderUtility {
      * @return the string contents of the file
      */
     private StringBuilder readDocFile(String filePath) {
+        // Init StringBuilder to store string
         StringBuilder content = new StringBuilder();
+        // Use try statement so input stream is closed automatically
         try (InputStream fis = new FileInputStream(filePath)) {
+            // Load the document from the input stream
             HWPFDocument document = new HWPFDocument(fis);
+            // Get the entire text range from the document
             Range range = document.getRange();
+            // Append it to the string builder
             content.append(range.text());
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -109,7 +129,10 @@ public class FileReaderUtility {
      * @return the string of the extension
      */
     private String getFileExtension(String filePath) {
+        // Find the index of the last dot in the string
         int lastDotIndex = filePath.lastIndexOf('.');
-        return (lastDotIndex == -1) ? "" : filePath.substring(lastDotIndex + 1);
+        // Return everything after the last dot
+        return filePath.substring(lastDotIndex + 1);
+
     }
 }
