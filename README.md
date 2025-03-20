@@ -24,10 +24,10 @@
 
 ## Introduction
 
-The project outlined below is part of my 1st year Software Principles module assessment at Anglia Ruskin University.
+The project outlined below is part of my first year Software Principles module assessment at Anglia Ruskin University.
 This is my first project in Java as well as my first introduction to the Object-Oriented Programming style.
 
-Note: Everything from Background through too Challenges is a direct copy from the assignment specification outline. 
+Note: Everything from Background through to Challenges is a direct copy from the assignment specification outline. 
 
 ## Background
 
@@ -139,44 +139,47 @@ critical thinking, data processing, and optimization to improve hiring workflows
 * **Ambiguous Terms:** Map synonyms (e.g., "ML" = "Machine Learning") using a glossary.
 
 ## Package and Class Overview
-| Package                       | Class Name                   | Description                                                                    |
-|-------------------------------|------------------------------|--------------------------------------------------------------------------------|
-| `main`                        | `Main`                       | The entry point for the program                                                |
-| `main`                        | `User`                       | Handles the user login and register as well as storing the username            | 
-| `UI`                          | `JobDescription`             | The UI for uploading the job description                                       |
-| `UI`                          | `Login`                      | The UI for the login                                                           |
-| `UI`                          | `Menu`                       | The menu UI                                                                    |
-| `UI`                          | `Register`                   | The UI for register                                                            |
-| `UI`                          | `UploadCV`                   | The UI for uploading CVs                                                       |
-| `UI`                          | `ViewRankedCV`               | Allow the user to view the CV after they have been ranked                      |
-| `NLP`                         | `JobDescriptionNLP`          | Uses NLP to parse the job description                                          |
-| `NLP`                         | `CVsNLP`                     | Uses NLP to parse the CVs                                                      |
-| `NLP`                         | `GetSkills`                  | Extracts skills from a String. Matches againsts skills stored in 'skills.json' |
-| `records`                     | `CVRecord`                   | Stores the data from the CV                                                    |
-| `records`                     | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`     |
-| `records`                     | `RecordRepository`           | Class to store Record objects                                                  |
-| `util`                        | `FileExtractor`              | Extracts data from files and saves to `.txt` file                              |
-| `util`                        | `KeyboardReader`             | Utility function that takes user inputs                                        |
-| `util`                        | `FileSaver`                  | Saves file to chosen dir                                                       |
-| `util`                        | `Hashing`                    | Hashes text for security                                                       |
-| `util`                        | `GetProperties`              | Retrieves values from properties files                                         |
-| `auth`                        | `LoginAuth`                  | Handles the logic for the login                                                |
-| `auth`                        | `RegisterAuth`               | Handles the logic for register                                                 |
-| `menuActions.loggedIn`        | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`                | 
-| `menuActions.loggedIn`        | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`      |
-| `menuActions.loggedIn`        | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                          |
-| `menuActions.loggedOut`       | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                           |
-| `menuActions.loggedOut`       | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                        |
-| `menuAactions.jobDescription` | `SaveToNewFileAction`        | Implements `UserAction`. Calls `saveToNewFile()` from `FileSaver`              |
-| `menuAactions.jobDescription` | `SaveUnknownFileTypeAction`  | Implements `UserAction`. Calls `saveUnkownFileType()` from `FileSaver`         |
-| `menuActions.Interface`       | `UserAction`                 | An interface that can return any data type and has an empty execute() method   |
+| Package                 | Class Name                   | Description                                                                                                      |
+|-------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------|
+| `main`                  | `Main`                       | The entry point for the program                                                                                  |
+| `main`                  | `User`                       | Handles the user login and register as well as storing the username                                              | 
+| `UI`                    | `JobDescription`             | The UI for uploading the job description                                                                         |
+| `UI`                    | `Login`                      | The UI for the login                                                                                             |
+| `UI`                    | `Menu`                       | The menu UI                                                                                                      |
+| `UI`                    | `Register`                   | The UI for register                                                                                              |
+| `UI`                    | `UploadCV`                   | The UI for uploading CVs                                                                                         |
+| `UI`                    | `ViewRankedCV`               | Allow the user to view the CV in ranked order from best to worst along with contact details of the applicant     |
+| `NLP`                   | `JobDescriptionNLP`          | Uses NLP to parse the job description                                                                            |
+| `NLP`                   | `CVsNLP`                     | Uses NLP to parse the CVs                                                                                        |
+| `NLP`                   | `FindInText`                 | Extracts skills, phone numbers or email address from a String.                                                   |
+| `records`               | `CVRecord`                   | Stores the data from the CV                                                                                      |
+| `records`               | `CVScore`                    | Used to return the details of a CVs score, including filename, applicant name, email, phone number and the score |
+| `records`               | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`                                       |
+| `records`               | `RecordRepository`           | Class to store Record objects                                                                                    |
+| `util`                  | `KeyboardReader`             | Utility function that takes user inputs                                                                          |
+| `util`                  | `Hashing`                    | Hashes text for security                                                                                         |
+| `util`                  | `GetProperties`              | Retrieves values from properties files                                                                           |
+| `util`                  | `NLP`                        | Small methods that are used commonly in the NLP parts of the project                                             |
+| `util`                  | `FileChooser`                | Class that launches a GUI to choose files                                                                        |
+| `util`                  | `FileReaderUtility`          | Class that reads a file into a string                                                                            |
+| `auth`                  | `LoginAuth`                  | Handles the logic for the login                                                                                  |
+| `auth`                  | `RegisterAuth`               | Handles the logic for register                                                                                   |
+| `menuActions`           | `UserAction`                 | An interface that can return any data type and has an empty execute() method                                     |
+| `menuActions.loggedIn`  | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`                                                  | 
+| `menuActions.loggedIn`  | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`                                        |
+| `menuActions.loggedIn`  | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                                                            |
+| `menuActions.loggedIn`  | `UploadCVAction`             | Implements `UserAction`. Calls `Upload()` from `UploadCV`                                                        |
+| `menuActions.loggedIn`  | `ViewRankedCVsAction`        | Implements `UserAction`. Calls `view()` from `ViewRankedCVs`                                                     |
+| `menuActions.loggedOut` | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                                                             |
+| `menuActions.loggedOut` | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                                                          |
+
 
 ## Project Adaptations and Modifications
 
 ### Class Diagram Adaptations and Modifications
 
 ![Class diagram created in the planning stage of this project](src/main/resources/READMEResources/ClassDiagram.png)
-Above it the class diagram that was created in the planning stage of the project. I have not followed it and I will
+Above is the class diagram created in the planning stage of the project. I have not followed it and I will
 detail why below. 
 
 #### Interfaces and Action classes
@@ -196,7 +199,7 @@ add more functionality to the program which could mean adding more menu options,
 
 #### User Class
 
-In the plan the User class had 3 variables: ```String: name```, ```String: email``` and ```String: password```, along with one method ```logout()```.
+In the plan the User class had three variables: ```String: name```, ```String: email``` and ```String: password```, along with one method ```logout()```.
 I have gone with a different approach. I only have two variables: ```String: username``` and ```Boolean: isLoggedIn``` and various functions including
 ```login()```, ```register()```, ```logout()``` and ```isLoggedIn()```. The reasons I have changed this are below:
 1. I see no reason to store the password in the class, this is very private, and it would be best for security to have it stored in a file 
@@ -208,9 +211,9 @@ I have gone with a different approach. I only have two variables: ```String: use
 #### Separation of UI and logic
 
 While the implementation of `Login` and `Register` is already a step away from the initial plan, I have also created two other classes
-`LoginAuth` and `RegisterAuth`. This separates the UI loggging in and registering from the actual logic that makes it work. I have done this to make it easier to read and easier to maintain.
+`LoginAuth` and `RegisterAuth`. This separates the UI logging in and registering from the actual logic that makes it work. I have done this to make it easier to read and easier to maintain.
 By separating the UI and logic, you make files smaller. This makes it easier to read as you have to scroll around less, it also makes it simpler to find bugs.
-Also, it allows for reuse of logic, which I haven't done in this project but in the future there may be a scenario where that is useful. I have also done this to `JobDescripton`. 
+Also, it allows for reuse of logic, which I haven't done in this project, but in the future there may be a scenario where that is useful. I have also done this to `JobDescripton`. 
 ## Installation
 
 To install and run CVAnalyser, follow these steps:
