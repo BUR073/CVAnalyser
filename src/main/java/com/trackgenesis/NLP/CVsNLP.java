@@ -29,14 +29,6 @@ public class CVsNLP {
     private final NLP nlp;
     private final FindInText findInText;
 
-    private final Set<String> people = new HashSet<>();
-    private final Set<String> organizations = new HashSet<>();
-    private final Set<String> dates = new HashSet<>();
-    private final Set<String> times = new HashSet<>();
-    private Set<String> skills = new HashSet<>();
-    private Set<String> phoneNumbers = new HashSet<>();
-    private Set<String> emails = new HashSet<>();
-    private String text;
 
     // OpenNLP Models as class members
     private final SentenceModel sentenceModel;
@@ -80,8 +72,9 @@ public class CVsNLP {
             String fileName = String.valueOf(Paths.get(filePath).getFileName());
             System.out.printf("Extracting: %s%n", fileName);
             try {
-                this.text = this.extract.getText(filePath);
-                this.recordRepo.saveRecord(this.NLP(this.text, fileName));
+                String text;
+                text = this.extract.getText(filePath);
+                this.recordRepo.saveRecord(this.NLP(text, fileName));
             } catch (IOException e) {
                 System.err.println("Error: " + e.getMessage());
             }
@@ -91,6 +84,14 @@ public class CVsNLP {
 
 
     public CVRecord NLP(String text, String fileName) throws IOException {
+        Set<String> people = new HashSet<>();
+        Set<String> organizations = new HashSet<>();
+        Set<String> dates = new HashSet<>();
+        Set<String> times = new HashSet<>();
+        Set<String> skills = new HashSet<>();
+        Set<String> phoneNumbers = new HashSet<>();
+        Set<String> emails = new HashSet<>();
+
         SentenceDetectorME sentenceDetector = new SentenceDetectorME(this.sentenceModel);
         TokenizerME tokenizer = new TokenizerME(this.tokenizerModel);
         NameFinderME personFinder = new NameFinderME(this.personModel);
@@ -98,39 +99,56 @@ public class CVsNLP {
         NameFinderME dateFinder = new NameFinderME(this.dateModel);
         NameFinderME timeFinder = new NameFinderME(this.timeModel);
 
-        String[] sentences = sentenceDetector.sentDetect(this.text);
-        this.skills = this.findInText.skills(this.text);
-        this.phoneNumbers = this.findInText.contactData(this.text, ContactType.PHONE);
-        this.emails = this.findInText.contactData(this.text, ContactType.EMAIL);
+        String[] sentences = sentenceDetector.sentDetect(text);
+        skills = this.findInText.skills(text);
+        phoneNumbers = this.findInText.contactData(text, ContactType.PHONE);
+        emails = this.findInText.contactData(text, ContactType.EMAIL);
+        String phoneNumber = "";
+        String email = "";
+        if (phoneNumbers != null && !phoneNumbers.isEmpty()) {
+            phoneNumber = phoneNumbers.iterator().next(); // Store as a String
+        }
+
+        // Store only the first email as a string
+        if (emails != null && !emails.isEmpty()) {
+            email = emails.iterator().next();
+        }
 
 
 
         for (String sentence : sentences) {
             String[] tokens = tokenizer.tokenize(sentence);
-            Span[] times = timeFinder.find(tokens);
+            Span[] timesSpan = timeFinder.find(tokens);
             Span[] date = dateFinder.find(tokens);
             Span[] person = personFinder.find(tokens);
             Span[] organization = organizationFinder.find(tokens);
 
-            for (Span span : times) {
-                this.times.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
+            for (Span span : timesSpan) {
+                times.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
 
             // Find Dates
             for (Span span : date) {
-                this.dates.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
+                dates.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
 
             // Find People
             for (Span span : person) {
-                this.people.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
+                people.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
 
             // Find Organizations
             for (Span span : organization) {
-                this.organizations.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
+                organizations.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
         }
-        return new CVRecord(fileName, this.people, this.organizations, this.dates, this.times, this.skills, null, null);
+
+        String person = ""; // Initialize to null
+
+        if (!people.isEmpty()) {
+            person = people.iterator().next(); // Get the first element
+        }
+
+        return new CVRecord(fileName, person, organizations, dates, times, skills, email, phoneNumber);
     }
 }

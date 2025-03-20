@@ -1,6 +1,7 @@
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.CVRecord;
+import com.trackgenesis.records.CVScore;
 import com.trackgenesis.records.JobDescriptionRecord;
 import com.trackgenesis.records.RecordRepository;
 import org.apache.commons.math3.util.Pair;
@@ -19,8 +20,11 @@ public class CVRanking {
         this.organizationWeight = 0.2;
         this.contactWeight = 0.1;
     }
-    public Pair<String, Integer> calculateCVScore(CVRecord cv) {
+    public CVScore calculateCVScore(CVRecord cv) {
         String fileName = cv.fileName();
+        String name = cv.people().toString();
+        String phoneNumber = cv.phoneNumber();
+        String email = cv.email();
         double skillScore = calculateSkillScore(cv.skills(), this.job.skills());
         double organizationScore = calculateOrganizationScore(cv.organizations(), this.job.organizations());
         double contactScore = calculateContactScore(cv.email(), cv.phoneNumber());
@@ -31,7 +35,7 @@ public class CVRanking {
 
         // Normalize to 0-100
         int score = (int) Math.round(rawScore * 100);
-        return new Pair<>(fileName, score);
+        return new CVScore(fileName, score, name, phoneNumber, email);
     }
 
     private double calculateSkillScore(Set<String> cvSkills, Set<String> jobSkills) {

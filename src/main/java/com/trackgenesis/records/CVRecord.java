@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public record CVRecord(
         String fileName,
-        Set<String> people,
+        String people,
         Set<String> organizations,
         Set<String> dates,
         Set<String> times,
@@ -31,7 +31,7 @@ public record CVRecord(
      * Initialise initial values, mostly HashSets
      */
     public CVRecord() {
-        this("", new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), null, null);
+        this("", "", new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), null, null);
     }
 }
 
