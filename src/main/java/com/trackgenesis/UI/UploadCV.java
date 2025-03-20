@@ -33,9 +33,12 @@ public class UploadCV {
      */
     public void upload() {
         System.out.println("Please choose file's to upload\nAcceptable CV format includes: .txt, .pdf, .doc and .docx");
+        // Get a list of folder paths from fileChooser class
         List<String> folderPath = this.fileChooser.chooseFiles("Text files", "txt");
         try {
+            // Init new CVsNLP Class and pass in list of folder paths and record repository object
             CVsNLP cvsNLP = new CVsNLP(folderPath, this.recordRepo);
+            // Call start method
             cvsNLP.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());

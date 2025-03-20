@@ -35,16 +35,20 @@ public class Register {
      * Stores account details in .txt file with passwords hashed
      */
     public void register() {
+        // User enter username and password
         String username = kbr.getString("Enter username");
         String password = kbr.getString("Enter password");
+        // Check that the username and password are different
         if (Objects.equals(username, password)) {
             System.out.println("Username and password cannot be the same");
         }
+        // If registration is successful
         if(this.registerAuth.register(username, password)){
             System.out.println("User registered successfully");
-
             String choice = kbr.getString("\nWould you like to login to your account automatically? \nEnter 'Y' to do so or press enter to continue");
+            // If the user wants to log in straight away
             if (choice.equalsIgnoreCase("Y") || choice.equalsIgnoreCase("YES")) {
+                // Call login in function and pass username and password
                 this.user.login(username, password);
             }
 

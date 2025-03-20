@@ -103,15 +103,19 @@ public class Menu {
      * Allow the user to select from the menu
      */
     private void loggedInMenu() {
+        // Get user choice
         int choice = this.kbr.getInt(this.loggedInMenuView);
+        // Get the UserAction object
         UserAction<?> action = this.loggedInActions.get(choice);
-
+        // If there is an action
         if (action != null) {
-            action.execute(); // Get the result of the action
+            // Then execute
+            action.execute();
         } else {
+            // And if there isn't an action
             System.out.println("Invalid choice. Please try again.");
         }
-
+        // Show the menu again
         this.showMenu();
     }
 
@@ -120,14 +124,19 @@ public class Menu {
      * Allow the user to select from the menu
      */
     private void loggedOutMenu() {
+        // Get user choice
         int choice = this.kbr.getInt(this.loggedOutMenuView);
+        // Get the UserAction object
         UserAction<?> action = this.loggedOutActions.get(choice);
-
+        // If there is an action
         if (action != null) {
+            // Then execute
             action.execute();
         } else {
+            // and if there is not
             System.out.println("Invalid choice. Please try again.");
         }
+        // Show the menu again
         this.showMenu();
     }
 

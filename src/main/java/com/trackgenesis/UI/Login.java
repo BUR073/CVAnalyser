@@ -37,7 +37,11 @@ public class Login {
      * @return boolean - Returns True when logged in, false when not
      */
     public boolean login() {
-        boolean isLoggedIn = loginAuth.login(kbr.getString("Enter username"), kbr.getString("Enter password"));
+        // Get username and password
+        String username = kbr.getString("Enter your username: ");
+        String password = kbr.getString("Enter your password: ");
+        // Call login() function in loginAuth
+        boolean isLoggedIn = loginAuth.login(username, password);
 
         if (isLoggedIn) {
             return true;

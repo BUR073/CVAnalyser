@@ -32,40 +32,52 @@ public class ViewRankedCVs {
      * Displays each CVs filename and rank in descending order
      */
     public void view() {
+        // Get the job description record
         JobDescriptionRecord jdRecord = this.recordRepo.getJobDescriptionRecord();
+        // Get the CV records
         List<CVRecord> cvRecords = this.recordRepo.getCVRecord();
+        // Init CVRanking class and pass the job description record
         CVRanking rank = new CVRanking(jdRecord);
 
+        // Check that there is a job description and cv record
         if (jdRecord != null && cvRecords != null) {
+            // Init a new Array list to store CVScore objects
             List<CVScore> cvScores = new java.util.ArrayList<>();
+            // Loop through the CVrecords
             for (CVRecord cvRecord : cvRecords) {
+                // Calc CV score and add it to the cvScores list
                 cvScores.add(rank.calculateCVScore(cvRecord));
             }
 
             // Sort by score (highest first)
             cvScores.sort(Comparator.comparingInt(CVScore::score).reversed());
 
-            // Calculate maximum column widths
-            int maxNameWidth = 4; // Header width
-            int maxPhoneWidth = 12; // Header width
-            int maxEmailWidth = 5; // Header width
-            int maxFileNameWidth = 9; // Header width
-            int maxScoreWidth = 5; // Header width
+            // Set initial values for column widths
+            int maxNameWidth = 4;
+            int maxPhoneWidth = 12;
+            int maxEmailWidth = 5;
+            int maxFileNameWidth = 9;
+            int maxScoreWidth = 5;
 
+            // Loop through CVScores and find max width for each column for proper formatting
             for (CVScore cvScore : cvScores) {
                 maxNameWidth = Math.max(maxNameWidth, cvScore.name().length());
                 maxPhoneWidth = Math.max(maxPhoneWidth, cvScore.phoneNumber().length());
                 maxEmailWidth = Math.max(maxEmailWidth, cvScore.email().length());
                 maxFileNameWidth = Math.max(maxFileNameWidth, cvScore.fileName().length());
             }
+            // Add 2 to all widths to make table more readable, leaves some white space
+            maxNameWidth += 2; maxPhoneWidth += 2; maxEmailWidth += 2; maxFileNameWidth += 2; maxScoreWidth += 2;
 
-            // Table Header
-            System.out.printf("%-" + (maxNameWidth + 2) + "s %-" + (maxPhoneWidth + 2) + "s %-" + (maxEmailWidth + 2) + "s %-" + (maxFileNameWidth + 2) + "s %-" + (maxScoreWidth + 2) + "s%n",
+            // Print out table headers
+            System.out.printf("%-" + (maxNameWidth) + "s %-" + (maxPhoneWidth) + "s %-" + (maxEmailWidth) + "s %-" + (maxFileNameWidth) + "s %-" + (maxScoreWidth) + "s%n",
                     "Name", "Phone Number", "Email", "File Name", "Score");
             System.out.println("-".repeat(maxNameWidth + maxPhoneWidth + maxEmailWidth + maxFileNameWidth + maxScoreWidth + 12));
 
+            // Loop through CVScores
             for (CVScore cvScore : cvScores) {
-                System.out.printf("%-" + (maxNameWidth + 2) + "s %-" + (maxPhoneWidth + 2) + "s %-" + (maxEmailWidth + 2) + "s %-" + (maxFileNameWidth + 2) + "s %-" + (maxScoreWidth + 2) + "d%n",
+                // Print out table row
+                System.out.printf("%-" + (maxNameWidth) + "s %-" + (maxPhoneWidth) + "s %-" + (maxEmailWidth) + "s %-" + (maxFileNameWidth) + "s %-" + (maxScoreWidth) + "d%n",
                         cvScore.name(), cvScore.phoneNumber(), cvScore.email(), cvScore.fileName(), cvScore.score());
             }
             System.out.println("\nRanking Complete. Note: This program can make mistakes, it should not be used instead of manual CV\nreview but a tool to help.");

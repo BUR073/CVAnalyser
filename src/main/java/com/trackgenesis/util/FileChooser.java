@@ -85,7 +85,7 @@ public class FileChooser {
             return selectedFile.getAbsolutePath();
         } else {
             // User canceled the file selection
-            return null; 
+            return null;
         }
     }
 
