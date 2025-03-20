@@ -21,7 +21,6 @@ public class JobDescription {
     private final String uploadMenu;
     private final FileChooser fileChooser;
     private final RecordRepository recordRepo;
-    private final GetProperties getProperties;
 
 
     /**
@@ -34,8 +33,7 @@ public class JobDescription {
         this.kbr = kbr;
         this.fileChooser = new FileChooser();
         this.recordRepo = recordRepo;
-        this.getProperties = getProperties;
-        this.uploadMenu = this.getProperties.get("upload.Menu","properties/menu.properties");
+        this.uploadMenu = getProperties.get("upload.Menu","properties/menu.properties");
     }
 
     /**
@@ -51,7 +49,7 @@ public class JobDescription {
             default -> "";
         };
 
-        JobDescriptionNLP jobDescriptionNLP = new JobDescriptionNLP(this.getProperties, text);
+        JobDescriptionNLP jobDescriptionNLP = new JobDescriptionNLP(text);
         try {
             this.recordRepo.setJobDescriptionText(text);
             this.recordRepo.saveRecord(jobDescriptionNLP.extractInformation());

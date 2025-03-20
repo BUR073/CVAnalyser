@@ -49,11 +49,11 @@ public class RecordRepository {
     /**
      * Retrieves all CV records if available.
      *
-     * @return An unmodifiable list of CV records or an empty list if none exist
+     * @return A list of CV records or an empty list if none exist
      */
     public List<CVRecord> getCVRecord() {
         if (!CVRecords.isEmpty()) {
-            return Collections.unmodifiableList(new ArrayList<>(CVRecords));
+            return List.copyOf(CVRecords);
         } else {
             System.err.println("No cv record found. Please upload a cv first.");
             return Collections.emptyList();

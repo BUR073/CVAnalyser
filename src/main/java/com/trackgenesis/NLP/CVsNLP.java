@@ -5,7 +5,7 @@ import com.trackgenesis.records.CVRecord;
 import com.trackgenesis.records.RecordRepository;
 import com.trackgenesis.enums.ContactType;
 
-import java.io.FileReader;
+
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -46,7 +46,7 @@ public class CVsNLP {
      * Defines objects and loads NLP models
      * @param filePaths List contain the file paths to the CVs
      * @param recordRepo RecordRepository object to store the CV data
-     * @throws IOException if there is an error loading models
+     * @throws IOException if there are error's loading models
      */
     public CVsNLP(List<String> filePaths, RecordRepository recordRepo) throws IOException { // Added throws IOException
         this.filePaths = filePaths;
@@ -55,7 +55,7 @@ public class CVsNLP {
         this.nlp = new NLP();
         this.findInText = new FindInText();
 
-        // Load models in the construcor, as when not done they are repeatedley loaded causing a null pointer error
+        // Load models in the constructor, as when not done they are repeatedly loaded causing a null pointer error
         try (InputStream sentenceModelIn = getClass().getClassLoader().getResourceAsStream("models/en-sent.bin");
              InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin");
              InputStream PersonModel = this.nlp.load("models/en-ner-person.bin");
@@ -108,9 +108,9 @@ public class CVsNLP {
         Set<String> organizations = new HashSet<>();
         Set<String> dates = new HashSet<>();
         Set<String> times = new HashSet<>();
-        Set<String> skills = new HashSet<>();
-        Set<String> phoneNumbers = new HashSet<>();
-        Set<String> emails = new HashSet<>();
+        Set<String> skills;
+        Set<String> phoneNumbers;
+        Set<String> emails;
 
         SentenceDetectorME sentenceDetector = new SentenceDetectorME(this.sentenceModel);
         TokenizerME tokenizer = new TokenizerME(this.tokenizerModel);

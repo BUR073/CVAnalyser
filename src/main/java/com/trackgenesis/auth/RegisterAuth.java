@@ -17,7 +17,7 @@ public class RegisterAuth {
 
     /**
      * Constructor
-     * Defines new Hashing object
+     * Defines a new Hashing object
      * @param filePath Filepath for user data storage file
      */
     public RegisterAuth(String filePath) {

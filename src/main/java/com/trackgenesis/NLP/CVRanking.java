@@ -4,8 +4,8 @@ package com.trackgenesis.NLP;
 import com.trackgenesis.records.CVRecord;
 import com.trackgenesis.records.CVScore;
 import com.trackgenesis.records.JobDescriptionRecord;
-import com.trackgenesis.records.RecordRepository;
-import org.apache.commons.math3.util.Pair;
+
+
 
 import java.util.Set;
 
@@ -14,7 +14,7 @@ import java.util.Set;
  * @author henryburbridge
  */
 public class CVRanking {
-    private JobDescriptionRecord job;
+    private final JobDescriptionRecord job;
     private final double skillWeight;
     private final double organizationWeight;
     private final double contactWeight;
@@ -22,10 +22,9 @@ public class CVRanking {
     /**
      * Constructor
      * Defines the score weighting
-     * @param recordRepo RecordRepository object
      * @param job JobDescriptionRecord object
      */
-    public CVRanking(RecordRepository recordRepo, JobDescriptionRecord job) {
+    public CVRanking(JobDescriptionRecord job) {
         this.job = job;
         this.skillWeight = 0.6;
         this.organizationWeight = 0.2;
@@ -58,7 +57,7 @@ public class CVRanking {
     /**
      * Calculates score for skills
      * @param cvSkills Set of skills from the CV
-     * @param jobSkills Set of skills from the job descripton
+     * @param jobSkills Set of skills from the job description
      * @return double of the score
      */
     private double calculateSkillScore(Set<String> cvSkills, Set<String> jobSkills) {

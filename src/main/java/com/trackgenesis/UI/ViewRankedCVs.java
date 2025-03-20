@@ -34,7 +34,7 @@ public class ViewRankedCVs {
     public void view() {
         JobDescriptionRecord jdRecord = this.recordRepo.getJobDescriptionRecord();
         List<CVRecord> cvRecords = this.recordRepo.getCVRecord();
-        CVRanking rank = new CVRanking(this.recordRepo, jdRecord);
+        CVRanking rank = new CVRanking(jdRecord);
 
         if (jdRecord != null && cvRecords != null) {
             List<CVScore> cvScores = new java.util.ArrayList<>();

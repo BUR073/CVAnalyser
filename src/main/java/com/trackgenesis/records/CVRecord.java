@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Record to store data parsed from CVs
+ * Record to store data parse from CVs
  * @param fileName the name of the file
  * @param people Set of people
  * @param organizations Set of organizations

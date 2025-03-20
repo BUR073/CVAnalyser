@@ -2,7 +2,7 @@
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.JobDescriptionRecord;
-import com.trackgenesis.util.GetProperties;
+
 import com.trackgenesis.util.NLP;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
@@ -23,11 +23,10 @@ import java.util.Set;
  */
 public class JobDescriptionNLP {
 
-    private Set<String> locations = new HashSet<>();
-    private Set<String> organizations = new HashSet<>();
-    private Set<String> dates = new HashSet<>();
-    private Set<String> times = new HashSet<>();
-    private Set<String> skills = new HashSet<>();
+    private final Set<String> locations = new HashSet<>();
+    private final Set<String> organizations = new HashSet<>();
+    private final Set<String> dates = new HashSet<>();
+    private final Set<String> times = new HashSet<>();
 
     private final String text;
     private final NLP nlp;
@@ -35,11 +34,9 @@ public class JobDescriptionNLP {
 
     /**
      * Constructor
-     * @param getProperties GetProperties object
      * @param text String version of the job description
      */
-    public JobDescriptionNLP(GetProperties getProperties, String text)  {
-        String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
+    public JobDescriptionNLP(String text)  {
         this.text = text;
         this.nlp = new NLP();
         this.findInText = new FindInText();
@@ -50,7 +47,7 @@ public class JobDescriptionNLP {
     /**
      * Uses NLP models to extract keywords from job description text
      * @return JobDescriptionRecord
-     * @throws IOException if there is an error loading models
+     * @throws IOException if there are error loading models
      */
     public JobDescriptionRecord extractInformation() throws IOException {
 
@@ -63,7 +60,7 @@ public class JobDescriptionNLP {
             SentenceModel sentenceModel = new SentenceModel(sentenceModelIn);
             SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentenceModel);
             String[] sentences = sentenceDetector.sentDetect(this.text);
-            this.skills = findInText.skills(this.text);
+            Set<String> skills = findInText.skills(this.text);
 
             // Tokenization
             try (InputStream tokenizerModelIn = getClass().getClassLoader().getResourceAsStream("models/en-token.bin")) {
@@ -125,8 +122,8 @@ public class JobDescriptionNLP {
                     }
 
                     // Return the reference to the record with the parsed data
-                    System.out.println("Skills: " + this.skills);
-                    return new JobDescriptionRecord(this.locations, this.organizations, this.dates, this.times, this.skills);
+                    System.out.println("Skills: " + skills);
+                    return new JobDescriptionRecord(this.locations, this.organizations, this.dates, this.times, skills);
 
                 }
             }

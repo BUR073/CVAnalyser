@@ -23,7 +23,7 @@ public class FindInText {
 
     /**
      * Constructor
-     * Defines the file path for the JSON containg the skills
+     * Defines the file path for the JSON that contains the skills
      */
     public FindInText() {
         this.jsonFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/skills.json";
@@ -77,9 +77,7 @@ public class FindInText {
             String cleanedWord = word.replaceAll("[^a-zA-Z]", ""); // Remove non-alphabetic characters
             for (String skill : skillsList) {
                 if (cleanedWord.equalsIgnoreCase(skill)) {
-                    if (!matchedSkills.contains(skill)) {
-                        matchedSkills.add(skill);
-                    }
+                    matchedSkills.add(skill);
                 }
             }
         }
@@ -96,7 +94,7 @@ public class FindInText {
     public Set<String> contactData(String text, ContactType type) {
         Set<String> phoneNumber = new HashSet<>();
         if (text == null || text.isEmpty()) {
-            return phoneNumber; // Return empty set for null or empty input
+            return phoneNumber; // Return an empty set for null or empty input
         }
 
         String regex;

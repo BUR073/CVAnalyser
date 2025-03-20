@@ -1,0 +1,10 @@
+com.trackgenesis.auth
+com.trackgenesis.enums
+com.trackgenesis.main
+com.trackgenesis.menuActions
+com.trackgenesis.menuActions.loggedIn
+com.trackgenesis.menuActions.loggedOut
+com.trackgenesis.NLP
+com.trackgenesis.records
+com.trackgenesis.UI
+com.trackgenesis.util
