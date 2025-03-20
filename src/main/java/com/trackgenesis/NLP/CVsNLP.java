@@ -1,3 +1,4 @@
+// SID: 2408078
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.CVRecord;
@@ -20,7 +21,10 @@ import opennlp.tools.util.Span;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+/**
+ * Class that uses Natural Language Processing models to parse CVs
+ * @author henryburbridge
+ */
 public class CVsNLP {
 
     private final List<String> filePaths;
@@ -38,6 +42,12 @@ public class CVsNLP {
     private final TokenNameFinderModel dateModel;
     private final TokenNameFinderModel timeModel;
 
+    /**
+     * Defines objects and loads NLP models
+     * @param filePaths List contain the file paths to the CVs
+     * @param recordRepo RecordRepository object to store the CV data
+     * @throws IOException if there is an error loading models
+     */
     public CVsNLP(List<String> filePaths, RecordRepository recordRepo) throws IOException { // Added throws IOException
         this.filePaths = filePaths;
         this.recordRepo = recordRepo;
@@ -66,24 +76,34 @@ public class CVsNLP {
         }
     }
 
+    /**
+     * The entry point of this class
+     * Loops through a file paths list and calls the extract method
+     * Saves to record repository
+     */
     public void start() {
         for (String filePath : this.filePaths) {
             // Print out just the filename not full path
             String fileName = String.valueOf(Paths.get(filePath).getFileName());
             System.out.printf("Extracting: %s%n", fileName);
-            try {
-                String text;
-                text = this.extract.getText(filePath);
-                this.recordRepo.saveRecord(this.NLP(text, fileName));
-            } catch (IOException e) {
-                System.err.println("Error: " + e.getMessage());
-            }
+
+            String text;
+            text = this.extract.getText(filePath);
+            this.recordRepo.saveRecord(this.NLP(text, fileName));
+
         }
     }
 
 
-
-    public CVRecord NLP(String text, String fileName) throws IOException {
+    /**
+     * The NLP logic
+     * @param text The text to be parsed
+     * @param fileName the name of the file
+     * @return Populated CVRecord object
+     */
+    public CVRecord NLP(String text, String fileName) {
+        // Define sets here, originally defined in constructor, but that caused issues
+        // when the same object was used multiple times.Every name would be associated with the same CV
         Set<String> people = new HashSet<>();
         Set<String> organizations = new HashSet<>();
         Set<String> dates = new HashSet<>();
@@ -103,16 +123,7 @@ public class CVsNLP {
         skills = this.findInText.skills(text);
         phoneNumbers = this.findInText.contactData(text, ContactType.PHONE);
         emails = this.findInText.contactData(text, ContactType.EMAIL);
-        String phoneNumber = "";
-        String email = "";
-        if (phoneNumbers != null && !phoneNumbers.isEmpty()) {
-            phoneNumber = phoneNumbers.iterator().next(); // Store as a String
-        }
 
-        // Store only the first email as a string
-        if (emails != null && !emails.isEmpty()) {
-            email = emails.iterator().next();
-        }
 
 
 
@@ -143,10 +154,23 @@ public class CVsNLP {
             }
         }
 
-        String person = ""; // Initialize to null
+        // Store only the first email, phone number and email
+        // These are the ones that are most likely associated with the applicant, of course will not be perfect
+        String person = "";
+        String phoneNumber = "";
+        String email = "";
 
         if (!people.isEmpty()) {
             person = people.iterator().next(); // Get the first element
+        }
+
+        if (phoneNumbers != null && !phoneNumbers.isEmpty()) {
+            phoneNumber = phoneNumbers.iterator().next(); // Store as a String
+        }
+
+
+        if (emails != null && !emails.isEmpty()) {
+            email = emails.iterator().next();
         }
 
         return new CVRecord(fileName, person, organizations, dates, times, skills, email, phoneNumber);

@@ -1,3 +1,4 @@
+// SID: 2408078
 package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.CVRecord;
@@ -8,21 +9,37 @@ import org.apache.commons.math3.util.Pair;
 
 import java.util.Set;
 
+/**
+ * Class to rank a CV against the job description
+ * @author henryburbridge
+ */
 public class CVRanking {
     private JobDescriptionRecord job;
     private final double skillWeight;
     private final double organizationWeight;
     private final double contactWeight;
 
+    /**
+     * Constructor
+     * Defines the score weighting
+     * @param recordRepo RecordRepository object
+     * @param job JobDescriptionRecord object
+     */
     public CVRanking(RecordRepository recordRepo, JobDescriptionRecord job) {
         this.job = job;
         this.skillWeight = 0.6;
         this.organizationWeight = 0.2;
         this.contactWeight = 0.1;
     }
+
+    /**
+     * Class entry point, uses a CVScore record to return values
+     * @param cv CVRecord object
+     * @return Populated CVScore object
+     */
     public CVScore calculateCVScore(CVRecord cv) {
         String fileName = cv.fileName();
-        String name = cv.people().toString();
+        String name = cv.people();
         String phoneNumber = cv.phoneNumber();
         String email = cv.email();
         double skillScore = calculateSkillScore(cv.skills(), this.job.skills());
@@ -38,6 +55,12 @@ public class CVRanking {
         return new CVScore(fileName, score, name, phoneNumber, email);
     }
 
+    /**
+     * Calculates score for skills
+     * @param cvSkills Set of skills from the CV
+     * @param jobSkills Set of skills from the job descripton
+     * @return double of the score
+     */
     private double calculateSkillScore(Set<String> cvSkills, Set<String> jobSkills) {
         if (jobSkills.isEmpty()) {
             return 1.0; // If no skills are required, consider it a perfect match.
@@ -51,6 +74,12 @@ public class CVRanking {
         return (double) matchedSkills / jobSkills.size();
     }
 
+    /**
+     * Calculate organisation score
+     * @param cvOrgs Set of organizations from the CV
+     * @param jobOrgs Set of organizations from the job description
+     * @return double of the score
+     */
     private double calculateOrganizationScore(Set<String> cvOrgs, Set<String> jobOrgs) {
         if (jobOrgs.isEmpty()) {
             return 0.0;
@@ -64,12 +93,22 @@ public class CVRanking {
         return (double) matchedOrgs / jobOrgs.size();
     }
 
-
+    /**
+     * Calculate contact details score,
+     * only used to give benefit to applicants who actually put contact details on their CV
+     * @param email The application email
+     * @param phoneNumber the applicant phone number
+     * @return the score
+     */
     private double calculateContactScore(String email, String phoneNumber) {
-        if (email != null && !email.isEmpty() && phoneNumber != null && !phoneNumber.isEmpty()) {
+        boolean emailPresent = email != null && !email.isEmpty();
+        boolean phoneNumberPresent = phoneNumber != null && !phoneNumber.isEmpty();
+        if (emailPresent && phoneNumberPresent) {
             return 1.0;
-        } else {
+        } else if (emailPresent || phoneNumberPresent) {
             return 0.5; //if only one form of contact is present.
+        } else {
+            return 0;
         }
     }
 

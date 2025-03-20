@@ -17,6 +17,10 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Natural language processing class for the job description
+ * @author henryburbridge
+ */
 public class JobDescriptionNLP {
 
     private Set<String> locations = new HashSet<>();
@@ -25,10 +29,15 @@ public class JobDescriptionNLP {
     private Set<String> times = new HashSet<>();
     private Set<String> skills = new HashSet<>();
 
-    private String text;
+    private final String text;
     private final NLP nlp;
     private final FindInText findInText;
 
+    /**
+     * Constructor
+     * @param getProperties GetProperties object
+     * @param text String version of the job description
+     */
     public JobDescriptionNLP(GetProperties getProperties, String text)  {
         String filePath = getProperties.get("job.description.save.location.full.path", "properties/file.properties");
         this.text = text;
@@ -38,6 +47,11 @@ public class JobDescriptionNLP {
 
     }
 
+    /**
+     * Uses NLP models to extract keywords from job description text
+     * @return JobDescriptionRecord
+     * @throws IOException if there is an error loading models
+     */
     public JobDescriptionRecord extractInformation() throws IOException {
 
 

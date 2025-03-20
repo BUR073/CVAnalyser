@@ -12,23 +12,35 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Class used to find specific things in a String
+ * @author henryBurbridge
+ */
 public class FindInText {
 
     private final List<String> skillsList;
+    private final String jsonFilePath;
 
+    /**
+     * Constructor
+     * Defines the file path for the JSON containg the skills
+     */
     public FindInText() {
-        String jsonFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/skills.json";
-        skillsList = loadSkillsFromJson(jsonFilePath);
+        this.jsonFilePath = "/Users/henryburbridge/CVAnalyser/src/main/resources/skills.json";
+        skillsList = loadSkillsFromJson();
     }
 
-    public List<String> loadSkillsFromJson(String jsonFilePath) {
+    /**
+     * Loads the skills from the JSON file
+     * @return a list of strings which contain the skills from the JSON file
+     */
+    public List<String> loadSkillsFromJson() {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(jsonFilePath);
+        File file = new File(this.jsonFilePath);
         List<String> loadedSkills = new ArrayList<>();
 
         if (!file.exists()) {
-            System.err.println("JSON file not found: " + jsonFilePath);
+            System.err.println("JSON file not found: " + this.jsonFilePath);
         }
 
         try {
@@ -47,6 +59,11 @@ public class FindInText {
         return null;
     }
 
+    /**
+     * Finds skills in a string
+     * @param text the string to search
+     * @return a Set<String> containing the skills found in the text
+     */
     public Set<String> skills(String text) {
         Set<String> matchedSkills = new HashSet<>();
         String[] words = text.split("\\s+"); // Split by any whitespace
@@ -70,6 +87,12 @@ public class FindInText {
         return matchedSkills;
     }
 
+    /**
+     * Find either a phone number of email address in a string
+     * @param text The text to be searched
+     * @param type ContactType enum to decide which regex to use
+     * @return a Set<String> containing what has been found
+     */
     public Set<String> contactData(String text, ContactType type) {
         Set<String> phoneNumber = new HashSet<>();
         if (text == null || text.isEmpty()) {
