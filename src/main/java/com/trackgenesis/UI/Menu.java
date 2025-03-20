@@ -63,7 +63,7 @@ public class Menu {
 
     private void populateLoggedInActionsMap() {
         this.loggedInActions.put(1, new JobDescriptionUploadAction(this.JD));
-        this.loggedInActions.put(2, new ShowJobDescriptionAction(this.JD));
+        this.loggedInActions.put(2, new ShowJobDescriptionAction(this.recordRepo));
         this.loggedInActions.put(3, new UploadCVAction(this.uploadCV));
         this.loggedInActions.put(4, new ViewRankedCVsAction(this.viewRankedCvs));
         this.loggedInActions.put(5, new UserLogoutAction(this.user));

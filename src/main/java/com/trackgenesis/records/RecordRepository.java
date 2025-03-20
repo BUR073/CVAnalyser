@@ -9,6 +9,7 @@ public class RecordRepository {
 
     private final List<JobDescriptionRecord> JobDescriptionRecords = new ArrayList<>();
     private final List<CVRecord> CVRecords = new ArrayList<>();
+    private String jobDescriptionText;
 
     /**
      * Saves a record to the appropriate variable based on its type.
@@ -57,5 +58,12 @@ public class RecordRepository {
             System.err.println("No cv record found. Please upload a cv first.");
             return Collections.emptyList();
         }
+    }
+
+    public String getJobDescriptionText(){
+        return jobDescriptionText;
+    }
+    public void setJobDescriptionText(String jobDescriptionText){
+        this.jobDescriptionText = jobDescriptionText;
     }
 }

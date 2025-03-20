@@ -28,7 +28,7 @@ public class ViewRankedCVs {
                 Pair<String, Integer> output = rank.calculateCVScore(cvRecord);
                 System.out.println("File Name: " + output.getKey() + " | Score:  " + output.getValue());
             }
-            System.out.println("\n Ranking Complete. Note: This program can make mistakes, it should not be used instead of manual CV review but a tool to help.");
+            System.out.println("\nRanking Complete. Note: This program can make mistakes, it should not be used instead of manual CV review but a tool to help.");
         } else {
             System.err.println("No records found");
         }

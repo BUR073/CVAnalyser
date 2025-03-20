@@ -61,6 +61,7 @@ public class JobDescription {
 
         JobDescriptionNLP jobDescriptionNLP = new JobDescriptionNLP(this.getProperties, text);
         try {
+            this.recordRepo.setJobDescriptionText(text);
             this.recordRepo.saveRecord(jobDescriptionNLP.extractInformation());
         } catch (IOException e) {
             System.err.println("An error occurred during the job description extraction: " + e.getMessage());

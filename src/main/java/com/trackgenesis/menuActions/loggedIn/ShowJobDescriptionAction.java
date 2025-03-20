@@ -3,20 +3,26 @@ package com.trackgenesis.menuActions.loggedIn;
 
 import com.trackgenesis.menuActions.UserAction;
 import com.trackgenesis.UI.JobDescription;
-
+import com.trackgenesis.records.RecordRepository;
 
 
 public class ShowJobDescriptionAction implements UserAction<Void> {
 
-    private final JobDescription jobDescription;
+    private final RecordRepository recordRepo;
 
-    public ShowJobDescriptionAction(JobDescription jobDescription) {
-        this.jobDescription = jobDescription;
+    public ShowJobDescriptionAction(RecordRepository recordRepo) {
+        this.recordRepo = recordRepo;
     }
 
     @Override
     public Void execute() {
-        jobDescription.showJobDescription(); // Call showJobDescription() here
+        String jobDescription = this.recordRepo.getJobDescriptionText();
+        if (jobDescription != null) {
+            System.out.println(jobDescription);
+        } else {
+            System.err.println("No records found");
+        }
+
 
         return null;
     }
