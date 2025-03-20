@@ -1,0 +1,11 @@
+Name: John Doe
+Contact: johndoe@email.com
+
+Skills:
+Computers
+
+Experience:
+Worked on some projects.
+
+Education:
+High School Diploma

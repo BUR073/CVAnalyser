@@ -1,0 +1,22 @@
+Name: Jane Smith
+Contact: janesmith@email.com | 555-123-4567 | LinkedIn.com/janesmith
+
+Summary:
+Software developer with 3 years of experience in Java and web development. Seeking to contribute to a dynamic team at [Your Company Name].
+
+Skills:
+Java, JavaScript, React, Spring Boot, SQL, Git, AWS (basic), Agile/Scrum.
+
+Experience:
+Software Developer | ABC Company | 2021 - Present
+* Developed and maintained web applications using Java and React.
+* Implemented RESTful APIs for data integration.
+* Participated in Agile/Scrum development cycles.
+* Used Git for version control.
+
+Education:
+Bachelor of Science in Computer Science | XYZ University | 2021
+
+Projects:
+Personal Portfolio Website (React, Node.js)
+* Developed a personal website to showcase projects and skills.

@@ -1,0 +1,35 @@
+Name: Alex Rodriguez
+Contact: alexrodriguez@email.com | 555-987-6543 | LinkedIn.com/alexrodriguez | GitHub.com/alexrodriguez
+
+Summary:
+Highly motivated Software Development Engineer with 5+ years of experience in building scalable and high-performance applications using Java, Python, and cloud technologies (AWS). Proven ability to deliver complex projects within agile environments. Passionate about continuous learning and contributing to innovative solutions at [Your Company Name].
+
+Skills:
+Java (Spring Boot, Hibernate), Python (Django, Flask), JavaScript (React, Node.js), AWS (EC2, Lambda, S3, DynamoDB), Docker, Kubernetes, CI/CD (Jenkins, GitLab CI), SQL, NoSQL, Git, Agile/Scrum, TDD.
+
+Experience:
+Senior Software Engineer | Tech Solutions Inc. | 2019 - Present
+* Led the development of a cloud-based platform using Java and AWS, resulting in a 30% improvement in application performance.
+* Designed and implemented RESTful APIs for seamless data integration.
+* Developed and maintained CI/CD pipelines using Jenkins and Docker.
+* Mentored junior developers and conducted code reviews.
+* Implemented automated testing (TDD) resulting in a 20% reduction in bugs.
+* Worked in a fully agile environment, and led sprint planning.
+
+Software Developer | Startup Innovations | 2017 - 2019
+* Developed web applications using Python and Django.
+* Contributed to the design and implementation of database schemas.
+* Implemented unit and integration tests.
+
+Education:
+Master of Science in Software Engineering | University of Tech | 2017
+Bachelor of Science in Computer Science | University of Tech | 2015
+
+Projects:
+Cloud-Native Microservices Project (AWS, Docker, Kubernetes)
+* Developed a microservices architecture for a scalable e-commerce platform.
+* Implemented automated deployment and scaling using Kubernetes.
+* Contributed to open source projects related to cloud computing.
+
+Awards:
+Tech Innovator Award | 2023

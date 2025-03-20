@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public record CVRecord(
+        String fileName,
         Set<String> people,
         Set<String> organizations,
         Set<String> dates,
@@ -13,8 +14,9 @@ public record CVRecord(
         String email,
         String phoneNumber
 ) {
+
     public CVRecord() {
-        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), null, null);
+        this("", new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), null, null);
     }
 }
 

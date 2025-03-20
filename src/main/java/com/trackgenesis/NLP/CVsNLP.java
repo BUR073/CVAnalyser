@@ -77,10 +77,11 @@ public class CVsNLP {
     public void start() {
         for (String filePath : this.filePaths) {
             // Print out just the filename not full path
-            System.out.printf("Extracting: %s%n", Paths.get(filePath).getFileName());
+            String fileName = String.valueOf(Paths.get(filePath).getFileName());
+            System.out.printf("Extracting: %s%n", fileName);
             try {
                 this.text = this.extract.getText(filePath);
-                this.recordRepo.saveRecord(this.NLP(this.text));
+                this.recordRepo.saveRecord(this.NLP(this.text, fileName));
             } catch (IOException e) {
                 System.err.println("Error: " + e.getMessage());
             }
@@ -89,7 +90,7 @@ public class CVsNLP {
 
 
 
-    public CVRecord NLP(String text) throws IOException {
+    public CVRecord NLP(String text, String fileName) throws IOException {
         SentenceDetectorME sentenceDetector = new SentenceDetectorME(this.sentenceModel);
         TokenizerME tokenizer = new TokenizerME(this.tokenizerModel);
         NameFinderME personFinder = new NameFinderME(this.personModel);
@@ -130,6 +131,6 @@ public class CVsNLP {
                 this.organizations.add(this.nlp.reconstruct(tokens, span.getStart(), span.getEnd()));
             }
         }
-        return new CVRecord(this.people, this.organizations, this.dates, this.times, this.skills, null, null);
+        return new CVRecord(fileName, this.people, this.organizations, this.dates, this.times, this.skills, null, null);
     }
 }
