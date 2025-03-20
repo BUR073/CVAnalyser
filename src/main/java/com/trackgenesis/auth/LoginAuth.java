@@ -19,12 +19,14 @@ public class LoginAuth {
 
     /**
      * Constructor
+     * Calls method to load users from the file into HashMap
      * @param filePath file path for the file containing the user details
      */
     public LoginAuth(String filePath) {
         this.filePath = filePath;
         this.hash = new Hashing();
         this.users = new HashMap<>();
+        loadUsersFromFile();
     }
 
     /**
@@ -58,7 +60,6 @@ public class LoginAuth {
      * @return True if logged in, false if not
      */
     public boolean login(String username, String password) {
-        loadUsersFromFile(this.filePath);
         String storedHashedPassword = this.users.get(username); // Retrieve the stored hashed password
 
         if (storedHashedPassword != null) {

@@ -107,11 +107,7 @@ public class Menu {
         UserAction<?> action = this.loggedInActions.get(choice);
 
         if (action != null) {
-            try {
-                action.execute(); // Get the result of the action
-            } catch (IOException e) {
-                System.err.println("An error occurred during the action: " + e.getMessage());
-            }
+            action.execute(); // Get the result of the action
         } else {
             System.out.println("Invalid choice. Please try again.");
         }
@@ -128,11 +124,7 @@ public class Menu {
         UserAction<?> action = this.loggedOutActions.get(choice);
 
         if (action != null) {
-            try {
-                action.execute();
-            } catch (IOException e) {
-                System.err.println("An error occurred during the action: " + e.getMessage());
-            }
+            action.execute();
         } else {
             System.out.println("Invalid choice. Please try again.");
         }
