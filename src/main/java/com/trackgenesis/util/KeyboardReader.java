@@ -52,7 +52,11 @@ public class KeyboardReader {
         return retv;
     }
 
-
+    /**
+     * Allows for a user to add new lines when entering a string
+     * @param mes message to display to the user
+     * @return the long string entered
+     */
     public String getLongString(String mes) {
         StringBuilder stringBuilder = new StringBuilder();
 

@@ -5,14 +5,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class for getting properties from properties file
+ * @author henryburbridge
+ */
 public class GetProperties {
 
     private final Properties properties;
 
+    /**
+     * Constructor
+     * Defines a new properties object
+     */
     public GetProperties() {
         this.properties = new Properties();
     }
 
+    /**
+     * Get a specific property from a specific properties file
+     * @param name the name of the property
+     * @param filePath the properties file path
+     * @return the contents of the chosen property
+     */
     public String get(String name, String filePath) {
 
         if (name == null || name.isEmpty() || filePath == null || filePath.isEmpty()) {

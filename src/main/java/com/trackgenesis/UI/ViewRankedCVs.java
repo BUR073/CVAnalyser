@@ -19,7 +19,6 @@ public class ViewRankedCVs {
 
 
     }
-
     public void view() {
         JobDescriptionRecord jdRecord = this.recordRepo.getJobDescriptionRecord();
         List<CVRecord> cvRecords = this.recordRepo.getCVRecord();

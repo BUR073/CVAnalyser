@@ -7,8 +7,17 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.io.*;
 
+/**
+ * Class for reading files
+ * @author henryburbridge
+ */
 public class FileReaderUtility {
 
+    /**
+     *
+     * @param filePath the path to the file to get text from
+     * @return the string version of the file
+     */
     public String getText(String filePath) {
         String fileExtension = getFileExtension(filePath).toLowerCase();
         StringBuilder content;
@@ -26,6 +35,11 @@ public class FileReaderUtility {
         return content.toString();
     }
 
+    /**
+     * Get text from a .txt file
+     * @param filePath the path to the file to get text from
+     * @return the string of the contents
+     */
     private StringBuilder readTextFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -39,6 +53,11 @@ public class FileReaderUtility {
         return content;
     }
 
+    /**
+     * Get text from a PDF file
+     * @param filePath the path to the file to get text from
+     * @return the string contents
+     */
     private StringBuilder readPdfFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (PDDocument document = PDDocument.load(new File(filePath))) {
@@ -50,6 +69,11 @@ public class FileReaderUtility {
         return content;
     }
 
+    /**
+     * Get text from a DOCX file
+     * @param filePath the path to the file to get text from
+     * @return the string contents of the file
+     */
     private StringBuilder readDocxFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (InputStream fis = new FileInputStream(filePath)) {
@@ -61,6 +85,11 @@ public class FileReaderUtility {
         return content;
     }
 
+    /**
+     * Get text from a DOC file
+     * @param filePath the path to the file to get text from
+     * @return the string contents of the file
+     */
     private StringBuilder readDocFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (InputStream fis = new FileInputStream(filePath)) {
@@ -73,6 +102,11 @@ public class FileReaderUtility {
         return content;
     }
 
+    /**
+     * Get the file extension. Used to decide which of the read functions to use
+     * @param filePath the path to the file you need the extension off
+     * @return the string of the extension
+     */
     private String getFileExtension(String filePath) {
         int lastDotIndex = filePath.lastIndexOf('.');
         return (lastDotIndex == -1) ? "" : filePath.substring(lastDotIndex + 1);

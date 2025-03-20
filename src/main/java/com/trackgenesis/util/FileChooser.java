@@ -6,15 +6,30 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to launch a GUI for choosing a file
+ * @author henryburbridge
+ */
 public class FileChooser {
 
     private final String startDir;
 
+    /**
+     * Constructor
+     * Defines a new GetProperties class
+     * Defines the start directory for the GUI
+     */
     public FileChooser(){
         GetProperties properties = new GetProperties();
         this.startDir = properties.get("jchooser.start.dir", "properties/file.properties");
     }
 
+    /**
+     *
+     * @param description a description of the file types to show
+     * @param extensions a variable number of file extensions to filter by
+     * @return a List of filePaths or null if there is an error
+     */
     public List<String> chooseFiles(String description, String... extensions) {
         JFileChooser fileChooser = new JFileChooser(this.startDir);
         fileChooser.setMultiSelectionEnabled(true); // Enable multiple file selection
