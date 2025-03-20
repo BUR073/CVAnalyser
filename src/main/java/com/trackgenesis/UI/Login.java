@@ -7,6 +7,7 @@ import com.trackgenesis.util.KeyboardReader;
 
 /**
  * Login class handles the UI for the user to login
+ * @author henryburbridge
  */
 public class Login {
 
@@ -16,6 +17,7 @@ public class Login {
 
 
     /**
+     * Constructor
      * @param filePath - File Path of the username and password file
      */
     public Login(String filePath, KeyboardReader kbr) { // Constructor
@@ -23,6 +25,10 @@ public class Login {
         this.kbr = kbr;
     }
 
+    /**
+     * Getter function for the username
+     * @return the username
+     */
     public String getUsername() {
         return this.username;
     }
@@ -30,7 +36,7 @@ public class Login {
     /**
      * @return boolean - Returns True when logged in, false when not
      */
-    public boolean login() { // No need for throws here, handle in login
+    public boolean login() {
         boolean isLoggedIn = loginAuth.login(kbr.getString("Enter username"), kbr.getString("Enter password"));
 
         if (isLoggedIn) {
@@ -42,8 +48,14 @@ public class Login {
         }
     }
 
-    // Method overloading
-    public boolean login(String username, String password) { // No need for throws here, handle in login
+    /**
+     * Logic the same as the other login() function.
+     * Uses method overloading to allow for the username and password to be passed into the method
+     * @param username users' username
+     * @param password users' password
+     * @return Returns True when logged in, false when not
+     */
+    public boolean login(String username, String password) {
         boolean isLoggedIn = loginAuth.login(username, password);
 
         if (isLoggedIn) {

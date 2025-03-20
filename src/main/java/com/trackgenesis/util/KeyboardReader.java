@@ -22,13 +22,6 @@ public class KeyboardReader {
     }
 
     /**
-     * Should only be used when we no longer need the reader
-     */
-    public void close() {
-        kbr.close();
-    }
-
-    /**
      * Parses the input string to an integer - only accepts valid integers.
      *
      * @param mes - message to display to the user

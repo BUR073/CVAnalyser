@@ -14,6 +14,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Menu class,
+ * The main class in this program for the user, allows access to all the program functions
+ * @author henryburbridge
+ */
 
 public class Menu {
 
@@ -31,7 +36,12 @@ public class Menu {
     private final Map<Integer, UserAction<?>> loggedOutActions;
 
 
-
+    /**
+     * Constructor
+     * Instantiates new objects of classes to be used around the program
+     * Gets menu's from properties files
+     * Calls functions to populate the action maps for the menu's
+     */
     public Menu() {
         GetProperties getProperties = new GetProperties();
         this.kbr = new KeyboardReader();
@@ -56,11 +66,17 @@ public class Menu {
 
     }
 
+    /**
+     * Populate the logged-out menu action map
+     */
     private void populateLoggedOutActionsMap() {
         this.loggedOutActions.put(1, new UserLoginAction(this.user));
         this.loggedOutActions.put(2, new UserRegisterAction(this.user));
     }
 
+    /**
+     * Populate the logged-in menu action map
+     */
     private void populateLoggedInActionsMap() {
         this.loggedInActions.put(1, new JobDescriptionUploadAction(this.JD));
         this.loggedInActions.put(2, new ShowJobDescriptionAction(this.recordRepo));
@@ -70,6 +86,10 @@ public class Menu {
     }
 
 
+    /**
+     * Show the correct menu for the user if they are logged in or logged out
+     * The access method to this class
+     */
     public void showMenu() {
         if (user.isLoggedIn()) {
             this.loggedInMenu();
@@ -78,14 +98,17 @@ public class Menu {
         }
     }
 
-
+    /**
+     * Show the logged-in menu
+     * Allow the user to select from the menu
+     */
     private void loggedInMenu() {
         int choice = this.kbr.getInt(this.loggedInMenuView);
         UserAction<?> action = this.loggedInActions.get(choice);
 
         if (action != null) {
             try {
-                Object result = action.execute(); // Get the result of the action
+                action.execute(); // Get the result of the action
             } catch (IOException e) {
                 System.err.println("An error occurred during the action: " + e.getMessage());
             }
@@ -96,6 +119,10 @@ public class Menu {
         this.showMenu();
     }
 
+    /**
+     * Show the logged-out menu
+     * Allow the user to select from the menu
+     */
     private void loggedOutMenu() {
         int choice = this.kbr.getInt(this.loggedOutMenuView);
         UserAction<?> action = this.loggedOutActions.get(choice);

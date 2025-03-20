@@ -24,7 +24,7 @@ public class GetProperties {
     /**
      * Get a specific property from a specific properties file
      * @param name the name of the property
-     * @param filePath the properties file path
+     * @param filePath the properties file a path
      * @return the contents of the chosen property
      */
     public String get(String name, String filePath) {

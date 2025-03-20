@@ -8,18 +8,32 @@ import com.trackgenesis.util.KeyboardReader;
 
 import java.util.Objects;
 
+/**
+ * Register class
+ * @author henryburbridge
+ */
 public class Register {
 
     private final RegisterAuth registerAuth;
     private final KeyboardReader kbr;
     private final User user;
 
+    /**
+     * Constructor
+     * @param filePath user file filepath
+     * @param kbr KeyboardReader object
+     * @param user User object
+     */
     public Register(String filePath, KeyboardReader kbr, User user) {
         this.registerAuth = new RegisterAuth(filePath);
         this.kbr = kbr;
         this.user = user;
     }
 
+    /**
+     * Allows user to register a new account
+     * Stores account details in .txt file with passwords hashed
+     */
     public void register() {
         String username = kbr.getString("Enter username");
         String password = kbr.getString("Enter password");

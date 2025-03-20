@@ -11,7 +11,7 @@ public class Hashing {
 
     /**
      * Hashes a given password using the BCrypt algorithm.
-     * @param password users password
+     * @param password users' password
      * @return The BCrypt hash of the password as a String.
      */
     public String hash(String password) {
@@ -20,7 +20,7 @@ public class Hashing {
 
     /**
      * Checks password against hashed password
-     * @param userEnteredPassword the users password
+     * @param userEnteredPassword the user's password
      * @param storedHashedPassword the stored hash of the password
      * @return boolean value if they match
      */

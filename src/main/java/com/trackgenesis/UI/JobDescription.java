@@ -8,48 +8,40 @@ import com.trackgenesis.util.FileReaderUtility;
 import com.trackgenesis.util.GetProperties;
 import com.trackgenesis.util.KeyboardReader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
 
-
+/**
+ * Job description class
+ * @author henryburbridge
+ */
 public class JobDescription {
 
     private final KeyboardReader kbr;
-    private final String saveLocation;
-    private final String fileName;
-    //private final JobDescriptionNLP jobDescriptionNLP;
     private final String uploadMenu;
     private final FileChooser fileChooser;
     private final RecordRepository recordRepo;
     private final GetProperties getProperties;
 
 
+    /**
+     * Constructor
+     * @param kbr KeyboardReaderClass
+     * @param getProperties GetProperties Class
+     * @param recordRepo RecordRepository Class
+     */
     public JobDescription(KeyboardReader kbr, GetProperties getProperties, RecordRepository recordRepo) {
         this.kbr = kbr;
         this.fileChooser = new FileChooser();
         this.recordRepo = recordRepo;
         this.getProperties = getProperties;
-        this.saveLocation = this.getProperties.get("job.description.save.location","properties/file.properties");
-        this.fileName = this.getProperties.get("job.description.file.name","properties/file.properties");
         this.uploadMenu = this.getProperties.get("upload.Menu","properties/menu.properties");
     }
 
-
-
-    public void showJobDescription() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(getFullPath()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-
-        } catch (IOException e) {
-            System.err.println("Job Description does not exist. Please upload one.");
-        }
-    }
-
-
+    /**
+     * Allows the user to choose how they wish to upload the job description
+     * Calls method to make this happen
+     */
     public void upload() {
         FileReaderUtility fileReaderUtility = new FileReaderUtility();
         int choice = this.kbr.getInt(this.uploadMenu);
@@ -68,12 +60,6 @@ public class JobDescription {
         }
 
     }
-
-
-    public String getFullPath() {
-        return this.saveLocation + "/" + fileName + ".txt";
-    }
-
 
 }
 

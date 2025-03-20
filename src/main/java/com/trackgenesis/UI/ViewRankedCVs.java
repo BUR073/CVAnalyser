@@ -10,15 +10,25 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-
+/**
+ * Class to view the CVs in a ranked order
+ * @author henryburbridge
+ */
 public class ViewRankedCVs {
     private final RecordRepository recordRepo;
 
+    /**
+     * Constructor
+     * @param recordRepo stores the records
+     */
     public ViewRankedCVs(RecordRepository recordRepo) {
         this.recordRepo = recordRepo;
-
-
     }
+
+    /**
+     * Accesses jobDescriptionRecord and CVRecord via RecordRepository.
+     * Displays each CVs filename and rank in descending order
+     */
     public void view() {
         JobDescriptionRecord jdRecord = this.recordRepo.getJobDescriptionRecord();
         List<CVRecord> cvRecords = this.recordRepo.getCVRecord();
@@ -43,6 +53,12 @@ public class ViewRankedCVs {
         }
     }
 
+    /**
+     *
+     * @param jdRecord the job description record
+     * @param cvRecords the CV record
+     * @return The pair of filename and score in descending order on score
+     */
     private List<Pair<String, Integer>> getPairs(JobDescriptionRecord jdRecord, List<CVRecord> cvRecords) {
         CVRanking rank = new CVRanking(this.recordRepo, jdRecord);
         List<Pair<String, Integer>> scoreList = new ArrayList<>();
@@ -53,11 +69,8 @@ public class ViewRankedCVs {
         }
 
         // Sort by score in descending order
-        scoreList.sort(new Comparator<Pair<String, Integer>>() {
-            @Override
-            public int compare(Pair<String, Integer> p1, Pair<String, Integer> p2) {
-                return p2.getValue().compareTo(p1.getValue()); // Descending order
-            }
+        scoreList.sort((p1, p2) -> {
+            return p2.getValue().compareTo(p1.getValue()); // Descending order
         });
         return scoreList;
     }
