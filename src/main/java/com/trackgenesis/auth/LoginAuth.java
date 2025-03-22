@@ -30,18 +30,25 @@ public class LoginAuth {
 
     }
 
-
+    /**
+     * Get the user's hashed password from the database
+     * @param username the inputed username
+     * @return the hashed password
+     */
     private String getHashedPassword(String username) {
         String sql = "SELECT `Password` FROM users WHERE `Username` = ?";
         String hashedPassword = null; // Initialize to null
 
+        // Connect to database
         try (Connection connection = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
+            // Insert username var into prepared statement
             preparedStatement.setString(1, username);
 
+            // Get the result from the SQL query
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
+                    // Store in var
                     hashedPassword = resultSet.getString("Password"); // Retrieve hashed password
                 }
             }

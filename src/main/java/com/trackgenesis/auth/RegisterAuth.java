@@ -49,12 +49,15 @@ public class RegisterAuth {
             return false;
         }
 
+        // Hash the password
         password = hash.hash(password);
         String sql = "INSERT INTO `Users` (`username`, `password`) VALUES (?, ?)";
 
+        // Connect to database
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            // Insert variables into prepared statement
             try {
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, password);
@@ -78,8 +81,10 @@ public class RegisterAuth {
     private boolean usernameExist(String username) throws SQLException {
         String sql = "SELECT 1 FROM Users WHERE username = ? LIMIT 1;";
 
+        // Connect to db
         try (Connection connection = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            // Insert variables into the prepared SQL statement
             preparedStatement.setString(1, username);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
