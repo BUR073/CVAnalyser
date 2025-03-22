@@ -18,10 +18,9 @@ public class Login {
 
     /**
      * Constructor
-     * @param filePath - File Path of the username and password file
      */
-    public Login(String filePath, KeyboardReader kbr) { // Constructor
-        this.loginAuth = new LoginAuth(filePath);
+    public Login(KeyboardReader kbr) { // Constructor
+        this.loginAuth = new LoginAuth();
         this.kbr = kbr;
     }
 
@@ -38,8 +37,8 @@ public class Login {
      */
     public boolean login() {
         // Get username and password
-        String username = kbr.getString("Enter your username: ");
-        String password = kbr.getString("Enter your password: ");
+        String username = kbr.getString("Enter your username");
+        String password = kbr.getString("Enter your password");
         // Call login() function in loginAuth
         boolean isLoggedIn = loginAuth.login(username, password);
 

@@ -32,12 +32,11 @@ public class User {
 
         GetProperties getProperties = new GetProperties();
         // Load the user file path
-        String UserFilePath = getProperties.get("user.file.path", "\"/properties/file.properties\"");
 
         // Set var initial states
         this.loggedIn = false;
-        this.register = new Register(UserFilePath, kbr, this);
-        this.login = new Login(UserFilePath, kbr);
+        this.register = new Register(kbr, this);
+        this.login = new Login(kbr);
     }
 
     /**

@@ -2,7 +2,7 @@
 package com.trackgenesis.auth;
 import com.trackgenesis.util.Hashing;
 
-import java.io.*;
+import java.sql.*;
 
 
 /**
@@ -11,18 +11,23 @@ import java.io.*;
  */
 public class RegisterAuth {
 
-    private final String filePath;
+
     private final Hashing hash;
+    private final String dbUrl;
+    private final String dbUsername;
+    private final String dbPassword;
+
 
 
     /**
      * Constructor
      * Defines a new Hashing object
-     * @param filePath Filepath for user data storage file
      */
-    public RegisterAuth(String filePath) {
-        this.filePath = filePath;
+    public RegisterAuth() {
         this.hash = new Hashing();
+        this.dbUrl = System.getenv("DB_URL");
+        this.dbUsername = System.getenv("DB_USERNAME");
+        this.dbPassword = System.getenv("DB_PASSWORD");
     }
 
     /**
@@ -31,31 +36,38 @@ public class RegisterAuth {
      * @param password new password
      * @return true if successfully register, false otherwise
      */
+
     public boolean register(String username, String password) {
-        // Check the username does not already exist
-        if (!this.usernameExist(username)) {
-            // Load the user file
-            File file = new File(filePath);
-            // Check if the file is empty
-            boolean isEmpty = file.length() == 0;
-            // Load BufferedWrite object in try statement so that it closes automatically
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath, true))) {
-                if (!isEmpty) { // Add a newline only if the file is not empty
-                    writer.newLine();
-                }
-                // Hash the password
-                password = hash.hash(password);
-                // Write the username and password to the file
-                writer.write(username + "," + password);
-            } catch (IOException e) {
-                System.out.println("Error: " + e.getMessage());
+        // Check if the username already exists
+        try {
+            if (usernameExist(username)) {
+                System.out.println("Username " + username + " already exists.");
+                return false; // Registration failed
             }
-            // return true as registration successful
-            return true;
-        } else {
-            // return false as the registration was unsuccessful
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             return false;
         }
+
+        password = hash.hash(password);
+        String sql = "INSERT INTO `Users` (`username`, `password`) VALUES (?, ?)";
+
+        try (Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            try {
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+                preparedStatement.executeUpdate(); // Execute the INSERT statement
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+                return false;
+            }
+            return true; // Registration successful
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
     }
 
     /**
@@ -63,24 +75,18 @@ public class RegisterAuth {
      * @param username new username
      * @return true if the username already exists, false if not
      */
-    private boolean usernameExist(String username) {
-        // Load BufferedWrite object in try statement so that it closes automatically
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
-            String line;
-            // While the username is not found
-            while ((line = reader.readLine()) != null) {
-                // Split the line into two parts
-                String[] parts = line.split(",");
-                // Split of the username and trim whitespace
-                String existingUsername = parts[0].trim();
-                if (existingUsername.equals(username)) {
-                    return true; // Username already exists
-                }
+    private boolean usernameExist(String username) throws SQLException {
+        String sql = "SELECT 1 FROM Users WHERE username = ? LIMIT 1;";
+
+        try (Connection connection = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next(); // Returns true if a row exists, false otherwise
             }
-        } catch (IOException e) {
-            System.err.println("Error reading user file: " + e.getMessage());
         }
-        return false; // Username not found
+
     }
 
 }

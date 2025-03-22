@@ -2,61 +2,55 @@
 package com.trackgenesis.auth;
 
 import com.trackgenesis.util.Hashing;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.sql.*;
 
 /**
  * Class containing the logic for a user to login
  * @author henryburbridge
  */
 public class LoginAuth {
-    private final String filePath;
     private final Hashing hash;
-    private final Map<String, String> users;
+    private final String dbUrl;
+    private final String dbUsername;
+    private final String dbPassword;
 
     /**
      * Constructor
      * Calls method to load users from the file into HashMap
-     * @param filePath file path for the file containing the user details
      */
-    public LoginAuth(String filePath) {
-        this.filePath = filePath;
+    public LoginAuth() {
         this.hash = new Hashing();
-        this.users = new HashMap<>();
-        loadUsersFromFile();
+
+        this.dbUrl = System.getenv("DB_URL");
+        this.dbUsername = System.getenv("DB_USERNAME");
+        this.dbPassword = System.getenv("DB_PASSWORD");
+
+
+
     }
 
-    /**
-     * Loads the users from the file into a HashMap
-     */
-    private void loadUsersFromFile() {
-        // Create bufferedReader object in try statement so that it closes automatically
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
-            String line;
-            String savedUsername;
-            String savedPassword;
-            // Read lines from the file until the end is reached
-            while ((line = reader.readLine()) != null) {
-                // Split the line into two parts
-                String[] parts = line.split(",");
-                // Check that there are two parts
-                if (parts.length == 2) {
-                    // Split again into username and password
-                    savedUsername = parts[0].trim();
-                    savedPassword = parts[1].trim();
-                    // Save to hashmap
-                    this.users.put(savedUsername, savedPassword);
-                } else {
-                    System.err.println("Invalid line in user file: " + line);
+
+    private String getHashedPassword(String username) {
+        String sql = "SELECT `Password` FROM users WHERE `Username` = ?";
+        String hashedPassword = null; // Initialize to null
+
+        try (Connection connection = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    hashedPassword = resultSet.getString("Password"); // Retrieve hashed password
                 }
             }
-        } catch (IOException e) {
-            System.err.println("Error reading user file: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
         }
 
+        return hashedPassword; // Return the hashed password or null
     }
 
     /**
@@ -66,7 +60,7 @@ public class LoginAuth {
      * @return True if logged in, false if not
      */
     public boolean login(String username, String password) {
-        String storedHashedPassword = this.users.get(username); // Retrieve the stored hashed password
+        String storedHashedPassword = this.getHashedPassword(username); // Retrieve the stored hashed password
 
         if (storedHashedPassword != null) {
             return this.hash.checkHash(password, storedHashedPassword); // Check the password

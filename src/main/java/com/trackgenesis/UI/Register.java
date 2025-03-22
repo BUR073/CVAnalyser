@@ -20,12 +20,12 @@ public class Register {
 
     /**
      * Constructor
-     * @param filePath user file filepath
-     * @param kbr KeyboardReader object
+     *
+     * @param kbr  KeyboardReader object
      * @param user User object
      */
-    public Register(String filePath, KeyboardReader kbr, User user) {
-        this.registerAuth = new RegisterAuth(filePath);
+    public Register(KeyboardReader kbr, User user) {
+        this.registerAuth = new RegisterAuth();
         this.kbr = kbr;
         this.user = user;
     }
@@ -45,7 +45,7 @@ public class Register {
         // If registration is successful
         if(this.registerAuth.register(username, password)){
             System.out.println("User registered successfully");
-            String choice = kbr.getString("\nWould you like to login to your account automatically? \nEnter 'Y' to do so or press enter to continue");
+            String choice = kbr.getString("\nWould you like to login to your account automatically? \nEnter 'Y' to do so or anything else to continue");
             // If the user wants to log in straight away
             if (choice.equalsIgnoreCase("Y") || choice.equalsIgnoreCase("YES")) {
                 // Call login in function and pass username and password

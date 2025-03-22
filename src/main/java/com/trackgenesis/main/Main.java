@@ -3,7 +3,9 @@
 package com.trackgenesis.main;
 
 import com.trackgenesis.UI.Menu;
-
+// export DB_URL="jdbc:mysql://localhost:3306/CVAnalyser"
+// export DB_USERNAME="root"
+// export DB_PASSWORD="Plumdog100"
 
 public class Main {
     /**
