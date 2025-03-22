@@ -122,7 +122,6 @@ public class JobDescriptionNLP {
                     }
 
                     // Return the reference to the record with the parsed data
-                    System.out.println("Skills: " + skills);
                     return new JobDescriptionRecord(this.locations, this.organizations, this.dates, this.times, skills);
 
                 }
