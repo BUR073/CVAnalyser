@@ -8,9 +8,9 @@ com/trackgenesis/menuActions/loggedOut/UserRegisterAction.class
 com/trackgenesis/menuActions/loggedIn/JobDescriptionUploadAction.class
 com/trackgenesis/enums/ContactType.class
 com/trackgenesis/auth/LoginAuth.class
+com/trackgenesis/menuActions/UserAction.class
 com/trackgenesis/NLP/CVsNLP.class
 com/trackgenesis/UI/ViewRankedCVs.class
-com/trackgenesis/menuActions/Interface/UserAction.class
 com/trackgenesis/util/FileChooser.class
 com/trackgenesis/records/JobDescriptionRecord.class
 com/trackgenesis/UI/JobDescription.class
@@ -20,13 +20,14 @@ com/trackgenesis/NLP/JobDescriptionNLP.class
 com/trackgenesis/util/KeyboardReader.class
 com/trackgenesis/menuActions/loggedIn/ShowJobDescriptionAction.class
 com/trackgenesis/util/Hashing.class
-com/trackgenesis/enums/FileType.class
 com/trackgenesis/records/RecordRepository.class
 com/trackgenesis/UI/UploadCV.class
 com/trackgenesis/menuActions/loggedIn/UploadCVAction.class
 com/trackgenesis/util/GetProperties.class
 com/trackgenesis/util/NLP.class
+com/trackgenesis/NLP/CVRanking.class
 com/trackgenesis/UI/Login.class
+com/trackgenesis/records/CVScore.class
 com/trackgenesis/util/FileReaderUtility.class
 com/trackgenesis/menuActions/loggedOut/UserLoginAction.class
 com/trackgenesis/menuActions/loggedIn/ViewRankedCVsAction.class

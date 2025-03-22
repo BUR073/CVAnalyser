@@ -33,15 +33,21 @@ public class LoginAuth {
      * Loads the users from the file into a HashMap
      */
     private void loadUsersFromFile() {
+        // Create bufferedReader object in try statement so that it closes automatically
         try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             String line;
             String savedUsername;
             String savedPassword;
+            // Read lines from the file until the end is reached
             while ((line = reader.readLine()) != null) {
+                // Split the line into two parts
                 String[] parts = line.split(",");
+                // Check that there are two parts
                 if (parts.length == 2) {
+                    // Split again into username and password
                     savedUsername = parts[0].trim();
                     savedPassword = parts[1].trim();
+                    // Save to hashmap
                     this.users.put(savedUsername, savedPassword);
                 } else {
                     System.err.println("Invalid line in user file: " + line);

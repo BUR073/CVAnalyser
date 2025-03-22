@@ -26,6 +26,7 @@ public class CVRanking {
      */
     public CVRanking(JobDescriptionRecord job) {
         this.job = job;
+        // Set the weighting for the scoring
         this.skillWeight = 0.6;
         this.organizationWeight = 0.2;
         this.contactWeight = 0.1;
@@ -37,20 +38,24 @@ public class CVRanking {
      * @return Populated CVScore object
      */
     public CVScore calculateCVScore(CVRecord cv) {
+        // Get data from CVRecord object
         String fileName = cv.fileName();
         String name = cv.people();
         String phoneNumber = cv.phoneNumber();
         String email = cv.email();
+        // Calculate scores
         double skillScore = calculateSkillScore(cv.skills(), this.job.skills());
         double organizationScore = calculateOrganizationScore(cv.organizations(), this.job.organizations());
         double contactScore = calculateContactScore(cv.email(), cv.phoneNumber());
 
+        // Calculate full score with weighting
         double rawScore = (skillScore * this.skillWeight) +
                 (organizationScore * this.organizationWeight) +
                 (contactScore * this.contactWeight);
 
         // Normalize to 0-100
         int score = (int) Math.round(rawScore * 100);
+        // Return a CVScore record object
         return new CVScore(fileName, score, name, phoneNumber, email);
     }
 
@@ -65,11 +70,15 @@ public class CVRanking {
             return 1.0; // If no skills are required, consider it a perfect match.
         }
         int matchedSkills = 0;
+        // Loop through skills in Job description
         for (String skill : jobSkills) {
+            // If the CV contains the same skill
             if (cvSkills.contains(skill)) {
+                // Add one to the score
                 matchedSkills++;
             }
         }
+        // Return percentage of number of skills that CV had out of the job description
         return (double) matchedSkills / jobSkills.size();
     }
 
@@ -80,12 +89,17 @@ public class CVRanking {
      * @return double of the score
      */
     private double calculateOrganizationScore(Set<String> cvOrgs, Set<String> jobOrgs) {
+        // If there are no organizations in the CV
         if (jobOrgs.isEmpty()) {
+            // Then the score is 0
             return 0.0;
         }
         int matchedOrgs = 0;
+        // Loop through organizations in job description
         for (String org : jobOrgs) {
+            // If the CV contains one of the organizations
             if (cvOrgs.contains(org)) {
+                // Add 1 to score
                 matchedOrgs++;
             }
         }
@@ -100,8 +114,11 @@ public class CVRanking {
      * @return the score
      */
     private double calculateContactScore(String email, String phoneNumber) {
+        // True if there is an email
         boolean emailPresent = email != null && !email.isEmpty();
+        // True if there is a phone number
         boolean phoneNumberPresent = phoneNumber != null && !phoneNumber.isEmpty();
+        // Score 1 for both, 0.5 for only 1 and 0 for none
         if (emailPresent && phoneNumberPresent) {
             return 1.0;
         } else if (emailPresent || phoneNumberPresent) {

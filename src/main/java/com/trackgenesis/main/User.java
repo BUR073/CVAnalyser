@@ -3,6 +3,7 @@ package com.trackgenesis.main;
 
 import com.trackgenesis.UI.Login;
 import com.trackgenesis.UI.Register;
+import com.trackgenesis.util.GetProperties;
 import com.trackgenesis.util.KeyboardReader;
 
 import java.io.IOException;
@@ -28,17 +29,10 @@ public class User {
      *
      */
     public User(KeyboardReader kbr) {
-        // Load file.properties
-        Properties properties = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/properties/file.properties");
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            System.err.println("Error loading properties file" + e.getMessage());
-        }
 
-        // Get the file path for the user file from the file.properties
-        String UserFilePath = properties.getProperty("user.file.path");
+        GetProperties getProperties = new GetProperties();
+        // Load the user file path
+        String UserFilePath = getProperties.get("user.file.path", "\"/properties/file.properties\"");
 
         // Set var initial states
         this.loggedIn = false;
@@ -47,16 +41,23 @@ public class User {
     }
 
     /**
-     * Attempts to login the User
+     * Attempts to log in the User
      * Calls login() from the login class
      * Calls get username from the login class and sets it
      *
      */
     public void login() {
+        // Call login method
         this.loggedIn = login.login();
+        // Set the username
         this.username = login.getUsername();
     }
 
+    /**
+     * Same as other login() method but takes a username and password input
+     * @param username User's username
+     * @param password User's Password
+     */
     public void login(String username, String password) {
         this.loggedIn = login.login(username, password);
         this.username = login.getUsername();
