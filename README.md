@@ -151,7 +151,6 @@ critical thinking, data processing, and optimization to improve hiring workflows
 | `UI`                    | `ViewRankedCV`               | Allow the user to view the CV in ranked order from best to worst along with contact details of the applicant     |
 | `NLP`                   | `JobDescriptionNLP`          | Uses NLP to parse the job description                                                                            |
 | `NLP`                   | `CVsNLP`                     | Uses NLP to parse the CVs                                                                                        |
-| `NLP`                   | `FindInText`                 | Extracts skills, phone numbers or email address from a String.                                                   |
 | `records`               | `CVRecord`                   | Stores the data from the CV                                                                                      |
 | `records`               | `CVScore`                    | Used to return the details of a CVs score, including filename, applicant name, email, phone number and the score |
 | `records`               | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`                                       |
@@ -162,6 +161,7 @@ critical thinking, data processing, and optimization to improve hiring workflows
 | `util`                  | `NLP`                        | Small methods that are used commonly in the NLP parts of the project                                             |
 | `util`                  | `FileChooser`                | Class that launches a GUI to choose files                                                                        |
 | `util`                  | `FileReaderUtility`          | Class that reads a file into a string                                                                            |
+| `util`                  | `FindInText`                 | Extracts skills, phone numbers or email address from a String.                                                   |
 | `auth`                  | `LoginAuth`                  | Handles the logic for the login                                                                                  |
 | `auth`                  | `RegisterAuth`               | Handles the logic for register                                                                                   |
 | `menuActions`           | `UserAction`                 | An interface that can return any data type and has an empty execute() method                                     |

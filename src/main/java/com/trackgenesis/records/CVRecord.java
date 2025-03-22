@@ -1,6 +1,7 @@
 // SID: 2408078
 package com.trackgenesis.records;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
  * @param email Email address
  * @param phoneNumber Phone number
  */
-public record CVRecord(
+public record CVRecord (
         String fileName,
         String people,
         Set<String> organizations,

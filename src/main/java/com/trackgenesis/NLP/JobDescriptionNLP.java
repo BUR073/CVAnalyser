@@ -3,6 +3,7 @@ package com.trackgenesis.NLP;
 
 import com.trackgenesis.records.JobDescriptionRecord;
 
+import com.trackgenesis.util.FindInText;
 import com.trackgenesis.util.NLP;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;

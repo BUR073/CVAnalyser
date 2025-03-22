@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import com.trackgenesis.util.FileReaderUtility;
+import com.trackgenesis.util.FindInText;
 import com.trackgenesis.util.NLP;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;

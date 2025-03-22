@@ -1,5 +1,5 @@
 // SID: 2408078
-package com.trackgenesis.NLP;
+package com.trackgenesis.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackgenesis.enums.ContactType;

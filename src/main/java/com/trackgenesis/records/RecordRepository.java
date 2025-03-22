@@ -3,6 +3,7 @@ package com.trackgenesis.records;
 
 import com.trackgenesis.util.KeyboardReader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,13 +13,18 @@ public class RecordRepository {
     private final List<JobDescriptionRecord> JobDescriptionRecords = new ArrayList<>();
     private final List<CVRecord> CVRecords = new ArrayList<>();
     private String jobDescriptionText;
-    private KeyboardReader kbr;
+    private final KeyboardReader kbr;
 
+
+    /**
+     * Constructor
+     * Defines KeyboardReader object
+     */
     public RecordRepository() {
         this.kbr = new KeyboardReader();
     }
     /**
-     * Saves a record to the appropriately based on it's type.
+     * Saves a record to the appropriately based on its type.
      *
      * @param <T> The type of record to save
      * @param record The record to be saved
