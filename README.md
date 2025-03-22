@@ -214,6 +214,36 @@ While the implementation of `Login` and `Register` is already a step away from t
 `LoginAuth` and `RegisterAuth`. This separates the UI logging in and registering from the actual logic that makes it work. I have done this to make it easier to read and easier to maintain.
 By separating the UI and logic, you make files smaller. This makes it easier to read as you have to scroll around less, it also makes it simpler to find bugs.
 Also, it allows for reuse of logic, which I haven't done in this project, but in the future there may be a scenario where that is useful. I have also done this to `JobDescripton`. 
+
+## Limitations
+
+This program does have various limitations.
+The two most notable limitations are in the scoring and the natural Language Processing. 
+
+### Natural Language Processing
+
+The current implementation of Natural Language Processing (NLP) solely uses keyword matching (KM).
+I went with the approach to reduce the complexity of the program due to time limitations on the project,
+especially as this is my first time using Java.
+The KM allows for the program to pull out lists of dates, time, companies and skills; however, it can't put them together.
+For example, if the CV said "Google - 2020 to 2024", it would be able to retrieve "Google", "2020" and "2024"
+separately but would not see that the dates were related to the candidate's time at Google.
+If I were to imporve it,
+it would take considerable time and increase the complexity alot, 
+but I would use a generative AI model that could understand the text not just match keywords. 
+
+### Scoring
+
+The Scoring system I have implemented is very simply,
+it just gives the candidate a point for every keyword found in their CV that is also found in the Job Description.
+This does work,
+it will give the employer a general overview of what the candidate is like in relation to the job,
+but it is very easily fooled.
+A candidate could simply paste the job description to the bottom of their CV
+(In white text so not visible on the screen), and they would appear to be the best candidate scoring 100%.
+Importing this would be similar to improving the NLP, use a generative AI model that actually understands the text.
+This would allow for experience to be weighted
+(2 years at a company > 1 year at a company) and far improve the detail in which the score is based upon. 
 ## Installation
 
 To install and run CVAnalyser, follow these steps:
