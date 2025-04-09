@@ -21,7 +21,6 @@ public class LoginAuth {
      */
     public LoginAuth() {
         this.hash = new Hashing();
-
         this.dbUrl = System.getenv("DB_URL");
         this.dbUsername = System.getenv("DB_USERNAME");
         this.dbPassword = System.getenv("DB_PASSWORD");
