@@ -139,42 +139,60 @@ critical thinking, data processing, and optimization to improve hiring workflows
 * **Ambiguous Terms:** Map synonyms (e.g., "ML" = "Machine Learning") using a glossary.
 
 ## Package and Class Overview
-| Package                 | Class Name                   | Description                                                                                                      |
-|-------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------|
-| `main`                  | `Main`                       | The entry point for the program                                                                                  |
-| `main`                  | `User`                       | Handles the user login and register as well as storing the username                                              | 
-| `UI`                    | `JobDescription`             | The UI for uploading the job description                                                                         |
-| `UI`                    | `Login`                      | The UI for the login                                                                                             |
-| `UI`                    | `Menu`                       | The menu UI                                                                                                      |
-| `UI`                    | `Register`                   | The UI for register                                                                                              |
-| `UI`                    | `UploadCV`                   | The UI for uploading CVs                                                                                         |
-| `UI`                    | `ViewRankedCV`               | Allow the user to view the CV in ranked order from best to worst along with contact details of the applicant     |
-| `NLP`                   | `JobDescriptionNLP`          | Uses NLP to parse the job description                                                                            |
-| `NLP`                   | `CVsNLP`                     | Uses NLP to parse the CVs                                                                                        |
-| `records`               | `CVRecord`                   | Stores the data from the CV                                                                                      |
-| `records`               | `CVScore`                    | Used to return the details of a CVs score, including filename, applicant name, email, phone number and the score |
-| `records`               | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`                                       |
-| `records`               | `RecordRepository`           | Class to store Record objects                                                                                    |
-| `util`                  | `KeyboardReader`             | Utility function that takes user inputs                                                                          |
-| `util`                  | `Hashing`                    | Hashes text for security                                                                                         |
-| `util`                  | `GetProperties`              | Retrieves values from properties files                                                                           |
-| `util`                  | `NLP`                        | Small methods that are used commonly in the NLP parts of the project                                             |
-| `util`                  | `FileChooser`                | Class that launches a GUI to choose files                                                                        |
-| `util`                  | `FileReaderUtility`          | Class that reads a file into a string                                                                            |
-| `util`                  | `FindInText`                 | Extracts skills, phone numbers or email address from a String.                                                   |
-| `auth`                  | `LoginAuth`                  | Handles the logic for the login                                                                                  |
-| `auth`                  | `RegisterAuth`               | Handles the logic for register                                                                                   |
-| `menuActions`           | `UserAction`                 | An interface that can return any data type and has an empty execute() method                                     |
-| `menuActions.loggedIn`  | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`                                                  | 
-| `menuActions.loggedIn`  | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`                                        |
-| `menuActions.loggedIn`  | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                                                            |
-| `menuActions.loggedIn`  | `UploadCVAction`             | Implements `UserAction`. Calls `Upload()` from `UploadCV`                                                        |
-| `menuActions.loggedIn`  | `ViewRankedCVsAction`        | Implements `UserAction`. Calls `view()` from `ViewRankedCVs`                                                     |
-| `menuActions.loggedOut` | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                                                             |
-| `menuActions.loggedOut` | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                                                          |
+| Package                 | Class Name                   | Description                                                                                                                           |
+|-------------------------|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `main`                  | `Main`                       | The entry point for the program                                                                                                       |
+| `main`                  | `User`                       | Handles the user login and register as well as storing the username                                                                   | 
+| `UI`                    | `JobDescription`             | The UI for uploading the job description                                                                                              |
+| `UI`                    | `Login`                      | The UI for the login                                                                                                                  |
+| `UI`                    | `Menu`                       | The menu UI                                                                                                                           |
+| `UI`                    | `Register`                   | The UI for register                                                                                                                   |
+| `UI`                    | `UploadCV`                   | The UI for uploading CVs                                                                                                              |
+| `UI`                    | `ViewRankedCV`               | Allow the user to view the CV in ranked order from best to worst along with contact details of the applicant                          |
+| `NLP`                   | `JobDescriptionNLP`          | Uses NLP to parse the job description                                                                                                 |
+| `NLP`                   | `CVsNLP`                     | Uses NLP to parse the CVs                                                                                                             |
+| `NLP`                   | `CVRanking`                  | Rank the CV against the Job Description and return a score. Doesn't use NLP but this felt like the best package to keep the class in. |
+| `records`               | `CVRecord`                   | Stores the data from the CV                                                                                                           |
+| `records`               | `CVScore`                    | Used to return the details of a CVs score, including filename, applicant name, email, phone number and the score                      |
+| `records`               | `JobDescriptionRecord`       | Stores the data from the Job description, parsed using `JobDescriptionNLP`                                                            |
+| `records`               | `RecordRepository`           | Class to store Record objects                                                                                                         |
+| `util`                  | `KeyboardReader`             | Utility function that takes user inputs                                                                                               |
+| `util`                  | `Hashing`                    | Hashes text for security                                                                                                              |
+| `util`                  | `GetProperties`              | Retrieves values from properties files                                                                                                |
+| `util`                  | `NLP`                        | Small methods that are used commonly in the NLP parts of the project                                                                  |
+| `util`                  | `FileChooser`                | Class that launches a GUI to choose files                                                                                             |
+| `util`                  | `FileReaderUtility`          | Class that reads a file into a string                                                                                                 |
+| `util`                  | `FindInText`                 | Extracts skills, phone numbers or email address from a String.                                                                        |
+| `auth`                  | `LoginAuth`                  | Handles the logic for the login                                                                                                       |
+| `auth`                  | `RegisterAuth`               | Handles the logic for register                                                                                                        |
+| `menuActions`           | `UserAction`                 | An interface that can return any data type and has an empty execute() method                                                          |
+| `menuActions.loggedIn`  | `JobDescriptionUploadAction` | Implements `UserAction`. Calls `upload()` from `JobDescription`                                                                       | 
+| `menuActions.loggedIn`  | `ShowJobDescriptionAction`   | Implements `UserAction`. Calls `showJobDescription` from `JobDescription`                                                             |
+| `menuActions.loggedIn`  | `UserLogoutAction`           | Implements `UserAction`. Calls `logout()` from `User`                                                                                 |
+| `menuActions.loggedIn`  | `UploadCVAction`             | Implements `UserAction`. Calls `Upload()` from `UploadCV`                                                                             |
+| `menuActions.loggedIn`  | `ViewRankedCVsAction`        | Implements `UserAction`. Calls `view()` from `ViewRankedCVs`                                                                          |
+| `menuActions.loggedOut` | `UserLoginAction`            | Implements `UserAction`. Calls `login()` from `User`                                                                                  |
+| `menuActions.loggedOut` | `UserRegisterAction`         | Implements `UserAction`. Calls `register()` from `User`                                                                               |
+| `database`              | `N\A`                        | No classes but contains the `setup.sql` file for creating the database                                                                |
 
 
 ## Project Adaptations and Modifications
+
+## Database
+
+The original project plan didn't mention databases at all.
+For the implementation, however, I have used an SQL database.
+It is basic and only contains one table for the User details (username, password).
+The password is also encrypted.
+It certainly leaves scope for further development,
+for example, storing CV and Job Description data in the database allowing for Users to save their progress and details.
+To do this it would either require me to be able to serialize the `CVRecord`,
+`JobDescriptionRecord`,
+and `CVScore` classes
+so the objects could be stored within a database
+or rewrite the logic to allow data to be directly stored in the database. 
+
+I have included a `setup.sql` file to allow you to easily set up the required database.
 
 ### Class Diagram Adaptations and Modifications
 
@@ -193,9 +211,7 @@ it is modular and easy to extend. All you need to do is create a new Action clas
 function and then add that to the hash map. 
 
 While this may sound overkill for short menu's, which to an extent it is, it makes it easier to extend. If in the future, the project 
-required a menu with 10 options, the switch statement would be very long and thus hard to read and maintain. I have even used ```UserAction``` 
-for a menu that only has two options, the reason I have done this is because this project if for Track Genesis. In the future they may want to 
-add more functionality to the program which could mean adding more menu options, this avoids the aforementioned long switch statements.
+required a menu with 10 options, the switch statement would be very long and thus hard to read and maintain. 
 
 #### User Class
 
@@ -252,6 +268,7 @@ To install and run CVAnalyser, follow these steps:
     * Java Development Kit (JDK) 8 or later.
     * Maven.
     * Git (optional, but recommended for cloning the repository).
+    * MySQL database 
 
 2.  **Clone the Repository (if you haven't already):**
 
@@ -260,7 +277,40 @@ To install and run CVAnalyser, follow these steps:
     cd CVAnalyser
     ```
 
-3.  **Build the Project using Maven:**
+3. **Set up the Database**
+
+    1. Navigate to the `database` package within the project directory
+    2. Locate the `setup.sql` file. This file contains the SQL commands to create the `CVAnalyser` database and the `Users` table.
+    3. Open your MySQL database client (e.g., MySQL Workbench) or use the command line interface to connect to your MySQL server.
+    4. Run the `setup.sql` script 
+       ```bash
+       source src/main/java/com/trackgenesis/database/setup.sql;
+       ```
+       This command will create the CVAnalyser database and set up the necessary tables. Ensure your MySQL server is running and accessible before executing this command.   
+ 
+  
+4. **Setup environment variables for database access**
+
+    Configure your database credentials as environment variables for the application to access the database securely.
+
+    This may be possible within you IDE, for example, IntelliJ. If it is this is the recommended approach. 
+    
+    Below are the commands to set up environment variables on MacOS.
+
+    Make sure to change "value" to your database details.
+
+    Note: These will only last until you close the terminal session, then they will be deleted so this is only temporary. 
+
+    ```bash
+    export DB_URL="value"
+    export DB_USERNAME="value"
+    export DB_PASSWORD="value"
+    ```
+   
+
+
+
+5. **Build the Project using Maven:**
 
     ```bash
     mvn clean install
@@ -268,7 +318,7 @@ To install and run CVAnalyser, follow these steps:
 
     This command will download the necessary dependencies and compile the project. The executable JAR file will be created in the `target` directory.
 
-4.  **Run the Application:**
+6. **Run the Application:**
 
     Navigate to the `target` directory:
 

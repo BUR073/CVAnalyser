@@ -15,6 +15,7 @@ public class Main {
      *
      * @param args Command-line arguments (not used in this application).
      */
+
     public static void main(String[] args) {
         System.setProperty("console.encoding", "UTF-8");
         Menu menu = new Menu();
