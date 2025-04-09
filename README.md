@@ -283,6 +283,7 @@ To install and run CVAnalyser, follow these steps:
     2. Locate the `setup.sql` file. This file contains the SQL commands to create the `CVAnalyser` database and the `Users` table.
     3. Open your MySQL database client (e.g., MySQL Workbench) or use the command line interface to connect to your MySQL server.
     4. Run the `setup.sql` script 
+   
        ```bash
        source src/main/java/com/trackgenesis/database/setup.sql;
        ```
